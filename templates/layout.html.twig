@@ -6,16 +6,18 @@
 
 {% block header %}
     {{ parent() }}
+    France Danse Organisation
 {% endblock %}
 
 {% block navigation %}
     {{ parent() }}
    <nav>
        <a href="{{ path('home') }}">Home</a>
-       <a>Page2</a>
-       <a>Page3</a>
-       <a>Page4</a>
+       <a href="{{ path('page2') }}">Page2</a>
+       <a href="{{ path('page3') }}">Page3</a>
+       <a href="{{ path('page4') }}">Page4</a>
    </nav>
+    <hr>
 {% endblock %}
 
 {% block body %}
@@ -24,4 +26,7 @@
 
 {% block footer %}
     {{ parent() }}
+    <br>
+    <hr>
+    Par Aurélien DREY, Antoine HEITZMANN, Raphael IENCO, Gauvain PATAKY, Olivier SALFRANC, Mattéo BILLET et un peu l'iut
 {% endblock %}

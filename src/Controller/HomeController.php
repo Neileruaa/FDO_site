@@ -2,7 +2,8 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Fpdf\Fpdf;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -55,7 +56,20 @@ class HomeController extends Controller {
 			array()
 		);
 	}
-	public function test(){
+
+	/**
+	 * @Route("/createSamplePDF", name="createSamplePDF")
+	 */
+	public function createSamplePDF(Request $request){
+		$pdf = new Fpdf();
+		$pdf->AddPage();
+		$pdf->SetFont('Arial', 'B', 16);
+		$pdf->Cell(40,10, "Hello World");
+
+		return new Response($pdf->Output(), 200,
+			array(
+				'Content-Type'=>'application/pdf'
+			));
 
 	}
 }

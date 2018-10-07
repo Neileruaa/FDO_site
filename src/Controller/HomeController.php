@@ -55,4 +55,7 @@ class HomeController extends Controller {
 			array()
 		);
 	}
+	public function test(){
+
+	}
 }

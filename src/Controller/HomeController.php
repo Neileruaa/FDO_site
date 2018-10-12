@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Danseur;
+use App\Entity\Equipe;
 use Fpdf\Fpdf;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -43,6 +45,75 @@ class HomeController extends Controller {
 		);
 	}
 
+	/**
+	 * @Route("/page3/addFakeTeamAndDancers", name="addFakeTeamAndDancers")
+	 */
+	public function addFakeTeamAndDancers() {
+		$equipe1 = new Equipe();
+		$equipe1->setCategorie("Junior")
+			->setNumeroDossard("10");
+		$equipe2 = new Equipe();
+		$equipe2->setCategorie("Enfant")
+			->setNumeroDossard("1");
+
+		$danseur1 = new Danseur();
+		$danseur1->setName("Aurélien")
+			->setAge(19);
+		$danseur2 = new Danseur();
+		$danseur2->setName("Antoine")
+			->setAge(19);
+		$danseur3 = new Danseur();
+		$danseur3->setName("Raph")
+			->setAge(19);
+		$danseur4 = new Danseur();
+		$danseur4->setName("Olivier")
+			->setAge(19);
+		$danseur5 = new Danseur();
+		$danseur5->setName("Matteo")
+			->setAge(19);
+		$danseur6 = new Danseur();
+		$danseur6->setName("Gauvain")
+			->setAge(19);
+
+		$equipe1->addDanseur($danseur1);
+
+		$em = $this->getDoctrine()->getManager();
+		$em->persist($equipe1);
+		$em->persist($equipe2);
+		$em->persist($danseur1);
+		$em->persist($danseur2);
+		$em->persist($danseur3);
+		$em->persist($danseur4);
+		$em->persist($danseur5);
+		$em->persist($danseur6);
+		$em->flush();
+
+		return $this->redirectToRoute('page3');
+
+	}
+
+	/**
+	 * @Route("/page3/removeFakeTeamAndDancers", name="removeFakeTeamAndDancers")
+	 */
+	public function removeFakeTeamAndDancers() {
+		$em = $this->getDoctrine()->getManager();
+		$teams= $em->getRepository('App:Equipe')->findAll();
+		if ($teams){
+			foreach ($teams as $teammate){
+				$em->remove($teammate);
+			}
+		}
+
+		$danceurs= $em->getRepository('App:Danseur')->findAll();
+		if ($danceurs){
+			foreach ($danceurs as $danceur){
+				$em->remove($danceur);
+			}
+		}
+		$em->flush();
+
+		return $this->redirectToRoute('page3');
+	}
 	/**
 	 * @Route("/page3", name="page3")
 	 * @param Request $request

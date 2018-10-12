@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -25,6 +27,16 @@ class Danseur
      * @ORM\Column(type="integer")
      */
     private $age;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Equipe", inversedBy="danseurs")
+     */
+    private $teams;
+
+    public function __construct()
+    {
+        $this->teams = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -51,6 +63,32 @@ class Danseur
     public function setAge(int $age): self
     {
         $this->age = $age;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Equipe[]
+     */
+    public function getTeams(): Collection
+    {
+        return $this->teams;
+    }
+
+    public function addTeam(Equipe $team): self
+    {
+        if (!$this->teams->contains($team)) {
+            $this->teams[] = $team;
+        }
+
+        return $this;
+    }
+
+    public function removeTeam(Equipe $team): self
+    {
+        if ($this->teams->contains($team)) {
+            $this->teams->removeElement($team);
+        }
 
         return $this;
     }

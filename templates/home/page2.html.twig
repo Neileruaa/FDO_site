@@ -4,7 +4,7 @@
     Contenu Page2
     <a target="_blank" href="{{ path('createSamplePDF') }}">Créer un PDF</a>
     {% for danseur in danseurs %}
-        <p>{{ danseur['nom'] }} <a target="_blank" href="{{ path('createDossard', {id: danseur['id']}) }}">Dossard</a></p>
+        <p>{{ danseur.name }} <a target="_blank" href="{{ path('createDossard', {id: danseur.id}) }}">Dossard</a></p>
     {% endfor %}
 {% endblock %}
 

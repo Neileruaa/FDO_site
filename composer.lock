@@ -1283,16 +1283,16 @@
         },
         {
             "name": "fpdf/fpdf",
-            "version": "1.8.1",
+            "version": "1.81.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/coreydoughty/Fpdf.git",
-                "reference": "2ce0beb0002f074d2ef3020b049c50fff0be1f9a"
+                "reference": "4132cce007e6da763a7e4d1f0c4bb7802da29d8a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/coreydoughty/Fpdf/zipball/2ce0beb0002f074d2ef3020b049c50fff0be1f9a",
-                "reference": "2ce0beb0002f074d2ef3020b049c50fff0be1f9a",
+                "url": "https://api.github.com/repos/coreydoughty/Fpdf/zipball/4132cce007e6da763a7e4d1f0c4bb7802da29d8a",
+                "reference": "4132cce007e6da763a7e4d1f0c4bb7802da29d8a",
                 "shasum": ""
             },
             "require": {
@@ -1321,7 +1321,7 @@
                 "pdf",
                 "wrapper"
             ],
-            "time": "2018-02-13T19:50:06+00:00"
+            "time": "2018-10-14T13:28:51+00:00"
         },
         {
             "name": "jdorn/sql-formatter",
@@ -5370,16 +5370,16 @@
         },
         {
             "name": "symfony/maker-bundle",
-            "version": "v1.7.0",
+            "version": "v1.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/maker-bundle.git",
-                "reference": "22a9bf33868f0fed6cab013fe5231e8485d15e20"
+                "reference": "26643943fe19b5b47d620744907f09d1d6b3f06f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/maker-bundle/zipball/22a9bf33868f0fed6cab013fe5231e8485d15e20",
-                "reference": "22a9bf33868f0fed6cab013fe5231e8485d15e20",
+                "url": "https://api.github.com/repos/symfony/maker-bundle/zipball/26643943fe19b5b47d620744907f09d1d6b3f06f",
+                "reference": "26643943fe19b5b47d620744907f09d1d6b3f06f",
                 "shasum": ""
             },
             "require": {
@@ -5432,7 +5432,7 @@
                 "scaffold",
                 "scaffolding"
             ],
-            "time": "2018-08-30T01:08:06+00:00"
+            "time": "2018-10-13T19:56:32+00:00"
         },
         {
             "name": "symfony/panther",

@@ -1,6 +1,12 @@
 {% extends 'layout.html.twig' %}
 
 {% block body %}
-    Contenu Page 3
+    Page de création d'équipe.<br>
+    {{ form(formEquipe) }}
+    <hr>
+    {% for equipe in listEquipe %}
+        Equipe{{ equipe.id }}| <a href="{{ path('Equipe_description', {'id': equipe.id}) }}">Voir</a>
+        <br>
+    {% endfor %}
 {% endblock %}
 

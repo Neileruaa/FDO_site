@@ -3,7 +3,12 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        {% block stylesheets %}
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+            <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js">
+            </script>
+            <link rel="stylesheet" href="{{ asset('public/layout.css') }}">
+        {% endblock %}
     </head>
     <body>
         {% block header %}{% endblock %}

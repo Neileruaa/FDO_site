@@ -11,12 +11,54 @@
 
 {% block navigation %}
     {{ parent() }}
-   <nav>
-       <a href="{{ path('home') }}">Home</a>
-       <a href="{{ path('page2') }}">Page2</a>
-       <a href="{{ path('page3') }}">Page3</a>
-       <a href="{{ path('page4') }}">Page4</a>
-       <a href="/logout" > Deconexion !</a>
+
+   <nav class="navbar" role="navigation" aria-label="main navigation">
+       <div class="navbar-brand">
+           <a class="navbar-item" href="{{ path('home') }}">
+               <figure class="image is-143x60">
+                   <img src="Images/logo_fdo.jpg">
+               </figure>
+           </a>
+           <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" onclick="document.querySelector('.navbar-menu').classList.toggle('is-active');">
+               <span aria-hidden="true"></span>
+               <span aria-hidden="true"></span>
+               <span aria-hidden="true"></span>
+           </a>
+       </div>
+       <div class="navbar-menu">
+           <div class="navbar-start">
+               <a class="navbar-item" href="{{ path('home') }}">Home</a>
+               <a class="navbar-item" href="{{ path('page2') }}">Page2</a>
+               <a class="navbar-item" href="{{ path('page3') }}">Page3</a>
+               <a class="navbar-item" href="{{ path('page4') }}">Page4</a>
+               <a class="navbar-item" href="/logout" > Deconexion !</a>
+           </div>
+       </div>
+       <div id="navbarBasicExample" class="navbar-menu">
+           <div class="navbar-start">
+               <div class="navbar-item has-dropdown is-hoverable">
+                   <a class="navbar-link">
+                       Plus
+                   </a>
+
+                   <div class="navbar-dropdown">
+                       <a class="navbar-item">
+                           A propos
+                       </a>
+                       <a class="navbar-item">
+                           Clubs
+                       </a>
+                       <a class="navbar-item">
+                           Contact
+                       </a>
+                       <hr class="navbar-divider">
+                       <a class="navbar-item">
+                           Report an issue
+                       </a>
+                   </div>
+               </div>
+           </div>
+       </div>
    </nav>
     <hr>
 {% endblock %}

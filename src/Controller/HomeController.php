@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Dancer;
 use App\Entity\Danseur;
-use App\Entity\Equipe;
+use App\Entity\Team;
+use App\Form\DancerType;
 use App\Form\DanseurType;
-use App\Form\EquipeType;
+use App\Form\TeamType;
 use Fpdf\Fpdf;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -32,11 +34,11 @@ class HomeController extends Controller {
 	 */
 	public function page2(Request $request) {
 		$em = $this->getDoctrine()->getManager();
-		$list_danseurs = $em->getRepository(Danseur::class)
+		$list_dancers = $em->getRepository(Dancer::class)
 			->findAll();
 		return $this->render(
 			'home/page2.html.twig',
-			array('danseurs'=>$list_danseurs)
+			array('dancers'=>$list_dancers)
 		);
 	}
 
@@ -46,24 +48,22 @@ class HomeController extends Controller {
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
 	public function page3(Request $request) {
-		$equipe = new Equipe();
-		$form = $this->createForm(EquipeType::class, $equipe);
+		$team = new Team();
+		$form = $this->createForm(TeamType::class, $team);
 		$em = $this->getDoctrine()->getManager();
-		$list_equipes=$em->getRepository(Equipe::class)->findAll();
+		$list_teams=$em->getRepository(Team::class)->findAll();
 		$form->handleRequest($request);
 
 		if ($form->isSubmitted() && $form->isValid()) {
 			// $form->getData() holds the submitted values
 			// but, the original `$task` variable has also been updated32
-			$list_danseurs = $form->get("danseurs")->getData();
-			$equipe = $form->getData();
-			foreach ($list_danseurs as $danseur){
-				$equipe->addDanseur($danseur);
+			$list_dancers = $form->get("dancers")->getData();
+			$team = $form->getData();
+			foreach ($list_dancers  as $dancer){
+				$team->addDancer($dancer);
 			}
-			dump($equipe);
-			$em->persist($equipe);
+			$em->persist($team);
 			$em->flush();
-			dump($equipe);
 
 			return $this->redirectToRoute('page3');
 		}
@@ -71,18 +71,20 @@ class HomeController extends Controller {
 			'home/page3.html.twig',
 			array(
 				'formEquipe'=>$form->createView(),
-				'listEquipe'=>$list_equipes
+				'listEquipe'=>$list_teams
 			)
 		);
 	}
 
 	/**
 	 * @Route("/equipe/{id}", name="Equipe_description", requirements={"id" = "\d+"})
+	 * @param Team $team
+	 * @return Response
 	 */
-	public function voirEquipe(Equipe $equipe) {
+	public function voirEquipe(Team $team) {
 		return $this->render(
 			'home/showEquipe.html.twig',
-			['list_danseur'=>$equipe->getDanseurs()]
+			['list_dancer'=>$team->getDancers()]
 		);
 	}
 
@@ -92,17 +94,17 @@ class HomeController extends Controller {
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
 	public function page4(Request $request) {
-		 $em = $this->getDoctrine()->getManager();
-		$danseur = new Danseur();
-		$form= $this->createForm(DanseurType::class, $danseur);
-		$list_danseur = $em->getRepository(Danseur::class)->findAll();
+		$em = $this->getDoctrine()->getManager();
+		$dancer = new Dancer();
+		$form= $this->createForm(DancerType::class, $dancer);
+		$list_dancers = $em->getRepository(Dancer::class)->findAll();
 		$form->handleRequest($request);
 
 		if ($form->isSubmitted() && $form->isValid()) {
 			// $form->getData() holds the submitted values
 			// but, the original `$task` variable has also been updated
-			$danseurToSave = $form->getData();
-			 $em->persist($danseurToSave);
+			$dancerToSave = $form->getData();
+			 $em->persist($dancerToSave);
 			 $em->flush();
 
 			return $this->redirectToRoute('page4');
@@ -111,7 +113,7 @@ class HomeController extends Controller {
 			'home/page4.html.twig',
 			array(
 				'formDanseur'=>$form->createView(),
-				'listDanseur'=>$list_danseur
+				'listDancer'=>$list_dancers
 			)
 		);
 	}
@@ -134,12 +136,9 @@ class HomeController extends Controller {
 	/**
 	 * @Route("/createDossard/{id}", name="createDossard", requirements={"id" = "\d+"})
 	 */
-	public function createDossard(Request $request, $id){
-		$em = $this->getDoctrine()->getManager();
-		$danseur=$em->getRepository(Danseur::class)
-			->findOneBy(['id'=>$id]);
-		$pdf = $this->createDossardPDF($danseur->getId(),
-			$danseur->getName(),
+	public function createDossard(Dancer $dancer){
+		$pdf = $this->createDossardPDF($dancer->getId(),
+			$dancer->getNameDancer(),
 			'ClubDanseMulhouse',
 			'Solo HipHop Junior');
 

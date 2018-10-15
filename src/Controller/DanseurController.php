@@ -9,6 +9,7 @@
 namespace App\Controller;
 
 
+use App\Entity\Dancer;
 use App\Entity\Danseur;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,9 +22,9 @@ class DanseurController extends AbstractController {
 	 */
 	public function removeDancer($id) {
 		$em=$this->getDoctrine()->getManager();
-		$danseurToRemove = $em->getRepository(Danseur::class)
+		$dancerToRemove = $em->getRepository(Dancer::class)
 							->findOneBy(['id'=>$id]);
-		$em->remove($danseurToRemove);
+		$em->remove($dancerToRemove);
 		$em->flush();
 		return $this->redirectToRoute('page4');
 	}

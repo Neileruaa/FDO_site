@@ -3,8 +3,11 @@
 {% block body %}
     Contenu Page2
     <a target="_blank" href="{{ path('createSamplePDF') }}">Créer un PDF</a>
-    {% for danseur in danseurs %}
-        <p>{{ danseur.name }} <a target="_blank" href="{{ path('createDossard', {id: danseur.id}) }}">Dossard</a></p>
+    {% for dancer in dancers %}
+        <p>{{ dancer.nameDancer }} {{ dancer.firstNameDancer }}
+            <a target="_blank" href="{{ path('createDossard', {id: dancer.id}) }}">
+                Dossard</a>
+        </p>
     {% endfor %}
 {% endblock %}
 

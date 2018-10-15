@@ -35,7 +35,7 @@ class Team
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Club", inversedBy="teams")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $club;
 
@@ -127,6 +127,7 @@ class Team
     {
         if (!$this->dancers->contains($dancer)) {
             $this->dancers[] = $dancer;
+            $dancer->addTeam($this);
         }
 
         return $this;
@@ -136,6 +137,7 @@ class Team
     {
         if ($this->dancers->contains($dancer)) {
             $this->dancers->removeElement($dancer);
+            $dancer->removeTeam($this);
         }
 
         return $this;

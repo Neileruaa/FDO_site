@@ -40,6 +40,7 @@ class Dancer
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Team", mappedBy="dancers")
+     * @ORM\JoinTable(name="dancer_team")
      */
     private $teams;
 
@@ -142,6 +143,26 @@ class Dancer
             if ($club->getDancers() === $this) {
                 $club->setDancers(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function addTeam(Team $team): self
+    {
+        if (!$this->teams->contains($team)) {
+            $this->teams[] = $team;
+            $team->addDancer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTeam(Team $team): self
+    {
+        if ($this->teams->contains($team)) {
+            $this->teams->removeElement($team);
+            $team->removeDancer($this);
         }
 
         return $this;

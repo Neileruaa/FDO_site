@@ -48,10 +48,41 @@ class HomeController extends Controller {
 	public function page3(Request $request) {
 		$equipe = new Equipe();
 		$form = $this->createForm(EquipeType::class, $equipe);
+		$em = $this->getDoctrine()->getManager();
+		$list_equipes=$em->getRepository(Equipe::class)->findAll();
+		$form->handleRequest($request);
 
+		if ($form->isSubmitted() && $form->isValid()) {
+			// $form->getData() holds the submitted values
+			// but, the original `$task` variable has also been updated32
+			$list_danseurs = $form->get("danseurs")->getData();
+			$equipe = $form->getData();
+			foreach ($list_danseurs as $danseur){
+				$equipe->addDanseur($danseur);
+			}
+			dump($equipe);
+			$em->persist($equipe);
+			$em->flush();
+			dump($equipe);
+
+			return $this->redirectToRoute('page3');
+		}
 		return $this->render(
 			'home/page3.html.twig',
-			array('formEquipe'=>$form->createView())
+			array(
+				'formEquipe'=>$form->createView(),
+				'listEquipe'=>$list_equipes
+			)
+		);
+	}
+
+	/**
+	 * @Route("/equipe/{id}", name="Equipe_description", requirements={"id" = "\d+"})
+	 */
+	public function voirEquipe(Equipe $equipe) {
+		return $this->render(
+			'home/showEquipe.html.twig',
+			['list_danseur'=>$equipe->getDanseurs()]
 		);
 	}
 

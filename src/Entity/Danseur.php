@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinTable;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DanseurRepository")
@@ -30,6 +31,7 @@ class Danseur
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Equipe", inversedBy="danseurs")
+     * @ORM\JoinTable(name="dancer_team")
      */
     private $teams;
 

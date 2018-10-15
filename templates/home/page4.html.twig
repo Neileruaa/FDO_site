@@ -2,5 +2,10 @@
 
 {% block body %}
 Contenu Page4
+
+    {{ form(formDanseur) }}
+    {% for danseur in listDanseur %}
+        {{ danseur.name }}({{ danseur.age }} ans)|<a href="{{ path('dancer_removeDancer', {'id': danseur.id }) }}">Supprimer</a><br>
+    {% endfor %}
 {% endblock %}
 

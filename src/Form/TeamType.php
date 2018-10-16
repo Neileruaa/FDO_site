@@ -18,8 +18,10 @@ class TeamType extends AbstractType
 //            ->add('dances')
             ->add('dancers', EntityType::class, [
             	'class'=> Dancer::class,
-	            'choice_label'=>'nameDancer',
-	            'placeholder'=>'Qui dans cette équipe ? ',
+	            'choice_label'=>function(Dancer $dancer){
+            	    $fullname = strval($dancer->getNameDancer()." ". $dancer->getFirstNameDancer());
+            	    return $fullname;
+	            },
 	            'expanded'=>true,
 	            'multiple'=>true,
 	            'by_reference'=>false

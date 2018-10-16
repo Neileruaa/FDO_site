@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,9 +24,14 @@ class Category
     private $nameCategory;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Team", inversedBy="categories")
+     * @ORM\OneToMany(targetEntity="App\Entity\Team", mappedBy="category", orphanRemoval=true)
      */
     private $teams;
+
+    public function __construct()
+    {
+        $this->teams = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -43,14 +50,33 @@ class Category
         return $this;
     }
 
-    public function getTeams(): ?Team
+    /**
+     * @return Collection|Team[]
+     */
+    public function getTeams(): Collection
     {
         return $this->teams;
     }
 
-    public function setTeams(?Team $teams): self
+    public function addTeam(Team $team): self
     {
-        $this->teams = $teams;
+        if (!$this->teams->contains($team)) {
+            $this->teams[] = $team;
+            $team->setCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTeam(Team $team): self
+    {
+        if ($this->teams->contains($team)) {
+            $this->teams->removeElement($team);
+            // set the owning side to null (unless already changed)
+            if ($team->getCategory() === $this) {
+                $team->setCategory(null);
+            }
+        }
 
         return $this;
     }

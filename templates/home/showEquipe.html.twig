@@ -1,6 +1,9 @@
 {% extends 'layout.html.twig' %}
 
 {% block body %}
+    <br>
+    <a href="{{ path('page3') }}">Retour</a>
+    <br><br><br>
     {% for dancer in list_dancer %}
         {{ dancer.nameDancer }}
         <br>

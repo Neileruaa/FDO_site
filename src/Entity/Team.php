@@ -19,11 +19,6 @@ class Team
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Category", mappedBy="team")
-     */
-    private $category;
-
-    /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Dance")
      */
     private $dances;
@@ -44,6 +39,11 @@ class Team
      */
     private $competitions;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Category", mappedBy="teams")
+     */
+    private $categories;
+
     public function __construct()
     {
         $this->Dancer = new ArrayCollection();
@@ -51,42 +51,12 @@ class Team
         $this->dances = new ArrayCollection();
         $this->dancers = new ArrayCollection();
         $this->competitions = new ArrayCollection();
+        $this->categories = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    /**
-     * @return Collection|Category[]
-     */
-    public function getCategory(): Collection
-    {
-        return $this->category;
-    }
-
-    public function addCategory(Category $category): self
-    {
-        if (!$this->category->contains($category)) {
-            $this->category[] = $category;
-            $category->setTeam($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCategory(Category $category): self
-    {
-        if ($this->category->contains($category)) {
-            $this->category->removeElement($category);
-            // set the owning side to null (unless already changed)
-            if ($category->getTeam() === $this) {
-                $category->setTeam(null);
-            }
-        }
-
-        return $this;
     }
 
     /**
@@ -178,6 +148,37 @@ class Team
         if ($this->competitions->contains($competition)) {
             $this->competitions->removeElement($competition);
             $competition->removeTeam($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Category[]
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(Category $category): self
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories[] = $category;
+            $category->setTeams($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Category $category): self
+    {
+        if ($this->categories->contains($category)) {
+            $this->categories->removeElement($category);
+            // set the owning side to null (unless already changed)
+            if ($category->getTeams() === $this) {
+                $category->setTeams(null);
+            }
         }
 
         return $this;

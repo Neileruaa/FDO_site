@@ -21,6 +21,11 @@ class Category
      */
     private $nameCategory;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Team", inversedBy="categories")
+     */
+    private $teams;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -34,6 +39,18 @@ class Category
     public function setNameCategory(string $nameCategory): self
     {
         $this->nameCategory = $nameCategory;
+
+        return $this;
+    }
+
+    public function getTeams(): ?Team
+    {
+        return $this->teams;
+    }
+
+    public function setTeams(?Team $teams): self
+    {
+        $this->teams = $teams;
 
         return $this;
     }

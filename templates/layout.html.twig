@@ -6,7 +6,6 @@
 
 {% block header %}
     {{ parent() }}
-    <h1>France Danse Organisation</h1>
 {% endblock %}
 
 {% block navigation %}
@@ -16,15 +15,20 @@
 {% endblock %}
 
 {% block body %}
-    {{ parent() }}
+    <div class="page-wrap">
+        {{ parent() }}
 
-
-
+    </div>
 {% endblock %}
 
 {% block footer %}
-    {{ parent() }}
-    <br>
-    <hr>
-    Par Aurélien DREY, Antoine HEITZMANN, Raphael IENCO, Gauvain PATAKY, Olivier SALFRANC, Mattéo BILLET et un peu l'iut
+    <footer class="footer">
+        <div id="footer-image"></div>
+        <div id="contenuFooter">
+            {{ parent() }}
+            <br>
+            Par Aurélien DREY, Antoine HEITZMANN, Raphael IENCO, Gauvain PATAKY, Olivier SALFRANC, Mattéo BILLET et un peu l'iut
+        </div>
+    </footer>
+
 {% endblock %}

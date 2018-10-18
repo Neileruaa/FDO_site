@@ -7,14 +7,16 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
         <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js">
         </script>
-        <link rel="stylesheet" href="{{ asset('public/layout.css') }}">
+        <link rel="stylesheet" href="{{ asset('layout.css') }}">
     {% endblock %}
 </head>
 <body>
 {% block header %}
     <figure class="image">
-        <img  src="Images/bandeau.png" width="928" height="109">
+        <img  src="Images/bandeau.png" width="1000" height="109">
     </figure>
+{% endblock %}
+{% block navigation %}
     <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
             <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" onclick="document.querySelector('.navbar-menu').classList.toggle('is-active');">
@@ -29,7 +31,7 @@
                 <a class="navbar-item" href="{{ path('page2') }}"><i class="fas fa-print"></i>PDF</a>
                 <a class="navbar-item" href="{{ path('page3') }}"><i class="fas fa-users"></i>Créer une équipe</a>
                 <a class="navbar-item" href="{{ path('page4') }}"><i class="fas fa-user-edit"></i>Ajouter un danseur</a>
-                <a class="navbar-item" href="/logout" ><i class="fa fa-sign-out-alt"></i> Deconexion !</a>
+                <a class="navbar-item" href="/logout" ><i class="fa fa-sign-out-alt"></i> Déconnexion !</a>
             </div>
         </div>
         <div id="navbarBasicExample" class="navbar-menu">
@@ -58,12 +60,15 @@
             </div>
         </div>
     </nav>
+{% endblock %}
 
+{% block body %}
 
 {% endblock %}
-{% block navigation %}{% endblock %}
-{% block body %}{% endblock %}
-{% block footer %}{% endblock %}
+
+{% block footer %}
+
+{% endblock %}
 
 {% block javascripts %}{% endblock %}
 </body>

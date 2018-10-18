@@ -6,17 +6,29 @@
 
 {% block header %}
     {{ parent() }}
-    <h1>France Danse Organisation</h1>
+    France Danse Organisation
 {% endblock %}
 
 {% block navigation %}
     {{ parent() }}
+   <nav>
+       <a href="{{ path('home') }}">Home</a>
+       <a href="{{ path('page2') }}">Page2</a>
+       <a href="{{ path('page3') }}">Page3</a>
+       <a href="{{ path('page4') }}">Page4</a>
 
+{%  if not app.user  %}
+ <a href="/login" > Connexion</a>
+{% else %}
+	 <a href="/logout" > Deconnexion</a>
+{% endif %}
 
+   </nav>
+    <hr>
 {% endblock %}
 
 {% block body %}
-    {{ parent() }}
+{{ parent() }}
 
 
 

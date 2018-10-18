@@ -3,14 +3,19 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use PhpParser\Node\Scalar\String_;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Validator\Constraints as Assert;/**
+use Symfony\Component\Validator\Constraints as Assert;
+
+
+
+/**
  * User
  *
  * @ORM\Table(name="user")
  * @ORM\Entity
  */
-class User implements UserInterface
+class User implements UserInterface, \Serializable
 {
     /**
      * @var int
@@ -20,6 +25,7 @@ class User implements UserInterface
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $idUser;
+
 
     /**
      * @var string|null
@@ -50,6 +56,14 @@ class User implements UserInterface
      * @Assert\EqualTo(propertyPath="password", message="vos deux mots de passe nes sont as les memes")
      */
     public $confirmPassword;
+
+
+    /**
+     * @var array
+     *
+     * @ORM\Column(type="json")
+     */
+    private $roles=['ROLE_USER'];
 
 
     public function getIdUser()
@@ -91,24 +105,6 @@ class User implements UserInterface
     }
 
 
-    /**
-     * Returns the roles granted to the user.
-     *
-     *     public function getRoles()
-     *     {
-     *         return array('ROLE_USER');
-     *     }
-     *
-     * Alternatively, the roles might be stored on a ``roles`` property,
-     * and populated in any number of different ways when the user object
-     * is created.
-     *
-     * @return (Role|string)[] The user roles
-     */
-    public function getRoles()
-    {
-        return ['ROLE_USER'];
-    }
 
     /**
      * Returns the password used to authenticate the user.
@@ -152,4 +148,47 @@ return $this->password;
     {
         // TODO: Implement eraseCredentials() method.
     }
+
+
+    public function serialize() {
+        return serialize(array(
+            $this->idUser,
+            $this->username,
+            $this->email,
+            $this->password,
+            $this->roles
+
+        ));
+    }
+
+    public function unserialize($serialized) {
+        list(
+            $this->idUser,
+            $this->username,
+            $this->email,
+            $this->password,
+            $this->roles
+            ) = unserialize($serialized);
+    }
+    /**
+     * Returns the roles granted to the user.
+     *
+     *     public function getRoles()
+     *     {
+     *         return array('ROLE_USER');
+     *     }
+     *
+     * Alternatively, the roles might be stored on a ``roles`` property,
+     * and populated in any number of different ways when the user object
+     * is created.
+     *
+     * @return (Role|string)[] The user roles
+     */
+    public function getRoles()
+    {
+        return $this->roles;
+    }
+
+
+
 }

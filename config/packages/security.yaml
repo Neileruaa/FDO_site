@@ -3,11 +3,12 @@ security:
         App\Entity\User:
             algorithm: bcrypt
 
-    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+
     providers:
         in_memory: #{ memory: ~ }
             memory:
-                users:
+
+
 
         in_database:
             entity:
@@ -40,4 +41,10 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
      - { path: ^/admin, roles: ROLE_ADMIN }
-     - { path: ^/member, roles: ROLE_USER }
+     - { path: ^/member, roles:  [ROLE_ADMIN, ROLE_USER] }
+     - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY}
+     - { path: ^/page2, roles:  [ROLE_ADMIN, ROLE_USER] }
+     - { path: ^/page3, roles:  [ROLE_ADMIN, ROLE_USER] }
+     - { path: ^/page4, roles: [ROLE_ADMIN]  }
+
+

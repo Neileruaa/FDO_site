@@ -29,9 +29,21 @@
                 <a class="navbar-item" href="{{ path('page2') }}"><i class="fas fa-print"></i>PDF</a>
                 <a class="navbar-item" href="{{ path('page3') }}"><i class="fas fa-users"></i>Créer une équipe</a>
                 <a class="navbar-item" href="{{ path('page4') }}"><i class="fas fa-user-edit"></i>Ajouter un danseur</a>
-                <a class="navbar-item" href="/logout" ><i class="fa fa-sign-out-alt"></i> Deconexion !</a>
+
+                {%  if not app.user  %}
+                    <a class="navbar-item" href="/login" ><i class="fa fa-sign-out-alt"></i> Connexion !</a>
+
+                {% else %}
+                    <a class="navbar-item" href="/logout" ><i class="fa fa-sign-out-alt"></i> Deconnexion !</a>
+
+                {% endif %}
+
+
             </div>
         </div>
+
+
+
         <div id="navbarBasicExample" class="navbar-menu">
             <div class="navbar-end">
                 <div class="navbar-item has-dropdown is-hoverable">
@@ -57,8 +69,20 @@
                 </div>
             </div>
         </div>
-    </nav>
 
+        {% if is_granted('ROLE_ADMIN') %} {# si on est admin, affiche la navBar de l'admin#}
+
+            <div class="navbar-menu">
+                <div class="navbar-end">
+                    <a class="navbar-item" href="creationCompetition">  création de competition </a>
+                    <a class="navbar-item" href="/validDossard">confirmation dossards</a>
+                    <a class="navbar-item" href="/mailBox">boite mail</a>
+                    <a class="navbar-item" href="/profil">voir profil</a>
+
+                </div>
+            </div>
+        {% endif %}
+    </nav>
 
 {% endblock %}
 {% block navigation %}{% endblock %}

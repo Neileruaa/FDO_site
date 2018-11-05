@@ -10,6 +10,7 @@ namespace App\Controller;
 
 
 use App\Entity\Category;
+use App\Entity\Dance;
 use App\Entity\Dancer;
 use App\Entity\Team;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

@@ -44,7 +44,7 @@ class HomeController extends Controller {
 	}
 
 	/**
-	 * @Route("/equipe/create", name="page3")
+	 * @Route("/page3", name="page3")
 	 * @param Request $request
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
@@ -53,7 +53,7 @@ class HomeController extends Controller {
 		$team = new Team();
 		$form = $this->createForm(TeamType::class, $team);
 		$em = $this->getDoctrine()->getManager();
-        $team->setCategory($em->getRepository(Category::class)->find(1));
+        //$team->addCategory($em->getRepository(Category::class)->find(1));
         $list_teams=$em->getRepository(Team::class)->findAll();
 		$form->handleRequest($request);
 

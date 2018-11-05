@@ -24,7 +24,7 @@ class Category
     private $nameCategory;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Team", mappedBy="category", orphanRemoval=true)
+     * @ORM\ManyToMany(targetEntity="App\Entity\Team", mappedBy="categories")
      */
     private $teams;
 
@@ -62,7 +62,7 @@ class Category
     {
         if (!$this->teams->contains($team)) {
             $this->teams[] = $team;
-            $team->setCategory($this);
+            $team->addCategory($this);
         }
 
         return $this;
@@ -72,10 +72,7 @@ class Category
     {
         if ($this->teams->contains($team)) {
             $this->teams->removeElement($team);
-            // set the owning side to null (unless already changed)
-            if ($team->getCategory() === $this) {
-                $team->setCategory(null);
-            }
+            $team->removeCategory($this);
         }
 
         return $this;

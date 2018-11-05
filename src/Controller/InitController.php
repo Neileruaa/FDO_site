@@ -31,7 +31,7 @@ class InitController extends Controller
         $category3->setNameCategory("senior");
 
         $team=new Team();
-        $team->setCategory($category);
+        $team->addCategory($category);
         $em->persist($team);
         $em->persist($category);
         $em->persist($category2);

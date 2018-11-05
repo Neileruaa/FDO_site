@@ -44,7 +44,7 @@ class HomeController extends Controller {
 	}
 
 	/**
-	 * @Route("/page3", name="page3")
+	 * @Route("/equipe/create", name="page3")
 	 * @param Request $request
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */

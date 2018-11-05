@@ -10,6 +10,7 @@ namespace App\Controller;
 
 
 use App\Entity\Category;
+use App\Entity\Dance;
 use App\Entity\Dancer;
 use App\Entity\Team;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -35,6 +36,24 @@ class InitController extends Controller
         $em->persist($category);
         $em->persist($category2);
         $em->persist($category3);
+
+        $dances=[
+            ["nameDance"=>"disco"],
+            ["nameDance"=>"hip hop"],
+            ["nameDance"=>"popping"],
+            ["nameDance"=>"break dance"],
+            ["nameDance"=>"dance show"],
+            ["nameDance"=>"salsa"],
+            ["nameDance"=>"show caraibe"],
+            ["nameDance"=>"swing"],
+            ["nameDance"=>"tango argentino"],
+            ["nameDance"=>"claquettes"]
+        ];
+        foreach ($dances as $dance){
+            $new_dance=new Dance();
+            $new_dance->setNameDance($dance["nameDance"]);
+            $em->persist($new_dance);
+        }
 
         $em->flush();
         return $this->redirectToRoute("home");

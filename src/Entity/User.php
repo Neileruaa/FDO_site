@@ -116,7 +116,7 @@ class User implements UserInterface, \Serializable
      */
     public function getPassword()
     {
-return $this->password;
+        return $this->password;
     }
 
     /**

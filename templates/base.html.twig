@@ -7,14 +7,16 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
         <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js">
         </script>
-        <link rel="stylesheet" href="{{ asset('public/layout.css') }}">
+        <link rel="stylesheet" href="{{ asset('layout.css') }}">
     {% endblock %}
 </head>
 <body>
 {% block header %}
     <figure class="image">
-        <img  src="Images/bandeau.png" width="928" height="109">
+        <img  src="Images/bandeau.png" width="1000" height="109">
     </figure>
+{% endblock %}
+{% block navigation %}
     <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
             <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" onclick="document.querySelector('.navbar-menu').classList.toggle('is-active');">
@@ -38,12 +40,8 @@
 
                 {% endif %}
 
-
             </div>
         </div>
-
-
-
         <div id="navbarBasicExample" class="navbar-menu">
             <div class="navbar-end">
                 <div class="navbar-item has-dropdown is-hoverable">
@@ -70,24 +68,30 @@
             </div>
         </div>
 
-        {% if is_granted('ROLE_ADMIN') %} {# si on est admin, affiche la navBar de l'admin#}
+        <div>
+            {% if is_granted('ROLE_ADMIN') %} {# si on est admin, affiche la navBar de l'admin#}
 
-            <div class="navbar-menu">
-                <div class="navbar-end">
-                    <a class="navbar-item" href="creationCompetition">  création de competition </a>
-                    <a class="navbar-item" href="/validDossard">confirmation dossards</a>
-                    <a class="navbar-item" href="/mailBox">boite mail</a>
-                    <a class="navbar-item" href="/profil">voir profil</a>
+                <div class="navbar-menu">
+                    <div class="navbar-end">
+                        <a class="navbar-item" href="creationCompetition">  création de competition </a>
+                        <a class="navbar-item" href="/validDossard">confirmation dossards</a>
+                        <a class="navbar-item" href="/mailBox">boite mail</a>
+                        <a class="navbar-item" href="/profil">voir profil</a>
 
+                    </div>
                 </div>
-            </div>
-        {% endif %}
+            {% endif %}
+        </div>
     </nav>
+{% endblock %}
+
+{% block body %}
 
 {% endblock %}
-{% block navigation %}{% endblock %}
-{% block body %}{% endblock %}
-{% block footer %}{% endblock %}
+
+{% block footer %}
+
+{% endblock %}
 
 {% block javascripts %}{% endblock %}
 </body>

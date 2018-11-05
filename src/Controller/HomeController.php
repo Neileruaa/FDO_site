@@ -49,6 +49,7 @@ class HomeController extends Controller {
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
 	public function page3(Request $request) {
+		//test
 		$team = new Team();
 		$form = $this->createForm(TeamType::class, $team);
 		$em = $this->getDoctrine()->getManager();

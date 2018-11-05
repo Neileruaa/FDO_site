@@ -1,6 +1,6 @@
 security:
     encoders:
-        App\Entity\User:
+        App\Entity\Club:
             algorithm: bcrypt
 
 
@@ -12,8 +12,8 @@ security:
 
         in_database:
             entity:
-                class: App\Entity\User
-                property: username
+                class: App\Entity\Club
+                property: emailClub
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/

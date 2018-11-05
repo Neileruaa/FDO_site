@@ -2,7 +2,8 @@
 
 namespace App\Form;
 
-use App\Entity\User;
+use App\Entity\Club;
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -13,16 +14,20 @@ class RegistrationType extends AbstractType
     {
         $builder
             ->add('username')
+            ->add('nameClubOwner')
+            ->add('villeClub')
+            ->add('codePostalClub')
             ->add('password')
             ->add('confirmPassword')
-            ->add('email')
+            ->add('emailClub')
+            ->add('phoneClub')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => User::class,
+            'data_class' => Club::class,
         ]);
     }
 }

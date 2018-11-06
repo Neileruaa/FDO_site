@@ -11,6 +11,7 @@ namespace App\Controller;
 
 use App\Entity\Dancer;
 use App\Entity\Danseur;
+use App\Entity\Team;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -22,6 +23,11 @@ class DanseurController extends AbstractController {
 	 */
 	public function removeDancer(Dancer $dancer) {
 		$em=$this->getDoctrine()->getManager();
+		$list_teams = $dancer->getTeams();
+		foreach ($list_teams as $team){
+			$em->remove($team);
+			$em->flush();
+		}
 		$em->remove($dancer);
 		$em->flush();
 		return $this->redirectToRoute('page4');

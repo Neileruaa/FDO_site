@@ -5,7 +5,7 @@
     {{ form(formEquipe) }}
 
     <hr>
-    {% for team in user.teams if user.teams is not empty %}
+    {% for team in club.teams if club.teams is not empty %}
         Equipe{{ team.id }}|<a href="{{ path('Equipe_description', {'id': team.id}) }}">Voir</a>
     {% else %}
         <p>Pas de d'équipe dans ce club</p>

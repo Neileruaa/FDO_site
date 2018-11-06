@@ -78,7 +78,7 @@ class HomeController extends Controller {
 			array(
 				'formEquipe'=>$form->createView(),
 				'listEquipe'=>$list_teams,
-				'user'=>$club
+				'club'=>$club
 			)
 		);
 	}
@@ -112,6 +112,8 @@ class HomeController extends Controller {
 			// $form->getData() holds the submitted values
 			// but, the original `$task` variable has also been updated
 			$dancerToSave = $form->getData();
+			$dancerToSave->setClub($club);
+			$club->addDancer($dancerToSave);
 			 $em->persist($dancerToSave);
 			 $em->flush();
 
@@ -121,7 +123,8 @@ class HomeController extends Controller {
 			'home/page4.html.twig',
 			array(
 				'formDanseur'=>$form->createView(),
-				'listDancer'=>$list_dancers
+				'listDancer'=>$list_dancers,
+				'club'=>$club
 			)
 		);
 	}

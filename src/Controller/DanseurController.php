@@ -17,14 +17,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class DanseurController extends AbstractController {
 	/**
 	 * @Route("/removeDancer/{id}", name="dancer_removeDancer", requirements={"page"="\d+"})
-	 * @param $id
+	 * @param Dancer $dancer
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
-	public function removeDancer($id) {
+	public function removeDancer(Dancer $dancer) {
 		$em=$this->getDoctrine()->getManager();
-		$dancerToRemove = $em->getRepository(Dancer::class)
-							->findOneBy(['id'=>$id]);
-		$em->remove($dancerToRemove);
+		$em->remove($dancer);
 		$em->flush();
 		return $this->redirectToRoute('page4');
 	}

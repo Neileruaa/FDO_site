@@ -38,6 +38,9 @@ class HomeController extends Controller {
 		$em = $this->getDoctrine()->getManager();
 		$list_dancers = $em->getRepository(Dancer::class)
 			->findAll();
+
+
+
 		return $this->render(
 			'home/page2.html.twig',
 			array('dancers'=>$list_dancers)

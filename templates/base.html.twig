@@ -31,7 +31,9 @@
                 <a class="navbar-item" href="{{ path('page2') }}"><i class="fas fa-print"></i>PDF</a>
                 <a class="navbar-item" href="{{ path('page3') }}"><i class="fas fa-users"></i>Créer une équipe</a>
                 <a class="navbar-item" href="{{ path('page4') }}"><i class="fas fa-user-edit"></i>Ajouter un danseur</a>
-
+                {%  if  app.user  %}
+                <a class="navbar-item" href="/profile/show"><i class="fas fa-user-edit"></i>voir profil</a>
+                {% endif %}
                 {%  if not app.user  %}
                     <a class="navbar-item" href="/login" ><i class="fa fa-sign-out-alt"></i> Connexion !</a>
 
@@ -76,7 +78,7 @@
                         <a class="navbar-item" href="creationCompetition">  création de competition </a>
                         <a class="navbar-item" href="/validDossard">confirmation dossards</a>
                         <a class="navbar-item" href="/mailBox">boite mail</a>
-                        <a class="navbar-item" href="/profil">voir profil</a>
+
 
                     </div>
                 </div>

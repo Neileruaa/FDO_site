@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class HomeController extends Controller {
 	/**
@@ -49,7 +50,7 @@ class HomeController extends Controller {
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
 	public function page3(Request $request) {
-		//test
+		$club = $this->getUser();
 		$team = new Team();
 		$form = $this->createForm(TeamType::class, $team);
 		$em = $this->getDoctrine()->getManager();
@@ -65,6 +66,8 @@ class HomeController extends Controller {
 			foreach ($list_dancers  as $dancer){
 				$team->addDancer($dancer);
 			}
+			$team->setClub($club);
+			$club->addTeam($team);
 			$em->persist($team);
 			$em->flush();
 
@@ -74,7 +77,8 @@ class HomeController extends Controller {
 			'home/page3.html.twig',
 			array(
 				'formEquipe'=>$form->createView(),
-				'listEquipe'=>$list_teams
+				'listEquipe'=>$list_teams,
+				'user'=>$club
 			)
 		);
 	}
@@ -97,6 +101,7 @@ class HomeController extends Controller {
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
 	public function page4(Request $request) {
+		$club = $this->getUser();
 		$em = $this->getDoctrine()->getManager();
 		$dancer = new Dancer();
 		$form= $this->createForm(DancerType::class, $dancer);

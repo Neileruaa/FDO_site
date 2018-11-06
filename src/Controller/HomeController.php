@@ -10,6 +10,7 @@ use App\Form\DancerType;
 use App\Form\DanseurType;
 use App\Form\TeamType;
 use Fpdf\Fpdf;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -50,6 +51,8 @@ class HomeController extends Controller {
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
 	public function page3(Request $request) {
+        $formDel=$this->createDeleteForm();
+        $confirm=0;
 		$club = $this->getUser();
 		$team = new Team();
 		$form = $this->createForm(TeamType::class, $team);
@@ -71,14 +74,15 @@ class HomeController extends Controller {
 			$em->persist($team);
 			$em->flush();
 
-			return $this->redirectToRoute('page3');
+			return $this->redirectToRoute('page3',["confirm"=>$confirm]);
 		}
 		return $this->render(
 			'home/page3.html.twig',
 			array(
 				'formEquipe'=>$form->createView(),
 				'listEquipe'=>$list_teams,
-				'club'=>$club
+				'club'=>$club,
+                "form"=>$formDel->createView()
 			)
 		);
 	}
@@ -183,4 +187,34 @@ class HomeController extends Controller {
 		$pdf->Text(($pdf->GetPageWidth()/2)-($pdf->GetStringWidth(utf8_decode($categorie)))/2, $height-10, utf8_decode($categorie));
 		return $pdf;
 	}
+
+    /**
+     * @Route("/deleteAll/team" , name="team.deleteAll")
+     */
+	public function deleteAllTeams(Request $request){
+        if ($request->get("submit")!=null){
+            $confirm=1;
+            return $this->redirectToRoute("page3", ["confirm"=>$confirm]);
+        }
+	    $em=$this->getDoctrine()->getManager();
+	    $teams=$this->getDoctrine()->getRepository(Team::class)->findAll();
+
+	    foreach ($teams as $team){
+	        $em->remove($team);
+	        $em->flush();
+        }
+        return $this->redirectToRoute("page3");
+    }
+
+    private function createDeleteForm()
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('team.deleteAll'))
+            ->setMethod('DELETE')
+            ->add('submit', SubmitType::class, array('label' => 'Supprimer toutes les équipes',
+                'attr' => array(
+                    'onclick' => 'return confirm("Etes-vous sûr de vouloir supprimer toutes les équipes ?")'
+                )))
+            ->getForm();
+    }
 }

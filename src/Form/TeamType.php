@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Category;
+use App\Entity\Dance;
 use App\Entity\Dancer;
 use App\Entity\Team;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -16,18 +17,20 @@ class TeamType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('category', EntityType::class, array(
+            ->add('dances', EntityType::class, array(
                 // query choices from this entity
-                'class' => Category::class,
+                'class' => Dance::class,
 
                 // use the User.username property as the visible option string
-                'choice_label' => 'nameCategory',
+                'choice_label' => 'nameDance',
 
                 // used to render a select box, check boxes or radios
                 // 'multiple' => true,
                 // 'expanded' => true,
                 'required' => true,
-                'placeholder' => 'Choisir une catégorie'
+                'expanded'=>true,
+                'multiple'=>true,
+                'by_reference'=>false
             ))
 //            ->add('dances')
             ->add('dancers', EntityType::class, [

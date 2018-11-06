@@ -4,6 +4,9 @@
     Page de création d'équipe.<br>
     {{ form(formEquipe) }}
 
+
+    {{ form(form) }}
+
     <hr>
     {% for team in club.teams if club.teams is not empty %}
         Equipe{{ team.id }}|<a href="{{ path('Equipe_description', {'id': team.id}) }}">Voir</a>

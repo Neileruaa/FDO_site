@@ -45,7 +45,8 @@ class Dancer
     private $teams;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Club", mappedBy="dancers")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Club", inversedBy="dancers")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $club;
 
@@ -117,37 +118,6 @@ class Dancer
         return $this->teams;
     }
 
-    /**
-     * @return Collection|Club[]
-     */
-    public function getClub(): Collection
-    {
-        return $this->club;
-    }
-
-    public function addClub(Club $club): self
-    {
-        if (!$this->club->contains($club)) {
-            $this->club[] = $club;
-            $club->setDancers($this);
-        }
-
-        return $this;
-    }
-
-    public function removeClub(Club $club): self
-    {
-        if ($this->club->contains($club)) {
-            $this->club->removeElement($club);
-            // set the owning side to null (unless already changed)
-            if ($club->getDancers() === $this) {
-                $club->setDancers(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function addTeam(Team $team): self
     {
         if (!$this->teams->contains($team)) {
@@ -164,6 +134,18 @@ class Dancer
             $this->teams->removeElement($team);
             $team->removeDancer($this);
         }
+
+        return $this;
+    }
+
+    public function getClub(): ?Club
+    {
+        return $this->club;
+    }
+
+    public function setClub(?Club $club): self
+    {
+        $this->club = $club;
 
         return $this;
     }

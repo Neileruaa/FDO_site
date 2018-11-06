@@ -88,21 +88,22 @@ class Club implements UserInterface, \Serializable
     private $competition;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Dancer", inversedBy="club")
-     */
-    private $dancers;
-
-    /**
      * @var array
      *
      * @ORM\Column(type="json")
      */
     private $roles = ['ROLE_USER'];
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Dancer", mappedBy="club", orphanRemoval=true)
+     */
+    private $dancers;
+
 
     public function __construct()
     {
         $this->teams = new ArrayCollection();
+        $this->dancers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -213,19 +214,6 @@ class Club implements UserInterface, \Serializable
         return $this;
     }
 
-    public function getDancers(): ?Dancer
-    {
-        return $this->dancers;
-    }
-
-    public function setDancers(?Dancer $dancers): self
-    {
-        $this->dancers = $dancers;
-
-        return $this;
-    }
-
-
 
     /**
      * Returns the salt that was originally used to encode the password.
@@ -335,6 +323,37 @@ class Club implements UserInterface, \Serializable
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Dancer[]
+     */
+    public function getDancers(): Collection
+    {
+        return $this->dancers;
+    }
+
+    public function addDancer(Dancer $dancer): self
+    {
+        if (!$this->dancers->contains($dancer)) {
+            $this->dancers[] = $dancer;
+            $dancer->setClub($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDancer(Dancer $dancer): self
+    {
+        if ($this->dancers->contains($dancer)) {
+            $this->dancers->removeElement($dancer);
+            // set the owning side to null (unless already changed)
+            if ($dancer->getClub() === $this) {
+                $dancer->setClub(null);
+            }
+        }
 
         return $this;
     }

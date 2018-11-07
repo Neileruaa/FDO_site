@@ -22,6 +22,7 @@ class DanseurController extends AbstractController {
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function removeDancer(Dancer $dancer) {
+	    //rggs
 		$em=$this->getDoctrine()->getManager();
 		$list_teams = $dancer->getTeams();
 		foreach ($list_teams as $team){

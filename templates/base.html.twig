@@ -34,6 +34,9 @@
                 {% if is_granted('ROLE_USER')  %}
                 <a class="navbar-item" href="{{ path('Ticket.addTicket') }}">Envoyer un ticket</a>
                 {% endif %}
+                {% if is_granted('ROLE_ADMIN') %}
+                <a class="navbar-item" href="{{ path('Ticket.showTicket') }}">Messagerie</a>
+                {% endif %}
                 {% if is_granted('ROLE_ADMIN') %} {# si on est admin, affiche la navBar de l'admin#}
                     <hr>
                     <div class="navbar-item has-dropdown is-hoverable">

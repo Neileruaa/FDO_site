@@ -22,5 +22,11 @@ class TicketController extends AbstractController
     public function addTicket(){
         return $this->render('ticket/addTicket.html.twig');
     }
+    /**
+     * @Route("/show/ticket" , name="Ticket.showTicket")
+     */
+    public function showTicket(){
+        return $this->render('ticket/showTicket.html.twig');
+    }
 
 }

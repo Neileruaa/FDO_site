@@ -1,0 +1,7 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+    {% for dossard in team.dances %}
+        <a href="{{ path('createDossard', {id: team.id, dance:dossard.nameDance}) }}">Dossard pour {{ dossard.nameDance }}</a>
+    {% endfor %}
+{% endblock %}

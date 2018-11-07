@@ -148,17 +148,28 @@ class HomeController extends Controller {
 	}
 
 	/**
-	 * @Route("/createDossard/{id}", name="createDossard", requirements={"id" = "\d+"})
+	 * @Route("/choose/dossard/{id}", name="home.chooseDossard", requirements={"id" = "\d+"})
 	 * @param Team $team
 	 * @return Response
 	 */
-	public function createDossard(Team $team){
+	public function chooseDossard(Team $team) {
+		return $this->render('home/choose_dossard.html.twig',[
+			'team'=>$team
+		]);
+	}
+
+	/**
+	 * @Route("/createDossard/{id}/{dance}", name="createDossard", requirements={"id" = "\d+"})
+	 * @param Team $team
+	 * @return Response
+	 */
+	public function createDossard(Team $team, $dance){
 		$pdf = $this->createDossardPDF($team->getId(),
 			$team->getDancers(),
 			//TODO:Faire un champs nom clubs dans l'entité
-			$team->getClub()->getNameClubOwner(),
-			//TODO Comment afficher la bonne dance+categorie car plusieurs
-			'tango argentino Junior TODO ');
+			$team->getClub()->getUsername(),
+			//TODO: Afficher la bonne categorie
+			$dance);
 
 		return new Response(
 			$pdf->Output(),

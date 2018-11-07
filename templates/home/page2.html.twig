@@ -5,7 +5,7 @@
     <a target="_blank" href="{{ path('createSamplePDF') }}">Créer un PDF</a>
     {% for team in user.teams if user.teams is not empty %}
         <p>
-            <a target="_blank" href="{{ path('createDossard', {id: team.id}) }}"> Dossard de l'Équipe : {{ team.id }}</a>
+            <a href="{{ path('home.chooseDossard', {id: team.id}) }}"> Dossards de l'équipe : {{ team.id }}</a>
         </p>
     {% else %}
         <p>Il vous faut créer une équipe</p>

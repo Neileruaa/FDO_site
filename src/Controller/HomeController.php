@@ -10,10 +10,12 @@ use App\Form\DancerType;
 use App\Form\DanseurType;
 use App\Form\TeamType;
 use Fpdf\Fpdf;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class HomeController extends Controller {
 	/**
@@ -34,12 +36,11 @@ class HomeController extends Controller {
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
 	public function page2(Request $request) {
-		$em = $this->getDoctrine()->getManager();
-		$list_dancers = $em->getRepository(Dancer::class)
-			->findAll();
+		$user= $this->getUser();
 		return $this->render(
-			'home/page2.html.twig',
-			array('dancers'=>$list_dancers)
+			'home/page2.html.twig',[
+				"user"=>$user
+			]
 		);
 	}
 
@@ -49,10 +50,13 @@ class HomeController extends Controller {
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
 	public function page3(Request $request) {
+        $formDel=$this->createDeleteForm();
+        $confirm=0;
+		$club = $this->getUser();
 		$team = new Team();
 		$form = $this->createForm(TeamType::class, $team);
 		$em = $this->getDoctrine()->getManager();
-        $team->setCategory($em->getRepository(Category::class)->find(1));
+        //$team->addCategory($em->getRepository(Category::class)->find(1));
         $list_teams=$em->getRepository(Team::class)->findAll();
 		$form->handleRequest($request);
 
@@ -64,16 +68,20 @@ class HomeController extends Controller {
 			foreach ($list_dancers  as $dancer){
 				$team->addDancer($dancer);
 			}
+			$team->setClub($club);
+			$club->addTeam($team);
 			$em->persist($team);
 			$em->flush();
 
-			return $this->redirectToRoute('page3');
+			return $this->redirectToRoute('page3',["confirm"=>$confirm]);
 		}
 		return $this->render(
 			'home/page3.html.twig',
 			array(
 				'formEquipe'=>$form->createView(),
-				'listEquipe'=>$list_teams
+				'listEquipe'=>$list_teams,
+				'club'=>$club,
+                "form"=>$formDel->createView()
 			)
 		);
 	}
@@ -96,6 +104,7 @@ class HomeController extends Controller {
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
 	public function page4(Request $request) {
+		$club = $this->getUser();
 		$em = $this->getDoctrine()->getManager();
 		$dancer = new Dancer();
 		$form= $this->createForm(DancerType::class, $dancer);
@@ -106,6 +115,8 @@ class HomeController extends Controller {
 			// $form->getData() holds the submitted values
 			// but, the original `$task` variable has also been updated
 			$dancerToSave = $form->getData();
+			$dancerToSave->setClub($club);
+			$club->addDancer($dancerToSave);
 			 $em->persist($dancerToSave);
 			 $em->flush();
 
@@ -115,7 +126,8 @@ class HomeController extends Controller {
 			'home/page4.html.twig',
 			array(
 				'formDanseur'=>$form->createView(),
-				'listDancer'=>$list_dancers
+				'listDancer'=>$list_dancers,
+				'club'=>$club
 			)
 		);
 	}
@@ -137,12 +149,16 @@ class HomeController extends Controller {
 
 	/**
 	 * @Route("/createDossard/{id}", name="createDossard", requirements={"id" = "\d+"})
+	 * @param Team $team
+	 * @return Response
 	 */
-	public function createDossard(Dancer $dancer){
-		$pdf = $this->createDossardPDF($dancer->getId(),
-			$dancer->getNameDancer(),
-			'ClubDanseMulhouse',
-			'Solo HipHop Junior');
+	public function createDossard(Team $team){
+		$pdf = $this->createDossardPDF($team->getId(),
+			$team->getDancers(),
+			//TODO:Faire un champs nom clubs dans l'entité
+			$team->getClub()->getNameClubOwner(),
+			//TODO Comment afficher la bonne dance+categorie car plusieurs
+			'tango argentino Junior TODO ');
 
 		return new Response(
 			$pdf->Output(),
@@ -167,11 +183,45 @@ class HomeController extends Controller {
 		$pdf->Cell(0, $height, $id, 1, 0 , 'C');
 		$pdf->Image($logo,10,12,40);
 		$pdf->SetFont('Arial','', 20);
-		$pdf->Text(10, 148-10 , utf8_decode($nom));
+		$namesToPrint="";
+		foreach ($nom as $dancer){
+			$namesToPrint.= $dancer->getNameDancer()." ";
+		}
+		$pdf->Text(10, 148-10 , utf8_decode($namesToPrint));
 		$pdf->Text(210-10-$pdf->GetStringWidth(utf8_decode($club)),16, utf8_decode($club));
 		//Partie catégorie
-		$pdf->SetFont('Times', 'B', 48);
+		$pdf->SetFont('Times', 'B', 38);
 		$pdf->Text(($pdf->GetPageWidth()/2)-($pdf->GetStringWidth(utf8_decode($categorie)))/2, $height-10, utf8_decode($categorie));
 		return $pdf;
 	}
+
+    /**
+     * @Route("/deleteAll/team" , name="team.deleteAll")
+     */
+	public function deleteAllTeams(Request $request){
+        if ($request->get("submit")!=null){
+            $confirm=1;
+            return $this->redirectToRoute("page3", ["confirm"=>$confirm]);
+        }
+	    $em=$this->getDoctrine()->getManager();
+	    $teams=$this->getDoctrine()->getRepository(Team::class)->findAll();
+
+	    foreach ($teams as $team){
+	        $em->remove($team);
+	        $em->flush();
+        }
+        return $this->redirectToRoute("page3");
+    }
+
+    private function createDeleteForm()
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('team.deleteAll'))
+            ->setMethod('DELETE')
+            ->add('submit', SubmitType::class, array('label' => 'Supprimer toutes les équipes',
+                'attr' => array(
+                    'onclick' => 'return confirm("Etes-vous sûr de vouloir supprimer toutes les équipes ?")'
+                )))
+            ->getForm();
+    }
 }

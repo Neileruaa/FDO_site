@@ -1,0 +1,58 @@
+
+{% block body %}
+
+
+<div>
+
+
+    {% if mail is empty %}
+    aucun dossard a valider
+    {% else %}
+
+
+    <table border="2">
+        <thead>
+        <tr><th> id</th><th> id club </th><th> message</th><th>confirmation</th></tr></thead>
+        <tbody>
+
+        {# il faut changer tables pour mailBox et affiche:
+                                    id | user(qui envoie le dossard) | message | valider#}
+
+
+        {% for tab in mail %}
+
+            <tr><td>
+                    <li>{{ tab.id }}</li>
+                </td><td>
+                    <li>{{ tab.club }}</li>
+                </td><td>
+                    <li>{{ tab.message }}</li>
+                </td>
+                <td>
+                    <form id="edit" action="{{ path('admin.validDossard') }}">
+
+                        <button type="submit" class="btn btn-success"> valider dossard</button>
+
+                    </form>
+
+                </td>
+            </tr>
+
+
+
+        {% endfor %}
+
+
+
+
+        </tbody>
+    </table>
+
+    {% endif %}
+
+</div>
+
+
+
+
+{% endblock %}

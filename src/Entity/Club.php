@@ -5,43 +5,86 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * Club
  * @ORM\Entity(repositoryClass="App\Repository\ClubRepository")
+ * @ORM\Table(name="club")
+ * @ORM\Entity
  */
-class Club
+
+class Club implements UserInterface, \Serializable
 {
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
+
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $nameClub;
+    private $username;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min="2",minMessage="la ville doit faire au moins 2 caracteres")
+
+     */
+    private $villeClub;
+
+    /**
+     * @ORM\Column(type="string", length=10, nullable=true)
+     * @Assert\Length(min="5", max="5", minMessage="le code postal doit faire 5 chiffres")
+
+     */
+    private $codePostalClub;
+
+
+
+    /**
+     * @ORM\Column(type="string", length=10, nullable=true)
+     * @Assert\Length(min="10", max="10", minMessage="Votre mot de passe doit faire au moins 6 caracteres")
+
+     */
+    private $phoneClub;
+
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min="2", minMessage="Votre prenom doit faire au moins 2 caracteres")
      */
     private $nameClubOwner;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string|null
+     *
+     * @ORM\Column(name="password", type="string", length=100, nullable=true)
+     * @Assert\Length(min="6", minMessage="Votre mot de passe doit faire au moins 6 caracteres")
+     * @Assert\EqualTo(propertyPath="confirmPassword",message="vos deux mots de passe nes sont as les memes")
+     *
+     *
      */
-    private $passwordClub;
+    private $password;
+
+    /*
+      * @Assert\EqualTo(propertyPath="password", message="vos deux mots de passe nes sont as les memes")
+      */
+    public $confirmPassword;
+
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
+     *
      */
     private $emailClub;
 
-    /**
-     * @ORM\Column(type="string", length=10, nullable=true)
-     */
-    private $phoneClub;
+
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Team", mappedBy="club", orphanRemoval=true)
@@ -54,13 +97,22 @@ class Club
     private $competition;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Dancer", inversedBy="club")
+     * @var array
+     *
+     * @ORM\Column(type="json")
+     */
+    private $roles = ['ROLE_USER'];
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Dancer", mappedBy="club", orphanRemoval=true)
      */
     private $dancers;
+
 
     public function __construct()
     {
         $this->teams = new ArrayCollection();
+        $this->dancers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -68,14 +120,14 @@ class Club
         return $this->id;
     }
 
-    public function getNameClub(): ?string
+    public function getUsername(): ?string
     {
-        return $this->nameClub;
+        return $this->username;
     }
 
-    public function setNameClub(string $nameClub): self
+    public function setUsername(string $username): self
     {
-        $this->nameClub = $nameClub;
+        $this->username = $username;
 
         return $this;
     }
@@ -92,14 +144,14 @@ class Club
         return $this;
     }
 
-    public function getPasswordClub(): ?string
+    public function getPassword(): ?string
     {
-        return $this->passwordClub;
+        return $this->password;
     }
 
-    public function setPasswordClub(string $passwordClub): self
+    public function setPassword(string $password): self
     {
-        $this->passwordClub = $passwordClub;
+        $this->password = $password;
 
         return $this;
     }
@@ -171,15 +223,149 @@ class Club
         return $this;
     }
 
-    public function getDancers(): ?Dancer
+
+    /**
+     * Returns the salt that was originally used to encode the password.
+     *
+     * This can return null if the password was not encoded using a salt.
+     *
+     * @return string|null The salt
+     */
+    public function getSalt()
+    {
+        // TODO: Implement getSalt() method.
+    }
+
+    /**
+     * Returns the username used to authenticate the user.
+     *
+     * @return string The username
+     */
+
+
+    /**
+     * Removes sensitive data from the user.
+     *
+     * This is important if, at any given point, sensitive information like
+     * the plain-text password is stored on this object.
+     */
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
+    }
+
+
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->username,
+            $this->nameClubOwner,
+            $this->villeClub,
+            $this->codePostalClub,
+            $this->password,
+            $this->emailClub,
+            $this->phoneClub,
+            $this->roles
+        ));
+    }
+
+    public function unserialize($serialized)
+    {
+        list(
+            $this->id,
+            $this->username,
+            $this->nameClubOwner,
+            $this->villeClub,
+            $this->codePostalClub,
+            $this->password,
+            $this->emailClub,
+            $this->phoneClub,
+            $this->roles
+
+            ) = unserialize($serialized);
+    }
+
+    /**
+     * Returns the roles granted to the user.
+     *
+     *     public function getRoles()
+     *     {
+     *         return array('ROLE_USER');
+     *     }
+     *
+     * Alternatively, the roles might be stored on a ``roles`` property,
+     * and populated in any number of different ways when the user object
+     * is created.
+     *
+     * @return (Role|string)[] The user roles
+     */
+    public function getRoles()
+    {
+        return $this->roles;
+    }
+
+    public function getVilleClub(): ?string
+    {
+        return $this->villeClub;
+    }
+
+    public function setVilleClub(string $villeClub): self
+    {
+        $this->villeClub = $villeClub;
+
+        return $this;
+    }
+
+    public function getCodePostalClub(): ?string
+    {
+        return $this->codePostalClub;
+    }
+
+    public function setCodePostalClub(?string $codePostalClub): self
+    {
+        $this->codePostalClub = $codePostalClub;
+
+        return $this;
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Dancer[]
+     */
+    public function getDancers(): Collection
     {
         return $this->dancers;
     }
 
-    public function setDancers(?Dancer $dancers): self
+    public function addDancer(Dancer $dancer): self
     {
-        $this->dancers = $dancers;
+        if (!$this->dancers->contains($dancer)) {
+            $this->dancers[] = $dancer;
+            $dancer->setClub($this);
+        }
 
         return $this;
     }
+
+    public function removeDancer(Dancer $dancer): self
+    {
+        if ($this->dancers->contains($dancer)) {
+            $this->dancers->removeElement($dancer);
+            // set the owning side to null (unless already changed)
+            if ($dancer->getClub() === $this) {
+                $dancer->setClub(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 }

@@ -3,11 +3,12 @@
 {% block body %}
     Contenu Page2
     <a target="_blank" href="{{ path('createSamplePDF') }}">Créer un PDF</a>
-    {% for dancer in dancers %}
-        <p>{{ dancer.nameDancer }} {{ dancer.firstNameDancer }}
-            <a target="_blank" href="{{ path('createDossard', {id: dancer.id}) }}">
-                Dossard</a>
+    {% for team in user.teams if user.teams is not empty %}
+        <p>
+            <a target="_blank" href="{{ path('createDossard', {id: team.id}) }}"> Dossard de l'Équipe : {{ team.id }}</a>
         </p>
+    {% else %}
+        <p>Il vous faut créer une équipe</p>
     {% endfor %}
 {% endblock %}
 

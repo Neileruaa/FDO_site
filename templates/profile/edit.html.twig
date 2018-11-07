@@ -1,0 +1,39 @@
+
+{% block title %}   modifier profil  {% endblock %}
+
+{% block body %}
+
+
+{#
+
+    <form action="{{ path('profile.show') }}" method="POST">
+
+        <input type="hidden"  name="id" value="{{ profil.getId() }}">
+        <br>  <input type="text"  name="username" value="{{ profil.getUsername() }}">
+        <br> <input type="text"  name="nameClubOwner" value="{{ profil.getNameClubOwner() }}">
+        <br> <input type="text"  name="villeClub" value="{{ profil.getVilleClub() }}">
+        <br> <input type="text"  name="codePostalClub" value="{{ profil.getCodePostalClub() }}">
+        <br> <input type="text"  name="phoneClub" value="{{ profil.getPhoneClub() }}">
+        <br> <input type="text"  name="emailClub" value="{{ profil.getEmailClub() }}">
+
+        <br>
+        <input  type="submit" value="valider">
+    </form>
+#}
+
+    {{ form_start(form) }}
+{{ form_widget(form) }}
+
+
+    {{ form_end(form) }}
+
+
+
+
+{% endblock %}
+
+
+
+
+
+

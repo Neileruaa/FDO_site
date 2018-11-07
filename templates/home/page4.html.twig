@@ -3,12 +3,14 @@
 {% block body %}
 Contenu Page4
 
-    {{ form(formDanseur) }}
-    {% for dancers in listDancer %}
-        {{ dancers.nameDancer }} {{ dancers.firstNameDancer }}
-        |<a href="{{ path('dancer_removeDancer', {'id': dancers.id }) }}">
-            Supprimer</a>
+    {{ form(formDanseur, {'attr': {'novalidate': 'novalidate'}}) }}
+    {% for dancer in club.dancers if club.dancers is not empty %}
+        {{ dancer.nameDancer }} {{ dancer.firstNameDancer }}
+        |<a href="{{ path('dancer_removeDancer', {'id': dancer.id }) }}">
+        Supprimer</a>
         <br>
+    {% else %}
+        <p>Pas de danseurs dans ce club</p>
     {% endfor %}
 {% endblock %}
 

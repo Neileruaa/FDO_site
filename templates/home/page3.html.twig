@@ -3,10 +3,15 @@
 {% block body %}
     Page de création d'équipe.<br>
     {{ form(formEquipe) }}
+
+
+    {{ form(form) }}
+
     <hr>
-    {% for equipe in listEquipe %}
-        Equipe{{ equipe.id }}| <a href="{{ path('Equipe_description', {'id': equipe.id}) }}">Voir</a>
-        <br>
+    {% for team in club.teams if club.teams is not empty %}
+        Equipe{{ team.id }}|<a href="{{ path('Equipe_description', {'id': team.id}) }}">Voir</a>
+    {% else %}
+        <p>Pas de d'équipe dans ce club</p>
     {% endfor %}
 {% endblock %}
 

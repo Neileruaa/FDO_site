@@ -1,6 +1,7 @@
 security:
+    access_denied_url: /
     encoders:
-        App\Entity\User:
+        App\Entity\Club:
             algorithm: bcrypt
 
 
@@ -12,8 +13,8 @@ security:
 
         in_database:
             entity:
-                class: App\Entity\User
-                property: username
+                class: App\Entity\Club
+                property: emailClub
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -40,11 +41,11 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-    - { path: ^/admin, roles: ROLE_ADMIN }
+    - { path: ^/admin,  allow_if: "has_role('ROLE_USER')"  }
     - { path: ^/member, roles:  [ROLE_ADMIN, ROLE_USER] }
     - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY}
     - { path: ^/page2, roles:  [ROLE_ADMIN, ROLE_USER] }
     - { path: ^/page3, roles:  [ROLE_ADMIN, ROLE_USER] }
-    - { path: ^/page4, roles: [ROLE_ADMIN]  }
+    - { path: ^/page4,   roles: [ROLE_ADMIN, ROLE_USER] }
 
 

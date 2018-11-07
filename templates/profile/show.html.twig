@@ -1,0 +1,29 @@
+
+{% block body %}
+
+{#   {{ dump(users) }}   #}
+    affichage du profil
+
+    <br>
+
+
+
+id du club :{{ users.getId() }} <br>
+nom du club :{{ users.getUsername() }} <br>
+ ville :{{ users.getVilleClub() }} <br>
+code postal : {{ users.getCodePostalClub() }} <br>
+gerant du club : {{ users.getNameClubOwner() }} <br>
+email :{{ users.getEmailClub() }} <br>
+
+
+<form action="{{ path('profile.edit') }}">
+    <button type="submit" class="btn btn-success">modifier profil</button>
+</form>
+    <form action="{{ path('profile.delete') }}">
+        <button type="submit" class="btn btn-success">supprimer profil</button>
+    </form>
+
+
+{% endblock %}
+
+

@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
+use App\Entity\Club;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -18,16 +18,16 @@ class SecurityController extends Controller
      */
     public function registration(Request $request, ObjectManager $manager,UserPasswordEncoderInterface $encoder )
     {
-        $user=new User();
-        $form=$this->createForm(RegistrationType::class,$user);
+        $club=new Club();
+        $form=$this->createForm(RegistrationType::class,$club);
 
 
         $form->handleRequest($request);
         if ($form->isSubmitted()&& $form->isValid()){
-            $hash=$encoder->encodePassword($user,$user->getPassword());
-            $user->setPassword($hash);
+            $hash=$encoder->encodePassword($club,$club->getPassword());
+            $club->setPassword($hash);
 
-            $manager->persist($user);
+            $manager->persist($club);
             $manager->flush();
 
             return $this->redirectToRoute('security.login');
@@ -40,7 +40,7 @@ class SecurityController extends Controller
     /**
      * @Route("/login", name="security.login")
      */
-    public function login(Request $request, ObjectManager $manager)
+    public function login()
     {
 
 

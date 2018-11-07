@@ -36,15 +36,11 @@ class HomeController extends Controller {
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
 	public function page2(Request $request) {
-		$em = $this->getDoctrine()->getManager();
-		$list_dancers = $em->getRepository(Dancer::class)
-			->findAll();
-
-
-
+		$user= $this->getUser();
 		return $this->render(
-			'home/page2.html.twig',
-			array('dancers'=>$list_dancers)
+			'home/page2.html.twig',[
+				"user"=>$user
+			]
 		);
 	}
 
@@ -153,12 +149,16 @@ class HomeController extends Controller {
 
 	/**
 	 * @Route("/createDossard/{id}", name="createDossard", requirements={"id" = "\d+"})
+	 * @param Team $team
+	 * @return Response
 	 */
-	public function createDossard(Dancer $dancer){
-		$pdf = $this->createDossardPDF($dancer->getId(),
-			$dancer->getNameDancer(),
-			'ClubDanseMulhouse',
-			'Solo HipHop Junior');
+	public function createDossard(Team $team){
+		$pdf = $this->createDossardPDF($team->getId(),
+			$team->getDancers(),
+			//TODO:Faire un champs nom clubs dans l'entité
+			$team->getClub()->getNameClubOwner(),
+			//TODO Comment afficher la bonne dance+categorie car plusieurs
+			'tango argentino Junior TODO ');
 
 		return new Response(
 			$pdf->Output(),
@@ -183,10 +183,14 @@ class HomeController extends Controller {
 		$pdf->Cell(0, $height, $id, 1, 0 , 'C');
 		$pdf->Image($logo,10,12,40);
 		$pdf->SetFont('Arial','', 20);
-		$pdf->Text(10, 148-10 , utf8_decode($nom));
+		$namesToPrint="";
+		foreach ($nom as $dancer){
+			$namesToPrint.= $dancer->getNameDancer()." ";
+		}
+		$pdf->Text(10, 148-10 , utf8_decode($namesToPrint));
 		$pdf->Text(210-10-$pdf->GetStringWidth(utf8_decode($club)),16, utf8_decode($club));
 		//Partie catégorie
-		$pdf->SetFont('Times', 'B', 48);
+		$pdf->SetFont('Times', 'B', 38);
 		$pdf->Text(($pdf->GetPageWidth()/2)-($pdf->GetStringWidth(utf8_decode($categorie)))/2, $height-10, utf8_decode($categorie));
 		return $pdf;
 	}

@@ -22,8 +22,25 @@ class SecurityController extends Controller
         $form=$this->createForm(RegistrationType::class,$club);
 
 
+
+        $mail = $request->request->get('form[emailClub]');
+        $em= $this->container->get('doctrine')->getManager();
+        $repository = $em->getRepository(Club::class)->findBy(array('emailClub' => $mail));
+        $msgErreurEmail = "";
+
+if($form->isSubmitted()) {
+    if (!empty($repository)) {
+
+        $msgErreurEmail = "cette email existe deja  ";
+    } else {
+        $msgErreurEmail = "";
+    }
+
+
+}
+
         $form->handleRequest($request);
-        if ($form->isSubmitted()&& $form->isValid()){
+        if ($form->isSubmitted()&& $form->isValid() && empty($repository)){
             $hash=$encoder->encodePassword($club,$club->getPassword());
             $club->setPassword($hash);
 
@@ -33,7 +50,7 @@ class SecurityController extends Controller
             return $this->redirectToRoute('security.login');
         }
 
-        return $this->render('security/registration.html.twig', ['form'=>$form->createView() ]);
+        return $this->render('security/registration.html.twig', ['form'=>$form->createView() , 'msg'=> $msgErreurEmail]);
     }
 
 

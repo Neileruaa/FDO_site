@@ -35,12 +35,13 @@ class Club implements UserInterface, \Serializable
      * @Assert\Length(min="2",minMessage="la ville doit faire au moins 2 caracteres")
 
      */
+
+
     private $villeClub;
 
     /**
      * @ORM\Column(type="string", length=10, nullable=true)
      * @Assert\Length(min="5", max="5", minMessage="le code postal doit faire 5 chiffres")
-
      */
     private $codePostalClub;
 

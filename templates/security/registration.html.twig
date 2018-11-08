@@ -1,10 +1,13 @@
 {% extends 'base.html.twig' %}
 
+
 {% block title %}Hello{% endblock %}
 
 {% block body %}
 
     <h1> inscription</h1>
+
+
 
 
     {{ form_start(form) }}
@@ -16,6 +19,7 @@
     {{ form_row(form.password,{'attr':{'placeholder':'mot de passe'}}) }}
     {{ form_row(form.confirmPassword,{'attr':{'placeholder':'confirmer votre mot de passe'}}) }}
     {{ form_row(form.emailClub,{'attr':{'placeholder':'entrez votre mail '}}) }}
+    {{ msg }}
     {{ form_row(form.phoneClub,{'attr':{'placeholder':'entrez votre numero de telephone'}}) }}
 
 

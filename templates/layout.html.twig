@@ -22,13 +22,40 @@
 {% endblock %}
 
 {% block footer %}
-    <footer class="footer">
+    <footer>
+        <section id="contact">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto text-center">
+                        <h2 class="section-heading">Contact</h2>
+                        <hr class="my-4">
+                        <p class="mb-5">Par Aurélien DREY, Antoine HEITZMANN, Raphael IENCO, Gauvain PATAKY, Olivier SALFRANC, Mattéo BILLET et l'IUT de Belfort-Montbéliard.
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 ml-auto text-center">
+                        <i class="fas fa-phone fa-3x mb-3 sr-contact-1"></i>
+                        <p>06 00 00 00 00</p>
+                    </div>
+                    <div class="col-lg-4 mr-auto text-center">
+                        <i class="fas fa-envelope fa-3x mb-3 sr-contact-2"></i>
+                        <p>
+                            <a href="mailto:your-email@your-domain.com">feedback@francedanceorganisation.com</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </footer>
+
+    {#<footer class="footer">
         <div id="footer-image"></div>
         <div id="contenuFooter">
             {{ parent() }}
             <br>
             Par Aurélien DREY, Antoine HEITZMANN, Raphael IENCO, Gauvain PATAKY, Olivier SALFRANC, Mattéo BILLET et l'IUT de Belfort-Montbéliard.
         </div>
-    </footer>
+    </footer>#}
 
 {% endblock %}

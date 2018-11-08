@@ -25,7 +25,7 @@ class RegistrationType extends AbstractType
             ->add('confirmPassword',PasswordType::class)
             ->add('emailClub', EmailType::class)
             ->add('phoneClub',TextType::class)
-            //->add('valider', SubmitType::class)
+
         ;
     }
 

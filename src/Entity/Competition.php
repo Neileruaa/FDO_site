@@ -11,12 +11,14 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Competition
 {
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
     private $id;
+
 
     /**
      * @ORM\Column(type="date")
@@ -27,6 +29,7 @@ class Competition
      * @ORM\ManyToMany(targetEntity="App\Entity\Team", inversedBy="competitions")
      */
     private $teams;
+
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Place", mappedBy="competition")
@@ -50,6 +53,8 @@ class Competition
         $this->dances = new ArrayCollection();
         $this->clubOrganizer = new ArrayCollection();
     }
+
+
 
     public function getId(): ?int
     {

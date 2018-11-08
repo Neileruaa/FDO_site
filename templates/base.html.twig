@@ -31,7 +31,9 @@
                 <a class="navbar-item" href="{{ path('page2') }}"><i class="fas fa-print"></i>PDF</a>
                 <a class="navbar-item" href="{{ path('page3') }}"><i class="fas fa-users"></i>Créer une équipe</a>
                 <a class="navbar-item" href="{{ path('page4') }}"><i class="fas fa-user-edit"></i>Ajouter un danseur</a>
+
                 {% if is_granted('ROLE_USER')  %}
+                    <a class="navbar-item" href="{{ path('profile.show') }}">voir profil</a>
                 <a class="navbar-item" href="{{ path('Ticket.addTicket') }}">Envoyer un ticket</a>
                 {% endif %}
                 {% if is_granted('ROLE_ADMIN') %}
@@ -46,10 +48,10 @@
                         <div class="navbar-dropdown is-right">
 
                             {#<h2 class="title is-6"><i class="fas fa-toolbox"></i>Menu administrateur</h2>
-                            #}<a class="navbar-item" href="creationCompetition">  création de competition </a>
+                            #}<a class="navbar-item" href="{{ path('admin.createCompetition') }}">  création de competition </a>
                             <a class="navbar-item" href="{{ path('admin.showDossard') }}">confirmation dossards</a>
                             <a class="navbar-item" href="/mailBox">boite mail</a>
-                            <a class="navbar-item" href="{{ path('profile.show') }}">voir profil</a>
+
 
                         </div>
                     </div>

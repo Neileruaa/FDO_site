@@ -31,12 +31,6 @@ class Place
      */
     private $PostalCode;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Competition", inversedBy="place")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $competition;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -78,15 +72,5 @@ class Place
         return $this;
     }
 
-    public function getCompetition(): ?Competition
-    {
-        return $this->competition;
-    }
 
-    public function setCompetition(?Competition $competition): self
-    {
-        $this->competition = $competition;
-
-        return $this;
-    }
 }

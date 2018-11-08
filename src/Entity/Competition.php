@@ -27,17 +27,20 @@ class Competition
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Team", inversedBy="competitions")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $teams;
 
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Place", mappedBy="competition")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $place;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Dance")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $dances;
 

@@ -32,8 +32,10 @@
                 <a class="navbar-item" href="{{ path('page3') }}"><i class="fas fa-users"></i>Créer une équipe</a>
                 <a class="navbar-item" href="{{ path('page4') }}"><i class="fas fa-user-edit"></i>Ajouter un danseur</a>
 
+                {%  if  app.user  %}
+                <a class="navbar-item" href="{{ path('profile.show') }}">voir profil</a>
+                {% endif %}
                 {% if is_granted('ROLE_USER')  %}
-                    <a class="navbar-item" href="{{ path('profile.show') }}">voir profil</a>
                 <a class="navbar-item" href="{{ path('Ticket.addTicket') }}">Envoyer un ticket</a>
                 {% endif %}
                 {% if is_granted('ROLE_ADMIN') %}

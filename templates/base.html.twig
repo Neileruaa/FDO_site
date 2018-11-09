@@ -4,20 +4,121 @@
     <meta charset="UTF-8">
     <title>{% block title %}Welcome!{% endblock %}</title>
     {% block stylesheets %}
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+        {#<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
         <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js">
         </script>
-        <link rel="stylesheet" href="{{ asset('layout.css') }}">
+        <link rel="stylesheet" href="{{ asset('layout.css') }}">#}
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+        <link rel="stylesheet" href="{{ asset('creative.css') }}">#}
     {% endblock %}
 </head>
 <body>
 {% block header %}
-    <figure class="image">
+    {#<figure class="image">
         <img  src="{{ asset('Images/bandeau.png') }}" width="1000" height="109">
-    </figure>
+    </figure>#}
+    <header class="masthead text-center text-black d-flex">
+        <div class="container my-auto">
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <h1 class="text-uppercase">
+                        <strong>France Dance Organisation</strong>
+                    </h1>
+                    <hr>
+                </div>
+                <div class="col-lg-8 mx-auto">
+                    <p class="text-faded mb-5">Bienvenue sur le site de la France Dance Organisation !</p>
+                    <a class="btn btn-primary btn-xl js-scroll-trigger" href="">Plus d'informations</a>
+                </div>
+            </div>
+        </div>
+    </header>
 {% endblock %}
 {% block navigation %}
-     <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="">
+                <img src="{{ asset('Images/logo_fdo.jpg') }}" width="143" height="60" class="d-inline-block align-top" alt="">
+            </a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="{{ path('home') }}"><i class="fas fa-home"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="{{ path('page2') }}"><i class="fas fa-print"></i> PDF</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="{{ path('page3') }}"><i class="fas fa-users"></i> Créer une équipe</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="{{ path('page4') }}"><i class="fas fa-user-edit"></i> Ajouter un danseur</a>
+                    </li>
+                    {% if is_granted('ROLE_USER')  %}
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="{{ path('Ticket.addTicket') }}"><i class="fas fa-envelope-open-text"></i> Envoyer un ticket</a>
+                        </li>
+                    {% endif %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="{{ path('Ticket.showTicket') }}"><i class="fas fa-envelope"></i> Messagerie</a>
+                        </li>
+                    {% endif %}
+                    {% if is_granted('ROLE_ADMIN') %}{# si on est admin, affiche la navBar de l'admin#}
+                    <hr>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-toolbox"></i>
+                                <strong>Menu club</strong>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="creationCompetition">création de competition</a>
+                                <a class="dropdown-item" href="/validDossard">confirmation dossards</a>
+                                <a class="dropdown-item" href="/mailBox">boite mail</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/profil">voir profil</a>
+                            </div>
+                        </li>
+                    {#<div class="navbar-item has-dropdown is-hoverable">
+                        <a class="navbar-link"><i class="fas fa-toolbox"></i>
+                            <strong>Menu club</strong>
+                        </a>
+                        <div class="navbar-dropdown is-right">
+
+                            #}{#<h2 class="title is-6"><i class="fas fa-toolbox"></i>Menu administrateur</h2>
+                            #}{#<a class="navbar-item" href="creationCompetition">  création de competition </a>
+                            <a class="navbar-item" href="/validDossard">confirmation dossards</a>
+                            <a class="navbar-item" href="/mailBox">boite mail</a>
+                            <a class="navbar-item" href="/profil">voir profil</a>
+
+                        </div>
+                    </div>#}
+                    <hr>
+                    {% endif %}
+
+                    {%  if not app.user  %}
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="/login" ><i class="fa fa-sign-out-alt"></i> Connexion !</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="/logout" ><i class="fa fa-sign-out-alt"></i> Deconnexion !</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+     {#<nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
             <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" onclick="document.querySelector('.navbar-menu').classList.toggle('is-active');">
                 <span aria-hidden="true"></span>
@@ -31,17 +132,13 @@
                 <a class="navbar-item" href="{{ path('page2') }}"><i class="fas fa-print"></i>PDF</a>
                 <a class="navbar-item" href="{{ path('page3') }}"><i class="fas fa-users"></i>Créer une équipe</a>
                 <a class="navbar-item" href="{{ path('page4') }}"><i class="fas fa-user-edit"></i>Ajouter un danseur</a>
-
-                {%  if  app.user  %}
-                <a class="navbar-item" href="{{ path('profile.show') }}">voir profil</a>
-                {% endif %}
                 {% if is_granted('ROLE_USER')  %}
                 <a class="navbar-item" href="{{ path('Ticket.addTicket') }}">Envoyer un ticket</a>
                 {% endif %}
                 {% if is_granted('ROLE_ADMIN') %}
                 <a class="navbar-item" href="{{ path('Ticket.showTicket') }}">Messagerie</a>
                 {% endif %}
-                {% if is_granted('ROLE_ADMIN') %} {# si on est admin, affiche la navBar de l'admin#}
+                {% if is_granted('ROLE_ADMIN') %} #}{# si on est admin, affiche la navBar de l'admin#}{#
                     <hr>
                     <div class="navbar-item has-dropdown is-hoverable">
                         <a class="navbar-link"><i class="fas fa-toolbox"></i>
@@ -49,11 +146,11 @@
                         </a>
                         <div class="navbar-dropdown is-right">
 
-                            {#<h2 class="title is-6"><i class="fas fa-toolbox"></i>Menu administrateur</h2>
-                            #}<a class="navbar-item" href="{{ path('admin.createCompetition') }}">  création de competition </a>
-                            <a class="navbar-item" href="{{ path('admin.showDossard') }}">confirmation dossards</a>
+                            #}{#<h2 class="title is-6"><i class="fas fa-toolbox"></i>Menu administrateur</h2>
+                            #}{#<a class="navbar-item" href="creationCompetition">  création de competition </a>
+                            <a class="navbar-item" href="/validDossard">confirmation dossards</a>
                             <a class="navbar-item" href="/mailBox">boite mail</a>
-
+                            <a class="navbar-item" href="/profil">voir profil</a>
 
                         </div>
                     </div>
@@ -96,10 +193,11 @@
         </div>
 
 
-    </nav>
+    </nav>#}
 {% endblock %}
 
 {% block body %}
+
 
 {% endblock %}
 
@@ -107,7 +205,13 @@
 
 {% endblock %}
 
-{% block javascripts %}{% endblock %}
+{% block javascripts %}
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    {#les script javascript Jquery a mettre ici ?#} {% endblock %}
 </body>
 </html>
 

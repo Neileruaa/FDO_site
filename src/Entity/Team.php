@@ -179,4 +179,15 @@ class Team
 
         return $this;
     }
+
+    public function countDancers()
+    {
+        $i=0;
+        foreach ($this->dancers as $nbDancers){
+            $i+=1;
+        }
+        return $i;
+    }
+
+
 }

@@ -14,6 +14,8 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class ProfileController extends AbstractController
 {
+
+
     /**
      * @Route("/profile", name="profile")
      */
@@ -45,8 +47,6 @@ class ProfileController extends AbstractController
         return $this->render('profile/delete.html.twig');
     }
 
-
-
     /**
      * @Route("/profile/validDelete", name="profile.validDelete")
      */
@@ -61,7 +61,7 @@ class ProfileController extends AbstractController
         $em->remove($profilSupp);
 
         $em->flush();
-        $this->get('security.token_storage')->setToken(null);
+
 
        return $this->redirectToRoute('home');
     }

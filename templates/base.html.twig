@@ -79,11 +79,12 @@
                                 <strong>Menu club</strong>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="creationCompetition">création de competition</a>
-                                <a class="dropdown-item" href="/validDossard">confirmation dossards</a>
+                                <a class="dropdown-item" href="{{ path('admin.createCompetition') }}">création de competition</a>
+                                <a class="dropdown-item" href="{{ path('admin.validDossard') }}">confirmation dossards</a>
+                                <a class="dropdown-item" href="{{ path('admin.surclassement') }}">surclasser une equipe</a>
                                 <a class="dropdown-item" href="/mailBox">boite mail</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="/profil">voir profil</a>
+                                <a class="dropdown-item" href="{{ path('profile.show') }}">voir profil</a>
                             </div>
                         </li>
                     {#<div class="navbar-item has-dropdown is-hoverable">

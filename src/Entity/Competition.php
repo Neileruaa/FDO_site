@@ -49,6 +49,8 @@ class Competition
      */
     private $clubOrganizer;
 
+
+
     public function __construct()
     {
         $this->teams = new ArrayCollection();
@@ -110,11 +112,11 @@ class Competition
         return $this->place;
     }
 
-    public function addPlace(Place $place): self
+    public function addPlace(Place $place)
     {
         if (!$this->place->contains($place)) {
             $this->place[] = $place;
-            $place->setCompetition($this);
+         //   $place->setCompetition($this);
         }
 
         return $this;

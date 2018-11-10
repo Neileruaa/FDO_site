@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Competition;
 use App\Entity\Mailbox;
+use App\Entity\Team;
 use App\Form\CompetitionType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -73,7 +74,19 @@ class AdminController extends AbstractController
     }
 
 
+    /**
+     * @Route("/admin/surclassement", name="admin.surclassement")
+     */
+    public function surclasserTeam(ObjectManager $manager)
+    {
+        $em= $this->container->get('doctrine')->getManager();
+        $repository = $em->getRepository(Team::class);
 
+        $allTeams = $repository->findAll();
+
+
+        return $this->render('admin/surclassement.html.twig', ['teams'=>$allTeams]  );
+    }
 
 
 }

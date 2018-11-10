@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -27,9 +29,22 @@ class Place
     private $addressPlace;
 
     /**
+     *
+     * @ORM\ManyToOne(targetEntity="App\Entity\Competition" , inversedBy="place" )
+     */
+    private $competition;
+
+
+    /**
      * @ORM\Column(type="integer")
      */
     private $PostalCode;
+
+    public function __construct()
+    {
+        $this->category = new ArrayCollection();
+        $this->competition = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -65,9 +80,40 @@ class Place
         return $this->PostalCode;
     }
 
+
     public function setPostalCode(int $PostalCode): self
     {
         $this->PostalCode = $PostalCode;
+
+        return $this;
+    }
+
+
+
+    /**
+     * @return Collection|Competition[]
+     */
+    public function getCompetition(): Collection
+    {
+        return $this->competition;
+    }
+
+    public function addCompetition(Category $competition): self
+    {
+        if (!$this->competition->contains($competition)) {
+            $this->competition[] = $competition;
+            $competition->addCompetition($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompetition(Category $competition): self
+    {
+        if ($this->competition->contains($competition)) {
+            $this->competition->removeElement($competition);
+            $competition->removeCompetition($this);
+        }
 
         return $this;
     }

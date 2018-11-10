@@ -15,34 +15,14 @@
     {% endblock %}
 </head>
 <body>
-{% block header %}
-    {#<figure class="image">
-        <img  src="{{ asset('Images/bandeau.png') }}" width="1000" height="109">
-    </figure>#}
-    <header class="masthead text-center text-black d-flex">
-        <div class="container my-auto">
-            <div class="row">
-                <div class="col-lg-10 mx-auto">
-                    <h1 class="text-uppercase">
-                        <strong>France Dance Organisation</strong>
-                    </h1>
-                    <hr>
-                </div>
-                <div class="col-lg-8 mx-auto">
-                    <p class="text-faded mb-5">Bienvenue sur le site de la France Dance Organisation !</p>
-                    <a class="btn btn-primary btn-xl js-scroll-trigger" href="">Plus d'informations</a>
-                </div>
-            </div>
-        </div>
-    </header>
-{% endblock %}
+
+
 {% block navigation %}
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top " id="mainNav">
         <div class="container">
-            <a class="navbar-brand js-scroll-trigger" href="">
-                <a href="{{ path('home') }}">                <img src="{{ asset('Images/logo_fdo.jpg') }}" width="143" height="60" class="d-inline-block align-top" alt="">
-                </a>
+            <a class="navbar-brand js-scroll-trigger" href="{{ path('home') }}">
+                    <img src="{{ asset('Images/logo_fdo.jpg') }}" width="143" height="60" class="d-inline-block align-top" alt="">
             </a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>

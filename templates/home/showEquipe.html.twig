@@ -1,6 +1,11 @@
 {% extends 'layout.html.twig' %}
 
 {% block body %}
+    {% block header %}
+        <header class="page-header mt-5">
+            <hr>
+        </header>
+    {% endblock %}
     <br>
     <a href="{{ path('page3') }}">Retour</a>
     <br><br><br>

@@ -1,6 +1,11 @@
 {% extends 'layout.html.twig' %}
 
 {% block body %}
+    {% block header %}
+        <header class="page-header mt-5">
+            <hr>
+        </header>
+    {% endblock %}
     {% for dossard in team.dances %}
         <a href="{{ path('createDossard', {id: team.id, dance:dossard.nameDance}) }}">Dossard pour {{ dossard.nameDance }}</a>
     {% endfor %}

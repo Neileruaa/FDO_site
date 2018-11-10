@@ -1,6 +1,11 @@
 {% extends 'layout.html.twig' %}
 
 {% block body %}
+    {% block header %}
+        <header class="page-header mt-5">
+            <hr>
+        </header>
+    {% endblock %}
     Contenu Page2
     <a target="_blank" href="{{ path('createSamplePDF') }}">Créer un PDF</a>
     {% for team in user.teams if user.teams is not empty %}

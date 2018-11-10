@@ -1,6 +1,14 @@
 {% extends 'layout.html.twig' %}
 
 {% block body %}
+    {% block header %}
+        <header class="page-header">
+            <h1 class="text-uppercase">
+                <strong>France Dance Organisation</strong>
+            </h1>
+            <hr>
+        </header>
+    {% endblock %}
 Contenu Page4
 
     {{ form(formDanseur, {'attr': {'novalidate': 'novalidate'}}) }}

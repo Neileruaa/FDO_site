@@ -44,7 +44,7 @@ class AdminController extends AbstractController
      */
     public function validDossard(ObjectManager $manager)
     {
-      return  $this->redirectToRoute('/');
+      return  $this->redirectToRoute('home');
     }
 
     /**

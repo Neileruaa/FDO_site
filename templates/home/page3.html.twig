@@ -6,7 +6,10 @@
             <hr>
         </header>
     {% endblock %}
-    Page de création d'équipe.<br>
+    {% form_theme form 'bootstrap_4_horizontal_layout.html.twig' %}
+    {% form_theme formEquipe 'bootstrap_4_horizontal_layout.html.twig' %}
+
+    <h1>Création d'équipe</h1><br>
     {{ form(formEquipe) }}
 
 

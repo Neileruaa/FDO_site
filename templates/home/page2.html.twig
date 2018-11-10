@@ -6,7 +6,7 @@
             <hr>
         </header>
     {% endblock %}
-    Contenu Page2
+    <h1>Page d'impression de PDF</h1>
     <a target="_blank" href="{{ path('createSamplePDF') }}">Créer un PDF</a>
     {% for team in user.teams if user.teams is not empty %}
         <p>

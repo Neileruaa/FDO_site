@@ -9,8 +9,8 @@
             <hr>
         </header>
     {% endblock %}
-Contenu Page4
-
+        <h1>Ajouter un danseur</h1>
+    {% form_theme formDanseur 'bootstrap_4_horizontal_layout.html.twig' %}
     {{ form(formDanseur, {'attr': {'novalidate': 'novalidate'}}) }}
     {% for dancer in club.dancers if club.dancers is not empty %}
         {{ dancer.nameDancer }} {{ dancer.firstNameDancer }}

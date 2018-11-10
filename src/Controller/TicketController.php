@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Ticket;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -26,7 +27,9 @@ class TicketController extends AbstractController
      * @Route("/show/ticket" , name="Ticket.showTicket")
      */
     public function showTicket(){
-        return $this->render('ticket/showTicket.html.twig');
+        $em=$this->getDoctrine()->getManager();
+        $tickets=$em->getRepository(Ticket::class)->findAll();
+        return $this->render('ticket/showTicket.html.twig',['tickets'=>$tickets]);
     }
 
 }

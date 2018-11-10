@@ -1,8 +1,36 @@
-{% extends 'layout.html.twig' %}
-
-{% block title %}Messagerie{% endblock %}
-
+{% extends "base.html.twig" %}
 {% block body %}
-    <h1 class="title is-1 ">Recapitulatif des tickets</h1>
-    voici vos tickets
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        {% if is_granted('ROLE_ADMIN') %}
+        <div class="container">
+    <div>
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th>nom du club</th><th>objet</th><th>operations</th>
+            </tr>
+            </thead>
+            {% for ticket in tickets if tickets is not empty %}
+            <tbody>
+            <tr>
+                <td>{{ticket.nomClub}} </td>
+                <td>{{ ticket.objet }}</td>
+
+                    <td>
+                        <a href="" class="btn btn-primary">Consulter</a>
+                        <a href="" class="btn btn-primary">Repondre</a>
+                        <a href="" class="btn btn-danger">Supprimer</a>
+                    </td>
+            </tr>
+            {% else %}
+                <tr class="table-warning"><td>Pas de messages</td></tr>
+            {% endfor %}
+            <tbody>
+        </table>
+        {% else %}
+        <h2>Vous ne pouvez pas accèder à cette page , vous n'êtes pas l'administrateur</h2>
+        {% endif %}
+    </div>
+    </div>
+    {% endif %}
 {% endblock %}

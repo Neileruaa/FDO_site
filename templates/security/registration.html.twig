@@ -1,8 +1,15 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
 {% block title %}Hello{% endblock %}
+{#{% block stylesheets %}
+    {{ parent() }}
+
+{% endblock %}#}
 
 {% block body %}
+    {#{% form_theme form 'form/fields.html.twig' %}#}
+    {% form_theme form 'bootstrap_4_horizontal_layout.html.twig' %}
+
     {% block header %}
         <header class="page-header mt-5">
             <hr>
@@ -13,8 +20,20 @@
 
 
     {{ form_start(form) }}
-
-    {{ form_row(form.username,{'attr':{'placeholder':'entrez le nom du club'}}) }}
+    {#<div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">@{{ form_label(form.username) }}</span>
+            #}{#{{ form_row(form.username,{attr:{'placeholder':'entrez le nom du club'} }) }}#}{#
+        </div>
+        {{ form_errors(form.username) }}
+        {{ form_widget(form.username,{attr:{'placeholder':'entrez le nom du club'}} ) }}
+        {{ form_help(form.username) }}
+        #}{#{{ form_row(form.username,{'attr':{'placeholder':'entrez le nom du club',class:'form-control'},'label_attr': {class: 'input-group-text'} }) }}#}{#
+    </div>#}
+    {#<div class="form-group">
+        {{ form_row(form.username,{attr:{'placeholder':'entrez le nom du club'} }) }}
+    </div>#}
+    {{ form_row(form.username,{attr:{'placeholder':'entrez le nom du club'} }) }}
     {{ form_row(form.nameClubOwner,{'attr':{'placeholder':'entrez le nom du gerant du club'}}) }}
     {{ form_row(form.villeClub,{'attr':{'placeholder':'entrez votre ville'}}) }}
     {{ form_row(form.codePostalClub,{'attr':{'placeholder':'entrez le codePostal de votre ville'}}) }}
@@ -26,5 +45,5 @@
 
 
     <button type="submit" class="btn btn-success">Valider</button>
-    {{ form_end(form) }}
+    {#{{ form_end(form) }}#}
 {% endblock %}

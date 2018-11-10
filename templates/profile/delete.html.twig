@@ -4,12 +4,12 @@
 {% block body %}
 
     <div >
-        <h1> Etes vous certain de vouloir supprimer ce profil ? cette action sera definitive !</h1>
+        <h2> Etes vous certain de vouloir supprimer ce profil ? cette action sera definitive !</h2>
 
-        <form action="{{ path('profile.validDelete') }}">
+        <form action="" name="delete" method="POST" >
             <button type="submit" class="btn btn-success">OUI</button>
         </form>
-        <form action="{{ path('profile.show') }}">
+        <form action="{{ path('profile.show') }}" name="back" method="POST">
             <button type="submit" class="btn btn-success">NON</button>
         </form>
 

@@ -40,33 +40,28 @@ class ProfileController extends AbstractController
     /**
      * @Route("/profile/delete", name="profile.delete")
      */
-    public function deleteProfile()
+    public function deleteProfile(Request $request,EntityManagerInterface $em)
     {
+        $a= $request->request->get('delete');
+if ( $a !=null) {
+
+    $profilSupp= $this->get('security.token_storage')->getToken()->getUser();
+    $em->remove($profilSupp);
+    $em->flush();
+
+    return $this->redirectToRoute('home');
 
 
-        return $this->render('profile/delete.html.twig');
-    }
+} elseif ( $request->request->get('back')){
+    return $this->redirectToRoute('profile.show');
 
-    /**
-     * @Route("/profile/validDelete", name="profile.validDelete")
-     */
-    public function validDeleteProfile(EntityManagerInterface $em)
-    {
-      //  $id= $this->get('security.token_storage')->getToken()->getUser()->getId();
+}
+
+    return $this->render('profile/delete.html.twig');
 
 
 
-       $profilSupp= $this->get('security.token_storage')->getToken()->getUser();
-
-        $em->remove($profilSupp);
-
-        $em->flush();
-
-
-       return $this->redirectToRoute('home');
-    }
-
-
+}
     /**
      * @Route("/profile/edit", name="profile.edit")
      */

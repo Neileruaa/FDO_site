@@ -8,42 +8,41 @@
 
 {% block body %}
     {#{% form_theme form 'form/fields.html.twig' %}#}
-    {% form_theme form 'bootstrap_4_horizontal_layout.html.twig' %}
+    {#{% form_theme form 'bootstrap_4_horizontal_layout.html.twig' %}#}
 
     {% block header %}
         <header class="page-header mt-5">
             <hr>
         </header>
     {% endblock %}
+    <div class="container">
+        <h1> inscription</h1>
 
-    <h1> inscription</h1>
 
-
-    {{ form_start(form) }}
-    {#<div class="input-group mb-3">
-        <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon1">@{{ form_label(form.username) }}</span>
-            #}{#{{ form_row(form.username,{attr:{'placeholder':'entrez le nom du club'} }) }}#}{#
-        </div>
-        {{ form_errors(form.username) }}
-        {{ form_widget(form.username,{attr:{'placeholder':'entrez le nom du club'}} ) }}
-        {{ form_help(form.username) }}
-        #}{#{{ form_row(form.username,{'attr':{'placeholder':'entrez le nom du club',class:'form-control'},'label_attr': {class: 'input-group-text'} }) }}#}{#
-    </div>#}
-    {#<div class="form-group">
+        {{ form_start(form) }}
+        {#<div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">@{{ form_label(form.username) }}</span>
+                #}{#{{ form_row(form.username,{attr:{'placeholder':'entrez le nom du club'} }) }}#}{#
+            </div>
+            {{ form_errors(form.username) }}
+            {{ form_widget(form.username,{attr:{'placeholder':'entrez le nom du club'}} ) }}
+            {{ form_help(form.username) }}
+            #}{#{{ form_row(form.username,{'attr':{'placeholder':'entrez le nom du club',class:'form-control'},'label_attr': {class: 'input-group-text'} }) }}#}{#
+        </div>#}
+        {#<div class="form-group">
+            {{ form_row(form.username,{attr:{'placeholder':'entrez le nom du club'} }) }}
+        </div>#}
         {{ form_row(form.username,{attr:{'placeholder':'entrez le nom du club'} }) }}
-    </div>#}
-    {{ form_row(form.username,{attr:{'placeholder':'entrez le nom du club'} }) }}
-    {{ form_row(form.nameClubOwner,{'attr':{'placeholder':'entrez le nom du gerant du club'}}) }}
-    {{ form_row(form.villeClub,{'attr':{'placeholder':'entrez votre ville'}}) }}
-    {{ form_row(form.codePostalClub,{'attr':{'placeholder':'entrez le codePostal de votre ville'}}) }}
-    {{ form_row(form.password,{'attr':{'placeholder':'mot de passe'}}) }}
-    {{ form_row(form.confirmPassword,{'attr':{'placeholder':'confirmer votre mot de passe'}}) }}
-    {{ form_row(form.emailClub,{'attr':{'placeholder':'entrez votre mail '}}) }}
-    {{ form_row(form.phoneClub,{'attr':{'placeholder':'entrez votre numero de telephone'}}) }}
+        {{ form_row(form.nameClubOwner,{'attr':{'placeholder':'entrez le nom du gerant du club'}}) }}
+        {{ form_row(form.villeClub,{'attr':{'placeholder':'entrez votre ville'}}) }}
+        {{ form_row(form.codePostalClub,{'attr':{'placeholder':'entrez le codePostal de votre ville'}}) }}
+        {{ form_row(form.password,{'attr':{'placeholder':'mot de passe'}}) }}
+        {{ form_row(form.confirmPassword,{'attr':{'placeholder':'confirmer votre mot de passe'}}) }}
+        {{ form_row(form.emailClub,{'attr':{'placeholder':'entrez votre mail '}}) }}
+        {{ form_row(form.phoneClub,{'attr':{'placeholder':'entrez votre numero de telephone'}}) }}
 
-
-
-    <button type="submit" class="btn btn-success">Valider</button>
-    {#{{ form_end(form) }}#}
+        <button type="submit" class="btn btn-success">Valider</button>
+        {#{{ form_end(form) }}#}
+    </div>
 {% endblock %}

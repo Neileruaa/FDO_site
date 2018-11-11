@@ -6,12 +6,14 @@
             <hr>
         </header>
     {% endblock %}
-    <br>
-    <a href="{{ path('page3') }}">Retour</a>
-    <br><br><br>
-    {% for dancer in list_dancer %}
-        {{ dancer.nameDancer }}
+    <div class="container">
         <br>
-    {% endfor %}
+        <a href="{{ path('page3') }}">Retour</a>
+        <br><br><br>
+        {% for dancer in list_dancer %}
+            {{ dancer.nameDancer }}
+            <br>
+        {% endfor %}
+    </div>
 {% endblock %}
 

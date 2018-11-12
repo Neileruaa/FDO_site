@@ -1,0 +1,22 @@
+{% extends "base.html.twig" %}
+{% block body %}
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        {% if is_granted('ROLE_ADMIN') %}
+            <div class="container">
+            <div class="row">
+                {% if ticket is defined %}
+                        <a href="" class="btn btn-primary">Repondre</a>
+                        <form action="{{ path('Ticket.deleteTicket', {id: ticket.id}) }}" method="POST" style="display:inline">
+                            <input type="hidden" name="tokenDelete" value="{{ csrf_token('delete') }}">
+                            <input type="hidden" name="spectacle_id" value="{{ ticket.id }}">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="btn btn-danger">Supprimer</button>
+                        </form>
+                    {% endif %}
+        {% else %}
+            <h2>Vous ne pouvez pas accèder à cette page , vous n'êtes pas l'administrateur</h2>
+        {% endif %}
+        </div>
+        </div>
+    {% endif %}
+{% endblock %}

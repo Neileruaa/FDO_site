@@ -45,5 +45,14 @@ class TicketController extends AbstractController
 
         return $this->redirectToRoute('Ticket.showTicket');
     }
+    /**
+     * @Route("/showDetail/{id}/ticket",name="Ticket.showDetailTicket")
+     */
+    public function showDetailTicket($id){
+        $em=$this->getDoctrine()->getManager();
+        $ticket=$em->getRepository(Ticket::class)->find($id);
+        dump($ticket);
+        return $this->render('ticket/showDetailTicket.html.twig',['ticket'=>$ticket]);
+    }
 
 }

@@ -3,23 +3,27 @@
 {% block title %}Hello{% endblock %}
 
 {% block body %}
+    {% block header %}
+        <header class="page-header mt-5">
+            <hr>
+        </header>
+    {% endblock %}
+    <div class="container">
+        <h1> connexion</h1>
 
-    <h1> connexion</h1>
+        <form action="{{ path('security.login') }}" method="POST">
+          <div class="form-group">
+            <input type="text" required name="_username" placeholder="adresse mail" class="form-control" >
+          </div>
 
-    <form action="{{ path('security.login') }}" method="POST">
-      <div class="form-group">
-        <input type="text" required name="_username" placeholder="adresse mail" class="form-control" >
-      </div>
+            <div class="form-group">
+              <input type="password" required name="_password" placeholder="mot de passe" class="form-control" >
 
-        <div class="form-group">
-          <input type="password" required name="_password" placeholder="mot de passe" class="form-control" >
-
-      </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-success">connexion</button>
-        </div>
-    </form>
-
-
-    Pas de compte ? <a href="/register"> créez en un !</a>
+          </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-success">connexion</button>
+            </div>
+        </form>
+        Pas de compte ? <a href="/register"> créez en un !</a>
+    </div>
 {% endblock %}

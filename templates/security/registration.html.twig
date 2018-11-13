@@ -1,19 +1,19 @@
 {% extends 'base.html.twig' %}
 
-
 {% block title %}Hello{% endblock %}
 
 {% block body %}
 
-    <h1> inscription</h1>
+    {% block header %}
+        <header class="page-header mt-5">
+            <hr>
+        </header>
+    {% endblock %}
+    <div class="container">
+        <h1> inscription</h1>
 
-{{ mail }}
 
-{% for t in tab %}
-    {{ t }}
-{% endfor %}
     {{ form_start(form) }}
-
 
     {{ form_row(form.username,{'attr':{'placeholder':'entrez le nom du club'}}) }}
     {{ form_row(form.nameClubOwner,{'attr':{'placeholder':'entrez le nom du gerant du club'}}) }}
@@ -22,11 +22,9 @@
     {{ form_row(form.password,{'attr':{'placeholder':'mot de passe'}}) }}
     {{ form_row(form.confirmPassword,{'attr':{'placeholder':'confirmer votre mot de passe'}}) }}
     {{ form_row(form.emailClub,{'attr':{'placeholder':'entrez votre mail '}}) }}
-    {{ msg }}
     {{ form_row(form.phoneClub,{'attr':{'placeholder':'entrez votre numero de telephone'}}) }}
 
-
-
-    <button type="submit" class="btn btn-success">Valider</button>
-    {{ form_end(form) }}
+        <button type="submit" class="btn btn-success">Valider</button>
+        {#{{ form_end(form) }}#}
+    </div>
 {% endblock %}

@@ -1,14 +1,21 @@
 {% extends 'layout.html.twig' %}
 
 {% block body %}
-    Contenu Page2
-    <a target="_blank" href="{{ path('createSamplePDF') }}">Créer un PDF</a>
-    {% for team in user.teams if user.teams is not empty %}
-        <p>
-            <a href="{{ path('home.chooseDossard', {id: team.id}) }}"> Dossards de l'équipe : {{ team.id }}</a>
-        </p>
-    {% else %}
-        <p>Il vous faut créer une équipe</p>
-    {% endfor %}
+    {% block header %}
+        <header class="page-header mt-5">
+            <hr>
+        </header>
+    {% endblock %}
+    <div class="container">
+        <h1>Page d'impression de PDF</h1>
+        <a target="_blank" href="{{ path('createSamplePDF') }}">Créer un PDF</a>
+        {% for team in user.teams if user.teams is not empty %}
+            <p>
+                <a href="{{ path('home.chooseDossard', {id: team.id}) }}"> Dossards de l'équipe : {{ team.id }}</a>
+            </p>
+        {% else %}
+            <p>Il vous faut créer une équipe</p>
+        {% endfor %}
+    </div>
 {% endblock %}
 

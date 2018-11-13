@@ -1,12 +1,19 @@
 {% extends 'layout.html.twig' %}
 
 {% block body %}
-    <br>
-    <a href="{{ path('page3') }}">Retour</a>
-    <br><br><br>
-    {% for dancer in list_dancer %}
-        {{ dancer.nameDancer }}
+    {% block header %}
+        <header class="page-header mt-5">
+            <hr>
+        </header>
+    {% endblock %}
+    <div class="container">
         <br>
-    {% endfor %}
+        <a href="{{ path('page3') }}">Retour</a>
+        <br><br><br>
+        {% for dancer in list_dancer %}
+            {{ dancer.nameDancer }}
+            <br>
+        {% endfor %}
+    </div>
 {% endblock %}
 

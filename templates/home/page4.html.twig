@@ -1,16 +1,26 @@
 {% extends 'layout.html.twig' %}
 
 {% block body %}
-Contenu Page4
-
-    {{ form(formDanseur, {'attr': {'novalidate': 'novalidate'}}) }}
-    {% for dancer in club.dancers if club.dancers is not empty %}
-        {{ dancer.nameDancer }} {{ dancer.firstNameDancer }}
-        |<a href="{{ path('dancer_removeDancer', {'id': dancer.id }) }}">
-        Supprimer</a>
-        <br>
-    {% else %}
-        <p>Pas de danseurs dans ce club</p>
-    {% endfor %}
+    {% block header %}
+        <header class="page-header">
+            <h1 class="text-uppercase">
+                <strong>France Dance Organisation</strong>
+            </h1>
+            <hr>
+        </header>
+    {% endblock %}
+    <div class="container">
+        <h1>Ajouter un danseur</h1>
+        {#{% form_theme formDanseur 'bootstrap_4_horizontal_layout.html.twig' %}#}
+        {{ form(formDanseur, {'attr': {'novalidate': 'novalidate'}}) }}
+        {% for dancer in club.dancers if club.dancers is not empty %}
+            {{ dancer.nameDancer }} {{ dancer.firstNameDancer }}
+            |<a href="{{ path('dancer_removeDancer', {'id': dancer.id }) }}">
+            Supprimer</a>
+            <br>
+        {% else %}
+            <p>Pas de danseurs dans ce club</p>
+        {% endfor %}
+    </div>
 {% endblock %}
 

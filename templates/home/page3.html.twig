@@ -1,17 +1,27 @@
 {% extends 'layout.html.twig' %}
 
 {% block body %}
-    Page de création d'équipe.<br>
-    {{ form(formEquipe) }}
+    {% block header %}
+        <header class="page-header mt-5">
+            <hr>
+        </header>
+    {% endblock %}
+    {#{% form_theme form 'bootstrap_4_horizontal_layout.html.twig' %}#}
+    {#{% form_theme formEquipe 'bootstrap_4_horizontal_layout.html.twig' %}#}
+
+    <div class="container">
+        <h1>Création d'équipe</h1><br>
+        {{ form(formEquipe) }}
 
 
-    {{ form(form) }}
+        {{ form(form) }}
 
-    <hr>
-    {% for team in club.teams if club.teams is not empty %}
-        Equipe{{ team.id }}|<a href="{{ path('Equipe_description', {'id': team.id}) }}">Voir</a>
-    {% else %}
-        <p>Pas de d'équipe dans ce club</p>
-    {% endfor %}
+        <hr>
+        {% for team in club.teams if club.teams is not empty %}
+            Equipe{{ team.id }}|<a href="{{ path('Equipe_description', {'id': team.id}) }}">Voir</a>
+        {% else %}
+            <p>Pas de d'équipe dans ce club</p>
+        {% endfor %}
+    </div>
 {% endblock %}
 

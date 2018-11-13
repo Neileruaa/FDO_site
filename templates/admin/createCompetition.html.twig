@@ -1,0 +1,27 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello{% endblock %}
+
+{% block body %}
+<h3> creation competition </h3>
+
+
+    {{ form_start(form) }}
+
+
+        {{ form_row(form.dateCompetition) }}
+        {{ form_row(form.place) }}
+        {{ form_row(form.dances) }}
+        {{ form_row(form.clubOrganizer) }}
+        {{ form_row(form.teams) }}
+
+
+    <button type="submit" class="btn btn-success">Valider</button>
+    {{ form_end(form) }}
+
+
+
+
+
+{% endblock %}

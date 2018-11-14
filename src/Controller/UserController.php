@@ -13,12 +13,11 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-//TODO: Rename en UserController
 class UserController extends AbstractController {
 	/**
 	 * @Route("/user/show", name="User.show")
 	 */
-	public function showProfile() {
+	public function showUser() {
 		$user = $this->getUser();
 		return $this->render('user/showUser.html.twig', ['users' => $user,]);
 	}
@@ -30,7 +29,7 @@ class UserController extends AbstractController {
 	 * @param $id
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
-	public function deleteProfile(Request $request, ObjectManager $manager, $id) {
+	public function deleteUser(Request $request, ObjectManager $manager, $id) {
 		$currentUserId= $this->getUser()->getId();
 		if ($currentUserId == $id){
 			$session = new Session();
@@ -44,8 +43,12 @@ class UserController extends AbstractController {
 
 	/**
 	 * @Route("/user/edit", name="User.edit")
+	 * @param Request $request
+	 * @param ObjectManager $manager
+	 * @param UserPasswordEncoderInterface $encoder
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
 	 */
-	public function editProfile(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder) {
+	public function editUser(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder) {
 		$club = $this->getUser();
 		$form = $this->createForm(RegistrationType::class, $club);
 		$form->handleRequest($request);

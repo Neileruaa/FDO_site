@@ -2,6 +2,9 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Category;
+use App\Entity\Dance;
+use App\Entity\Team;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 

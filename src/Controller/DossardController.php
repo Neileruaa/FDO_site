@@ -25,7 +25,7 @@ class DossardController extends AbstractController {
 	 * @param Request $request
 	 * @return Response
 	 */
-	public function page2(Request $request) {
+	public function showDossardUser(Request $request) {
 		$user= $this->getUser();
 		return $this->render(
 			'dossard/pdfTeam.html.twig',[

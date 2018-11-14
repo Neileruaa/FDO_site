@@ -1,26 +1,46 @@
 {% extends 'layout.html.twig' %}
-
-{% block body %}
-    {% block header %}
-        <header class="page-header">
-            <h1 class="text-uppercase">
-                <strong>France Dance Organisation</strong>
-            </h1>
-            <hr>
-        </header>
-    {% endblock %}
-    <div class="container">
-        <h1>Ajouter un danseur</h1>
-        {#{% form_theme formDanseur 'bootstrap_4_horizontal_layout.html.twig' %}#}
-        {{ form(formDanseur, {'attr': {'novalidate': 'novalidate'}}) }}
-        {% for dancer in club.dancers if club.dancers is not empty %}
-            {{ dancer.nameDancer }} {{ dancer.firstNameDancer }}
-            |<a href="{{ path('Dancer.remove', {'id': dancer.id }) }}">
-            Supprimer</a>
-            <br>
-        {% else %}
-            <p>Pas de danseurs dans ce club</p>
-        {% endfor %}
-    </div>
+{% block header %}
+    <header class="page-header">
+        <h1 class="text-uppercase">
+            <strong>France Dance Organisation</strong>
+        </h1>
+        <hr>
+    </header>
 {% endblock %}
+{% block body %}
+        <h1>Liste des danseurs</h1>
+        {#{% form_theme formDanseur 'bootstrap_4_horizontal_layout.html.twig' %}#}
+        {% include "dancer/modalCreateDancer.html.twig" %}
+    <a href="#" class="btn btn-outline-success" data-toggle="modal" data-target="#exampleModalCenter">Ajouter un danseur</a>
+    </br>
+    </br>
+    <table class="table">
+    {% if club.dancers is not empty %}
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Nom</th>
+            <th scope="col">Prénom</th>
+            <th scope="col">Date de naissance</th>
+            <th scope="col">Club</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for dancer in club.dancers %}
+            <tr>
+                <th scope="row">{{ dancer.nameDancer }}</th>
+                <td>{{ dancer.firstNameDancer }}</td>
+                <td>{{ dancer.getDateBirthDancer().format('d-m-Y') }}</td>
+                <td>{{ dancer.club }}</td>
+                <td><a href="{{ path('Dancer.remove', {'id': dancer.id }) }}">Supprimer</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+    {% else %}
+        <strong class="text-center">Pas de danseur dans ce club</strong>
+    {% endif %}
+
+{% endblock %}
+
 

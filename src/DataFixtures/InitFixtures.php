@@ -1,29 +1,17 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: antoi
- * Date: 16/10/18
- * Time: 11:23
- */
 
-namespace App\Controller;
+namespace App\DataFixtures;
 
+use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\Persistence\ObjectManager;
 
-use App\Entity\Category;
-use App\Entity\Dance;
-use App\Entity\Dancer;
-use App\Entity\Team;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Routing\Annotation\Route;
-
-//TODO: faire un fichier de fixture pour remplacer ce controller
-class InitController extends Controller
+class InitFixtures extends Fixture
 {
-    /**
-     * @Route("/init", name="bdd.init")
-     */
-    public function index(){
-        $em = $this->getDoctrine()->getManager();
+    public function load(ObjectManager $manager)
+    {
+        $this->init($manager);
+    }
+    public function init(ObjectManager $manager){
         $category=new Category();
         $category2=new Category();
         $category3=new Category();
@@ -33,10 +21,10 @@ class InitController extends Controller
 
         $team=new Team();
         $team->addCategory($category);
-        $em->persist($team);
-        $em->persist($category);
-        $em->persist($category2);
-        $em->persist($category3);
+        $manager->persist($team);
+        $manager->persist($category);
+        $manager->persist($category2);
+        $manager->persist($category3);
 
         $dances=[
             ["nameDance"=>"disco"],
@@ -53,10 +41,9 @@ class InitController extends Controller
         foreach ($dances as $dance){
             $new_dance=new Dance();
             $new_dance->setNameDance($dance["nameDance"]);
-            $em->persist($new_dance);
+            $manager->persist($new_dance);
         }
 
-        $em->flush();
-        return $this->redirectToRoute("home");
+        $manager->flush();
     }
 }

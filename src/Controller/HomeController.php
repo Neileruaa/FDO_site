@@ -19,7 +19,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class HomeController extends Controller {
 	/**
-	 * @Route("/", name="home")
+	 * @Route("/", name="Home.index")
 	 * @param Request $request
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */

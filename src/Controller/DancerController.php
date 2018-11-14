@@ -12,6 +12,7 @@ namespace App\Controller;
 use App\Entity\Dancer;
 use App\Entity\Danseur;
 use App\Entity\Team;
+use App\Form\DancerType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -31,7 +32,7 @@ class DancerController extends AbstractController {
 		}
 		$em->remove($dancer);
 		$em->flush();
-		return $this->redirectToRoute('page4');
+		return $this->redirectToRoute('Dancer.create');
 	}
 
 	/**
@@ -39,7 +40,7 @@ class DancerController extends AbstractController {
 	 * @param Request $request
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
-	public function page4(Request $request) {
+	public function createDancer(Request $request) {
 		$club = $this->getUser();
 		$em = $this->getDoctrine()->getManager();
 		$dancer = new Dancer();
@@ -56,7 +57,7 @@ class DancerController extends AbstractController {
 			$em->persist($dancerToSave);
 			$em->flush();
 
-			return $this->redirecarrangetToRoute('Dancer.create');
+			return $this->redirectToRoute('Dancer.create');
 		}
 		return $this->render(
 			'dancer/createDancer.html.twig',

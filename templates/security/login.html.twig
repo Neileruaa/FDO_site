@@ -3,27 +3,29 @@
 {% block title %}Hello{% endblock %}
 
 {% block body %}
-    {% block header %}
-        <header class="page-header mt-5">
-            <hr>
-        </header>
-    {% endblock %}
-    <div class="container">
-        <h1> connexion</h1>
-
-        <form action="{{ path('Security.login') }}" method="POST">
-          <div class="form-group">
-            <input type="text" required name="_username" placeholder="adresse mail" class="form-control" >
-          </div>
-
-            <div class="form-group">
-              <input type="password" required name="_password" placeholder="mot de passe" class="form-control" >
-
-          </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-success">connexion</button>
-            </div>
-        </form>
-        Pas de compte ? <a href="/register"> créez en un !</a>
-    </div>
+	{% block header %}
+		<header class="page-header mt-5">
+			<hr>
+		</header>
+	{% endblock %}
+	<div class="container">
+		<h1> connexion</h1>
+		{% if errors %}
+			<div class="alert alert-danger">
+				{{ errors.messageKey | trans(errors.messageData, 'security') }}
+			</div>
+		{% endif %}
+		<form action="{{ path('Security.login') }}" method="POST">
+			<div class="form-group">
+				<input type="text" required name="_username" placeholder="Adresse mail" class="form-control">
+			</div>
+			<div class="form-group">
+				<input type="password" required name="_password" placeholder="mot de passe" class="form-control">
+			</div>
+			<div class="form-group">
+				<button type="submit" class="btn btn-success">connexion</button>
+			</div>
+		</form>
+		Pas de compte ? <a href="{{ path('Security.registration') }}"> créez en un !</a>
+	</div>
 {% endblock %}

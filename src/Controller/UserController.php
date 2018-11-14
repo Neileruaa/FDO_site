@@ -33,7 +33,6 @@ class UserController extends AbstractController {
 			return $this->redirectToRoute('home');
 		} elseif ($request->request->get('back')) {
 			return $this->redirectToRoute('User.show');
-
 		}
 		return $this->render('user/deleteUser.html.twig');
 	}

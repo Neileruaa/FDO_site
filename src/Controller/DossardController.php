@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Team;
 use Doctrine\Common\Persistence\ObjectManager;
+use Fpdf\Fpdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,9 +15,7 @@ class DossardController extends AbstractController {
 	 * @Route("/admin/validDossard", name="Admin.showDossard")
 	 */
 	public function showDossard(ObjectManager $manager) {
-		$em = $this->container->get('doctrine')->getManager();
-		$repository = $em->getRepository(Mailbox::class);
-		$mail = $repository->findAll();
+		$mail = $manager->getRepository(Mailbox::class)->findAll();
 		return $this->render('admin/validDossard.html.twig', ['mail' => $mail]);
 	}
 

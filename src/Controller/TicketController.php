@@ -16,6 +16,7 @@ class TicketController extends AbstractController
     public function addTicket(){
         return $this->render('ticket/addTicket.html.twig');
     }
+
     /**
      * @Route("/show/ticket" , name="Ticket.showTicket")
      */
@@ -24,8 +25,9 @@ class TicketController extends AbstractController
         $tickets=$em->getRepository(Ticket::class)->findAll();
         return $this->render('ticket/showTicket.html.twig',['tickets'=>$tickets]);
     }
+
     /**
-     * @Route("/delete/{id}/ticket",name="Ticket.deleteTicket")
+     * @Route("/ticket/delete/{id}",name="Ticket.deleteTicket")
      */
     public function deleteTicket($id){
         $em=$this->getDoctrine()->getManager();

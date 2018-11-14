@@ -12,14 +12,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class TeamController extends AbstractController
 {
 	/**
-	 * @Route("/admin/surclassement", name="Admin.surclassement")
+	 * @Route("/team/surclassement", name="Admin.surclassement")
 	 */
 	public function surclasserTeam(ObjectManager $manager) {
-		$em = $this->container->get('doctrine')->getManager();
-		$repository = $em->getRepository(Team::class);
-
-		$allTeams = $repository->findAll();
-
+		$allTeams = $manager->getRepository(Team::class)->findAll();
 		return $this->render('admin/surclassement.html.twig', ['teams' => $allTeams]);
 	}
 

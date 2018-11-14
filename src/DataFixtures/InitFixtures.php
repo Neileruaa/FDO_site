@@ -21,10 +21,10 @@ class InitFixtures extends Fixture
 
         $team=new Team();
         $team->addCategory($category);
-        $em->persist($team);
-        $em->persist($category);
-        $em->persist($category2);
-        $em->persist($category3);
+        $manager->persist($team);
+        $manager->persist($category);
+        $manager->persist($category2);
+        $manager->persist($category3);
 
         $dances=[
             ["nameDance"=>"disco"],

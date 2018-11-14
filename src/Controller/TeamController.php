@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Team;
+use App\Form\TeamType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,7 +29,7 @@ class TeamController extends AbstractController
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
 	public function createTeam(Request $request) {
-		$formDel=$this->createDeleteForm();
+		//$formDel=$this->createDeleteForm();
 		$confirm=0;
 		$club = $this->getUser();
 		$team = new Team();
@@ -58,8 +59,8 @@ class TeamController extends AbstractController
 			array(
 				'formEquipe'=>$form->createView(),
 				'listEquipe'=>$list_teams,
-				'club'=>$club,
-				"form"=>$formDel->createView()
+				'club'=>$club
+				//"form"=>$formDel->createView()
 			)
 		);
 	}

@@ -19,9 +19,7 @@ email :{{ users.getEmailClub() }} <br>
 <form action="{{ path('User.edit') }}">
     <button type="submit" class="btn btn-success">modifier profil</button>
 </form>
-    <form action="{{ path('User.delete') }}">
-        <button type="submit" class="btn btn-success">supprimer profil</button>
-    </form>
+    <a  href="{{ path('User.delete', {id: users.id}) }}" class="btn btn-danger text-right float-right">Supprimer ce profil</a>
 
 
 {% endblock %}

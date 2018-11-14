@@ -3,11 +3,13 @@
 namespace App\Controller;
 
 
+use App\Entity\Club;
 use App\Form\RegistrationType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -17,24 +19,27 @@ class UserController extends AbstractController {
 	 * @Route("/user/show", name="User.show")
 	 */
 	public function showProfile() {
-		$user = $this->get('security.token_storage')->getToken()->getUser();
+		$user = $this->getUser();
 		return $this->render('user/showUser.html.twig', ['users' => $user,]);
 	}
 
 	/**
-	 * @Route("/user/delete", name="User.delete")
+	 * @Route("/user/delete/{id}", name="User.delete")
+	 * @param Request $request
+	 * @param ObjectManager $manager
+	 * @param $id
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
-	public function deleteProfile(Request $request, EntityManagerInterface $em) {
-		$a = $request->request->get('delete');
-		if ($a != null) {
-			$profilSupp = $this->get('security.token_storage')->getToken()->getUser();
-			$em->remove($profilSupp);
-			$em->flush();
-			return $this->redirectToRoute('home');
-		} elseif ($request->request->get('back')) {
-			return $this->redirectToRoute('User.show');
+	public function deleteProfile(Request $request, ObjectManager $manager, $id) {
+		$currentUserId= $this->getUser()->getId();
+		if ($currentUserId == $id){
+			$session = new Session();
+			$session->invalidate();
 		}
-		return $this->render('user/deleteUser.html.twig');
+		$user = $manager->getRepository(Club::class)->find($id);
+		$manager->remove($user);
+		$manager->flush();
+		return $this->redirectToRoute('Security.login');
 	}
 
 	/**

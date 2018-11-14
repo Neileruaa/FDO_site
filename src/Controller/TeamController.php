@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class TeamController extends AbstractController
 {
 	/**
-	 * @Route("/team/surclassement", name="Admin.surclassement")
+	 * @Route("/team/surclassement", name="Team.surclassement")
 	 */
 	public function surclasserTeam(ObjectManager $manager) {
 		$allTeams = $manager->getRepository(Team::class)->findAll();

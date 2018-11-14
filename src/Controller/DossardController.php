@@ -16,7 +16,9 @@ class DossardController extends AbstractController {
 	 */
 	public function showDossard(ObjectManager $manager) {
 		$mail = $manager->getRepository(Mailbox::class)->findAll();
-		return $this->render('admin/validDossard.html.twig', ['mail' => $mail]);
+		return $this->render('admin/validDossard.html.twig', [
+			'mail' => $mail
+		]);
 	}
 
 	/**

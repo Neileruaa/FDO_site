@@ -29,13 +29,13 @@
                         <a class="nav-link js-scroll-trigger" href="{{ path('home') }}"><i class="fas fa-home"></i> Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="{{ path('page2') }}"><i class="fas fa-print"></i> PDF</a>
+                        <a class="nav-link js-scroll-trigger" href="{{ path('Dossard.show') }}"><i class="fas fa-print"></i> PDF</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="{{ path('page3') }}"><i class="fas fa-users"></i> Créer une équipe</a>
+                        <a class="nav-link js-scroll-trigger" href="{{ path('Team.create') }}"><i class="fas fa-users"></i> Créer une équipe</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="{{ path('page4') }}"><i class="fas fa-user-edit"></i> Ajouter un danseur</a>
+                        <a class="nav-link js-scroll-trigger" href="{{ path('Dancer.create') }}"><i class="fas fa-user-edit"></i> Ajouter un danseur</a>
                     </li>
                     {% if is_granted('ROLE_USER')  %}
                         <li class="nav-item">
@@ -55,12 +55,12 @@
                                 <strong>Menu club</strong>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ path('admin.createCompetition') }}">création de competition</a>
-                                <a class="dropdown-item" href="{{ path('admin.validDossard') }}">confirmation dossards</a>
-                                <a class="dropdown-item" href="{{ path('admin.surclassement') }}">surclasser une equipe</a>
+                                <a class="dropdown-item" href="{{ path('Admin.createCompetition') }}">création de competition</a>
+                                <a class="dropdown-item" href="{{ path('Admin.validDossard') }}">confirmation dossards</a>
+                                <a class="dropdown-item" href="{{ path('Admin.surclassement') }}">surclasser une equipe</a>
                                 <a class="dropdown-item" href="/mailBox">boite mail</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{{ path('profile.show') }}">voir profil</a>
+                                <a class="dropdown-item" href="{{ path('User.show') }}">voir profil</a>
                             </div>
                         </li>
                     <hr>

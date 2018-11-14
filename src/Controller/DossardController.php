@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DossardController extends AbstractController {
 	/**
-	 * @Route("/admin/validDossard", name="admin.showDossard")
+	 * @Route("/admin/validDossard", name="Admin.showDossard")
 	 */
 	public function showDossard(ObjectManager $manager) {
 		$em = $this->container->get('doctrine')->getManager();
@@ -25,7 +25,7 @@ class DossardController extends AbstractController {
 	 * @param Request $request
 	 * @return Response
 	 */
-	public function page2(Request $request) {
+	public function showDossardUser(Request $request) {
 		$user= $this->getUser();
 		return $this->render(
 			'dossard/pdfTeam.html.twig',[

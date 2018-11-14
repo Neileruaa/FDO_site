@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CompetitionController extends AbstractController {
 	/**
-	 * @Route("/admin/create/competition", name="admin.createCompetition")
+	 * @Route("/admin/create/competition", name="Admin.createCompetition")
 	 */
 	public function createCompetition(Request $request, ObjectManager $manager) {
 		$competition = new Competition();

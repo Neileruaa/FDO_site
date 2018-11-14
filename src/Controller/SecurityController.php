@@ -14,7 +14,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class SecurityController extends Controller
 {
     /**
-     * @Route("/register", name="security.registration")
+     * @Route("/register", name="Security.registration")
      */
     public function registration(Request $request, ObjectManager $manager,UserPasswordEncoderInterface $encoder )
     {
@@ -34,13 +34,13 @@ class SecurityController extends Controller
             $club->setPassword($hash);
             $manager->persist($club);
             $manager->flush();
-            return $this->redirectToRoute('security.login');
+            return $this->redirectToRoute('Security.login');
         }
         return $this->render('security/registration.html.twig', ['form'=>$form->createView() , 'msg'=> $msgErreurEmail, 'mail'=>$mail]);
     }
 
     /**
-     * @Route("/login", name="security.login")
+     * @Route("/login", name="Security.login")
      */
     public function login() {
         return $this->render('security/login.html.twig');

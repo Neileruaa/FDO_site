@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class TeamController extends AbstractController
 {
 	/**
-	 * @Route("/admin/surclassement", name="admin.surclassement")
+	 * @Route("/admin/surclassement", name="Admin.surclassement")
 	 */
 	public function surclasserTeam(ObjectManager $manager) {
 		$em = $this->container->get('doctrine')->getManager();

@@ -23,11 +23,11 @@ class TeamController extends AbstractController
 	}
 
 	/**
-	 * @Route("/page3", name="page3")
+	 * @Route("/team/create", name="Team.create")
 	 * @param Request $request
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
-	public function page3(Request $request) {
+	public function createTeam(Request $request) {
 		$formDel=$this->createDeleteForm();
 		$confirm=0;
 		$club = $this->getUser();
@@ -51,10 +51,10 @@ class TeamController extends AbstractController
 			$em->persist($team);
 			$em->flush();
 
-			return $this->redirectToRoute('page3',["confirm"=>$confirm]);
+			return $this->redirectToRoute('Team.create',["confirm"=>$confirm]);
 		}
 		return $this->render(
-			'home/page3.html.twig',
+			'team/createTeam.html.twig',
 			array(
 				'formEquipe'=>$form->createView(),
 				'listEquipe'=>$list_teams,
@@ -65,24 +65,24 @@ class TeamController extends AbstractController
 	}
 
 	/**
-	 * @Route("/equipe/{id}", name="Equipe_description", requirements={"id" = "\d+"})
+	 * @Route("/team/{id}", name="Team.show", requirements={"id" = "\d+"})
 	 * @param Team $team
-	 * @return Response
+	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
-	public function voirEquipe(Team $team) {
+	public function showTeam(Team $team) {
 		return $this->render(
-			'home/showEquipe.html.twig',
+			'team/showTeam.html.twig',
 			['list_dancer'=>$team->getDancers()]
 		);
 	}
 
 	/**
-	 * @Route("/deleteAll/team" , name="team.deleteAll")
+	 * @Route("/deleteAll/team" , name="Team.deleteAll")
 	 */
 	public function deleteAllTeams(Request $request){
 		if ($request->get("submit")!=null){
 			$confirm=1;
-			return $this->redirectToRoute("page3", ["confirm"=>$confirm]);
+			return $this->redirectToRoute("Team.create", ["confirm"=>$confirm]);
 		}
 		$em=$this->getDoctrine()->getManager();
 		$teams=$this->getDoctrine()->getRepository(Team::class)->findAll();
@@ -91,6 +91,6 @@ class TeamController extends AbstractController
 			$em->remove($team);
 			$em->flush();
 		}
-		return $this->redirectToRoute("page3");
+		return $this->redirectToRoute("Team.create");
 	}
 }

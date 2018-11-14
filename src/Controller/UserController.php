@@ -14,15 +14,15 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 //TODO: Rename en UserController
 class UserController extends AbstractController {
 	/**
-	 * @Route("/profile/show", name="profile.show")
+	 * @Route("/user/show", name="User.show")
 	 */
 	public function showProfile() {
 		$user = $this->get('security.token_storage')->getToken()->getUser();
-		return $this->render('profile/show.html.twig', ['users' => $user,]);
+		return $this->render('user/showUser.html.twig', ['users' => $user,]);
 	}
 
 	/**
-	 * @Route("/profile/delete", name="profile.delete")
+	 * @Route("/user/delete", name="User.delete")
 	 */
 	public function deleteProfile(Request $request, EntityManagerInterface $em) {
 		$a = $request->request->get('delete');
@@ -32,14 +32,14 @@ class UserController extends AbstractController {
 			$em->flush();
 			return $this->redirectToRoute('home');
 		} elseif ($request->request->get('back')) {
-			return $this->redirectToRoute('profile.show');
+			return $this->redirectToRoute('User.show');
 
 		}
-		return $this->render('profile/delete.html.twig');
+		return $this->render('user/deleteUser.html.twig');
 	}
 
 	/**
-	 * @Route("/profile/edit", name="profile.edit")
+	 * @Route("/user/edit", name="User.edit")
 	 */
 	public function editProfile(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder) {
 		$club = $this->getUser();
@@ -51,8 +51,8 @@ class UserController extends AbstractController {
 			$club->setPassword($hash);
 			$manager->persist($club);
 			$manager->flush();
-			return $this->redirectToRoute('profile.show');
+			return $this->redirectToRoute('User.show');
 		}
-		return $this->render('profile/edit.html.twig', ['form' => $form->createView()]);
+		return $this->render('user/editUser.html.twig', ['form' => $form->createView()]);
 	}
 }

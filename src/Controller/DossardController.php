@@ -6,6 +6,7 @@ use App\Entity\Team;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DossardController extends AbstractController {
@@ -20,21 +21,21 @@ class DossardController extends AbstractController {
 	}
 
 	/**
-	 * @Route("/page2", name="page2")
+	 * @Route("/dossard/show", name="Dossard.show")
 	 * @param Request $request
-	 * @return \Symfony\Component\HttpFoundation\Response
+	 * @return Response
 	 */
 	public function page2(Request $request) {
 		$user= $this->getUser();
 		return $this->render(
-			'home/page2.html.twig',[
+			'dossard/pdfTeam.html.twig',[
 				"user"=>$user
 			]
 		);
 	}
 
 	/**
-	 * @Route("/createDossard/{id}/{dance}", name="createDossard", requirements={"id" = "\d+"})
+	 * @Route("/dossard/create/{id}/{dance}", name="Dossard.create", requirements={"id" = "\d+"})
 	 * @param Team $team
 	 * @return Response
 	 */
@@ -82,12 +83,12 @@ class DossardController extends AbstractController {
 	}
 
 	/**
-	 * @Route("/choose/dossard/{id}", name="home.chooseDossard", requirements={"id" = "\d+"})
+	 * @Route("/dossard/choose/{id}", name="Dossard.choose", requirements={"id" = "\d+"})
 	 * @param Team $team
 	 * @return Response
 	 */
 	public function chooseDossard(Team $team) {
-		return $this->render('home/choose_dossard.html.twig',[
+		return $this->render('dossard/chooseDossard.html.twig',[
 			'team'=>$team
 		]);
 	}

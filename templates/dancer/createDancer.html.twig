@@ -15,7 +15,7 @@
         {{ form(formDanseur, {'attr': {'novalidate': 'novalidate'}}) }}
         {% for dancer in club.dancers if club.dancers is not empty %}
             {{ dancer.nameDancer }} {{ dancer.firstNameDancer }}
-            |<a href="{{ path('dancer_removeDancer', {'id': dancer.id }) }}">
+            |<a href="{{ path('Dancer.remove', {'id': dancer.id }) }}">
             Supprimer</a>
             <br>
         {% else %}

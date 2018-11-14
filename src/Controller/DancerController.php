@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DancerController extends AbstractController {
 	/**
-	 * @Route("/removeDancer/{id}", name="dancer_removeDancer", requirements={"page"="\d+"})
+	 * @Route("/dancer/remove/{id}", name="Dancer.remove", requirements={"page"="\d+"})
 	 * @param Dancer $dancer
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
@@ -35,7 +35,7 @@ class DancerController extends AbstractController {
 	}
 
 	/**
-	 * @Route("/page4", name="page4")
+	 * @Route("/dancer/create", name="Dancer.create")
 	 * @param Request $request
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
@@ -56,10 +56,10 @@ class DancerController extends AbstractController {
 			$em->persist($dancerToSave);
 			$em->flush();
 
-			return $this->redirecarrangetToRoute('page4');
+			return $this->redirecarrangetToRoute('Dancer.create');
 		}
 		return $this->render(
-			'home/page4.html.twig',
+			'dancer/createDancer.html.twig',
 			array(
 				'formDanseur'=>$form->createView(),
 				'listDancer'=>$list_dancers,

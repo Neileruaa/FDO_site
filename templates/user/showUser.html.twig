@@ -16,10 +16,10 @@ gerant du club : {{ users.getNameClubOwner() }} <br>
 email :{{ users.getEmailClub() }} <br>
 
 
-<form action="{{ path('profile.edit') }}">
+<form action="{{ path('User.edit') }}">
     <button type="submit" class="btn btn-success">modifier profil</button>
 </form>
-    <form action="{{ path('profile.delete') }}">
+    <form action="{{ path('User.delete') }}">
         <button type="submit" class="btn btn-success">supprimer profil</button>
     </form>
 

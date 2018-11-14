@@ -12,7 +12,7 @@
             {# je dois changer l'affichage car ce n'est pas correcte, pas d'inspi #}
             {% for dossard in team.dances %}
                 <button class="btn btn-default">
-                    <a href="{{ path('createDossard', {id: team.id, dance:dossard.nameDance}) }}">Dossard pour {{ dossard.nameDance }}</a>
+                    <a href="{{ path('Dossard.create', {id: team.id, dance:dossard.nameDance}) }}">Dossard pour {{ dossard.nameDance }}</a>
                 </button><br>
             {% endfor %}
         </div>

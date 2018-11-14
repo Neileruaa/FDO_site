@@ -16,6 +16,7 @@ use App\Entity\Team;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 
+//TODO: faire un fichier de fixture pour remplacer ce controller
 class InitController extends Controller
 {
     /**

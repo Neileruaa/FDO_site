@@ -18,10 +18,9 @@ class SecurityController extends Controller
      */
     public function registration(Request $request, ObjectManager $manager,UserPasswordEncoderInterface $encoder )
     {
+    	//TODO: Refaire la registration
         $club=new Club();
         $form=$this->createForm(RegistrationType::class,$club);
-
-
 
         $mail= $request->request->get('emailClub');
 
@@ -29,36 +28,21 @@ class SecurityController extends Controller
 
         $msgErreurEmail = "";
 
-
-
-
-
-
         $form->handleRequest($request);
         if ($form->isSubmitted()&& $form->isValid()){
             $hash=$encoder->encodePassword($club,$club->getPassword());
             $club->setPassword($hash);
-
             $manager->persist($club);
             $manager->flush();
-
             return $this->redirectToRoute('security.login');
         }
-
         return $this->render('security/registration.html.twig', ['form'=>$form->createView() , 'msg'=> $msgErreurEmail, 'mail'=>$mail]);
     }
-
 
     /**
      * @Route("/login", name="security.login")
      */
-    public function login()
-    {
-
-
+    public function login() {
         return $this->render('security/login.html.twig');
     }
-
-
-
 }

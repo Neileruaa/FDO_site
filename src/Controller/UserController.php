@@ -6,12 +6,18 @@ namespace App\Controller;
 use App\Entity\Club;
 use App\Form\RegistrationType;
 use Doctrine\Common\Persistence\ObjectManager;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
+/**
+ * @Security("is_granted('ROLE_USER') or is_granted('ROLE_ADMIN')")
+ * Class UserController
+ * @package App\Controller
+ */
 class UserController extends AbstractController {
 	/**
 	 * @Route("/user/show", name="User.show")

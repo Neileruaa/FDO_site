@@ -3,11 +3,18 @@
 namespace App\Controller;
 
 use App\Entity\Ticket;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Common\Persistence\ObjectManager;
 
+/**
+ * @Security("is_granted('ROLE_USER') or is_granted('ROLE_ADMIN')")
+ * Class TicketController
+ * @package App\Controller
+ */
 class TicketController extends AbstractController
 {
     /**
@@ -19,6 +26,7 @@ class TicketController extends AbstractController
 
     /**
      * @Route("/show/ticket" , name="Ticket.showTicket")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function showTicket(){
         $em=$this->getDoctrine()->getManager();
@@ -28,6 +36,7 @@ class TicketController extends AbstractController
 
     /**
      * @Route("/ticket/delete/{id}",name="Ticket.deleteTicket")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function deleteTicket($id){
         $em=$this->getDoctrine()->getManager();

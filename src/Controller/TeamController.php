@@ -5,14 +5,22 @@ namespace App\Controller;
 use App\Entity\Team;
 use App\Form\TeamType;
 use Doctrine\Common\Persistence\ObjectManager;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Security("is_granted('ROLE_USER') or is_granted('ROLE_ADMIN')")
+ * Class TeamController
+ * @package App\Controller
+ */
 class TeamController extends AbstractController
 {
 	/**
 	 * @Route("/team/surclassement", name="Team.surclassement")
+	 * @IsGranted("ROLE_ADMIN")
 	 */
 	public function surclasserTeam(ObjectManager $manager) {
 		$allTeams = $manager->getRepository(Team::class)->findAll();
@@ -77,17 +85,16 @@ class TeamController extends AbstractController
 	/**
 	 * @Route("/deleteAll/team" , name="Team.deleteAll")
 	 */
-	public function deleteAllTeams(Request $request){
+	public function deleteAllTeams(Request $request, ObjectManager $manager){
 		if ($request->get("submit")!=null){
 			$confirm=1;
 			return $this->redirectToRoute("Team.create", ["confirm"=>$confirm]);
 		}
-		$em=$this->getDoctrine()->getManager();
 		$teams=$this->getDoctrine()->getRepository(Team::class)->findAll();
 
 		foreach ($teams as $team){
-			$em->remove($team);
-			$em->flush();
+			$manager->remove($team);
+			$manager->flush();
 		}
 		return $this->redirectToRoute("Team.create");
 	}

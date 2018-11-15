@@ -3,10 +3,16 @@
 namespace App\Controller;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Security("is_granted('ROLE_USER') or is_granted('ROLE_ADMIN')")
+ * Class CompetitionController
+ * @package App\Controller
+ */
 class CompetitionController extends AbstractController {
 	/**
 	 * @Route("/competition/create", name="Competition.create")

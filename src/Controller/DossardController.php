@@ -5,11 +5,17 @@ namespace App\Controller;
 use App\Entity\Team;
 use Doctrine\Common\Persistence\ObjectManager;
 use Fpdf\Fpdf;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Security("is_granted('ROLE_USER") or is_granted('ROLE_ADMIN')")
+ * Class DossardController
+ * @package App\Controller
+ */
 class DossardController extends AbstractController {
 	/**
 	 * @Route("/admin/validDossard", name="Admin.showDossard")

@@ -13,10 +13,16 @@ use App\Entity\Dancer;
 use App\Entity\Danseur;
 use App\Entity\Team;
 use App\Form\DancerType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Security("is_granted('ROLE_USER') or is_granted('ROLE_ADMIN")")
+ * Class DancerController
+ * @package App\Controller
+ */
 class DancerController extends AbstractController {
 	/**
 	 * @Route("/dancer/remove/{id}", name="Dancer.remove", requirements={"page"="\d+"})

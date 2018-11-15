@@ -20,6 +20,8 @@
         {% else %}
             <p>Pas de d'équipe dans ce club</p>
         {% endfor %}
+        <a href="{{ path('Team.deleteAll') }}" onclick="return bootbox.alert('are u sure?')">delete</a>
+
     </div>
 {% endblock %}
 

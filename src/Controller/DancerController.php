@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Security("is_granted('ROLE_USER') or is_granted('ROLE_ADMIN")")
+ * @Security("is_granted('ROLE_USER') or is_granted('ROLE_ADMIN')")
  * Class DancerController
  * @package App\Controller
  */

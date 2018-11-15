@@ -19,7 +19,6 @@ class TeamType extends AbstractType
     {
         $builder
             ->add('dances', EntityType::class, array(
-                'constraints'=>new IsTrue(array('message'=>'Une équipe doit au moins être reliée à une danse')),
                 'label'=>'Liste des danses',
                 'attr' => ['class' => 'form-check'],
                 // query choices from this entity
@@ -38,7 +37,6 @@ class TeamType extends AbstractType
             ))
 //            ->add('dances')
             ->add('dancers', EntityType::class, [
-                'constraints'=>new IsTrue(array('message'=>'Une équipe doit au moins être composé d\'un danseur')),
                 'label'=>'Liste des danseurs',
             	'class'=> Dancer::class,
 	            'choice_label'=>function(Dancer $dancer){

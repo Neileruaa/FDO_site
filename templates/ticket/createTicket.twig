@@ -1,0 +1,17 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}New Ticket{% endblock %}
+
+{% block body %}
+    <h1>Ecrire un nouveau ticket !</h1>
+
+    {{ include('ticket/_form.html.twig') }}
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        $(function () {
+            $('textarea.ckeditor').ckeditor();
+        })
+    </script>
+{% endblock %}

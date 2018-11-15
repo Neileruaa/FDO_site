@@ -93,102 +93,108 @@ class Club implements UserInterface, \Serializable {
 	 */
 	private $dancers;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Ticket", mappedBy="author", orphanRemoval=true)
+     */
+    private $tickets;
+
 
 	public function __construct() {
-		$this->teams = new ArrayCollection();
-		$this->dancers = new ArrayCollection();
-	}
+               		$this->teams = new ArrayCollection();
+               		$this->dancers = new ArrayCollection();
+                 $this->tickets = new ArrayCollection();
+               	}
 
 	public function getId(): ?int {
-		return $this->id;
-	}
+               		return $this->id;
+               	}
 
 	public function getUsername(): ?string {
-		return $this->username;
-	}
+               		return $this->username;
+               	}
 
 	public function setUsername(string $username): self {
-		$this->username = $username;
-
-		return $this;
-	}
+               		$this->username = $username;
+               
+               		return $this;
+               	}
 
 	public function getNameClubOwner(): ?string {
-		return $this->nameClubOwner;
-	}
+               		return $this->nameClubOwner;
+               	}
 
 	public function setNameClubOwner(string $nameClubOwner): self {
-		$this->nameClubOwner = $nameClubOwner;
-
-		return $this;
-	}
+               		$this->nameClubOwner = $nameClubOwner;
+               
+               		return $this;
+               	}
 
 	public function getPassword(): ?string {
-		return $this->password;
-	}
+               		return $this->password;
+               	}
 
 	public function setPassword(string $password): self {
-		$this->password = $password;
-
-		return $this;
-	}
+               		$this->password = $password;
+               
+               		return $this;
+               	}
 
 	public function getEmailClub(): ?string {
-		return $this->emailClub;
-	}
+               		return $this->emailClub;
+               	}
 
 	public function setEmailClub(string $emailClub): self {
-		$this->emailClub = $emailClub;
-		return $this;
-	}
+               		$this->emailClub = $emailClub;
+               		return $this;
+               	}
 
 	public function getPhoneClub(): ?string {
-		return $this->phoneClub;
-	}
+               		return $this->phoneClub;
+               	}
 
 	public function setPhoneClub(?string $phoneClub): self {
-		$this->phoneClub = $phoneClub;
-
-		return $this;
-	}
+               		$this->phoneClub = $phoneClub;
+               
+               		return $this;
+               	}
 
 	/**
 	 * @return Collection|Team[]
 	 */
 	public function getTeams(): Collection {
-		return $this->teams;
-	}
+               		return $this->teams;
+               	}
 
 	public function addTeam(Team $team): self {
-		if (!$this->teams->contains($team)) {
-			$this->teams[] = $team;
-			$team->setClub($this);
-		}
-
-		return $this;
-	}
+               		if (!$this->teams->contains($team)) {
+               			$this->teams[] = $team;
+               			$team->setClub($this);
+               		}
+               
+               		return $this;
+               	}
 
 	public function removeTeam(Team $team): self {
-		if ($this->teams->contains($team)) {
-			$this->teams->removeElement($team);
-			// set the owning side to null (unless already changed)
-			if ($team->getClub() === $this) {
-				$team->setClub(null);
-			}
-		}
-
-		return $this;
-	}
+               		if ($this->teams->contains($team)) {
+               			$this->teams->removeElement($team);
+               			// set the owning side to null (unless already changed)
+               			if ($team->getClub() === $this) {
+               				$team->setClub(null);
+               			}
+               		}
+               
+               		return $this;
+               	}
 
 	public function getCompetition(): ?Competition {
-		return $this->competition;
-	}
+               		return $this->competition;
+               	}
 
 	public function setCompetition(?Competition $competition): self {
-		$this->competition = $competition;
-
-		return $this;
-	}
+               		$this->competition = $competition;
+               
+               		return $this;
+               	}
 
 
 	/**
@@ -199,8 +205,8 @@ class Club implements UserInterface, \Serializable {
 	 * @return string|null The salt
 	 */
 	public function getSalt() {
-		// TODO: Implement getSalt() method.
-	}
+               		// TODO: Implement getSalt() method.
+               	}
 
 	/**
 	 * Returns the username used to authenticate the user.
@@ -216,27 +222,27 @@ class Club implements UserInterface, \Serializable {
 	 * the plain-text password is stored on this object.
 	 */
 	public function eraseCredentials() {
-		// TODO: Implement eraseCredentials() method.
-	}
+               		// TODO: Implement eraseCredentials() method.
+               	}
 
 
 	public function serialize() {
-		return serialize(array($this->id, $this->username, $this->nameClubOwner, $this->villeClub, $this->codePostalClub, $this->password, $this->emailClub, $this->phoneClub, $this->roles));
-	}
+               		return serialize(array($this->id, $this->username, $this->nameClubOwner, $this->villeClub, $this->codePostalClub, $this->password, $this->emailClub, $this->phoneClub, $this->roles));
+               	}
 
 	public function unserialize($serialized) {
-		list(
-			$this->id,
-			$this->username,
-			$this->nameClubOwner,
-			$this->villeClub,
-			$this->codePostalClub,
-			$this->password,
-			$this->emailClub,
-			$this->phoneClub,
-			$this->roles
-			) = unserialize($serialized, ['allowed_classes'=>false]);
-	}
+               		list(
+               			$this->id,
+               			$this->username,
+               			$this->nameClubOwner,
+               			$this->villeClub,
+               			$this->codePostalClub,
+               			$this->password,
+               			$this->emailClub,
+               			$this->phoneClub,
+               			$this->roles
+               			) = unserialize($serialized, ['allowed_classes'=>false]);
+               	}
 
 	/**
 	 * Returns the roles granted to the user.
@@ -253,65 +259,96 @@ class Club implements UserInterface, \Serializable {
 	 * @return (Role|string)[] The user roles
 	 */
 	public function getRoles() {
-		if ($this->roles) return [$this->roles]; else
-			return ['ROLE_USER'];
-	}
+               		if ($this->roles) return [$this->roles]; else
+               			return ['ROLE_USER'];
+               	}
 
 	public function getVilleClub(): ?string {
-		return $this->villeClub;
-	}
+               		return $this->villeClub;
+               	}
 
 	public function setVilleClub(string $villeClub): self {
-		$this->villeClub = $villeClub;
-
-		return $this;
-	}
+               		$this->villeClub = $villeClub;
+               
+               		return $this;
+               	}
 
 	public function getCodePostalClub(): ?string {
-		return $this->codePostalClub;
-	}
+               		return $this->codePostalClub;
+               	}
 
 	public function setCodePostalClub(?string $codePostalClub): self {
-		$this->codePostalClub = $codePostalClub;
-
-		return $this;
-	}
+               		$this->codePostalClub = $codePostalClub;
+               
+               		return $this;
+               	}
 
 	public function setRoles(string $roles): self {
-		$this->roles = $roles;
-
-		return $this;
-	}
+               		$this->roles = $roles;
+               
+               		return $this;
+               	}
 
 	/**
 	 * @return Collection|Dancer[]
 	 */
 	public function getDancers(): Collection {
-		return $this->dancers;
-	}
+               		return $this->dancers;
+               	}
 
 	public function addDancer(Dancer $dancer): self {
-		if (!$this->dancers->contains($dancer)) {
-			$this->dancers[] = $dancer;
-			$dancer->setClub($this);
-		}
-
-		return $this;
-	}
+               		if (!$this->dancers->contains($dancer)) {
+               			$this->dancers[] = $dancer;
+               			$dancer->setClub($this);
+               		}
+               
+               		return $this;
+               	}
 
 	public function removeDancer(Dancer $dancer): self {
-		if ($this->dancers->contains($dancer)) {
-			$this->dancers->removeElement($dancer);
-			// set the owning side to null (unless already changed)
-			if ($dancer->getClub() === $this) {
-				$dancer->setClub(null);
-			}
-		}
-
-		return $this;
-	}
+               		if ($this->dancers->contains($dancer)) {
+               			$this->dancers->removeElement($dancer);
+               			// set the owning side to null (unless already changed)
+               			if ($dancer->getClub() === $this) {
+               				$dancer->setClub(null);
+               			}
+               		}
+               
+               		return $this;
+               	}
 
 	public function __toString() {
-		return $this->getUsername();
-	}
+               		return $this->getUsername();
+               	}
+
+    /**
+     * @return Collection|Ticket[]
+     */
+    public function getTickets(): Collection
+    {
+        return $this->tickets;
+    }
+
+    public function addTicket(Ticket $ticket): self
+    {
+        if (!$this->tickets->contains($ticket)) {
+            $this->tickets[] = $ticket;
+            $ticket->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTicket(Ticket $ticket): self
+    {
+        if ($this->tickets->contains($ticket)) {
+            $this->tickets->removeElement($ticket);
+            // set the owning side to null (unless already changed)
+            if ($ticket->getAuthor() === $this) {
+                $ticket->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
 }

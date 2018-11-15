@@ -1,0 +1,45 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Tickets{% endblock %}
+
+{% block body %}
+    <h1>Liste des tickets</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Club</th>
+                <th>Titre</th>
+                <th>Message</th>
+                <th>Date d'envoi</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for ticket in tickets %}
+            <tr>
+                <td>{{ ticket.author }}</td>
+                <td>{{ ticket.title }}</td>
+                <td>{{ ticket.message|striptags|length> 100 ? ticket.message|striptags|slice(0, 100) ~ '...' : ticket.message|striptags}}</td>
+                <td>{{ ticket.createdAt ? ticket.createdAt|date('Y-m-d H:i') : '' }}</td>
+                <td>
+                    <a href="{{ path('Ticket.viewDetails', {'id': ticket.id}) }}" class="btn btn-info">Détails</a>
+                    {% if is_granted("ROLE_USER") %}
+                        <a href="{{ path('Ticket.edit', {'id': ticket.id}) }}" class="btn btn-warning">Modifier</a>
+                    {% endif %}
+                    {#FIXME: mettre sur la meme ligne#}
+                    {{ include('ticket/_delete_form.html.twig') }}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Pas de tickets actuellement !</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Ticket{% endblock %}
+
+{% block body %}
+    <h1>Ticket</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Club:</th>
+                <td>{{ ticket.author }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ ticket.title }}</td>
+            </tr>
+            <tr>
+                <th>Message</th>
+                <td>{{ ticket.message|raw }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ ticket.createdAt ? ticket.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('Ticket.show') }}" class="btn btn-info">Retourner à la liste</a>
+
+    {#TODO: Mettre un lien pour revenir à tous les tickets du club #}
+	{% if is_granted("ROLE_USER") %}
+        <a href="{{ path('Ticket.edit', {'id': ticket.id}) }}" class="btn btn-warning">Modifier</a>
+	{% endif %}
+
+
+
+{% endblock %}

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TicketRepository")
@@ -17,58 +18,90 @@ class Ticket
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Enitity\Club")
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
+     * @Assert\NotNull()
+     * @Assert\Length(
+     *     min="4",
+     *     minMessage="Votre titre doit comporter au minimum 4 caractères !",
+     *     max="200",
+     *     maxMessage="Votre titre ne peut faire plus de 200 caractères !"
+     * )
      */
-    private $NomClub;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $objet;
+    private $title;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(message="Votre message ne peut être vide ! ")
+     * @Assert\Length(
+     *     min="4",
+     *     minMessage="Votre message doit comporter au minimum 4 caractères !",
+     *     max="20000",
+     *     maxMessage="Votre message ne peut faire plus de 20000 caractères !"
+     * )
      */
-    private $texte;
+    private $message;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Club", inversedBy="tickets")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $author;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getNomClub(): ?string
+    public function getTitle(): ?string
     {
-        return $this->NomClub;
+        return $this->title;
     }
 
-    public function setNomClub(string $NomClub): self
+    public function setTitle(string $title): self
     {
-        $this->NomClub = $NomClub;
+        $this->title = $title;
 
         return $this;
     }
 
-    public function getObjet(): ?string
+    public function getMessage(): ?string
     {
-        return $this->objet;
+        return $this->message;
     }
 
-    public function setObjet(string $objet): self
+    public function setMessage(string $message): self
     {
-        $this->objet = $objet;
+        $this->message = $message;
 
         return $this;
     }
 
-    public function getTexte(): ?string
+    public function getAuthor(): ?Club
     {
-        return $this->texte;
+        return $this->author;
     }
 
-    public function setTexte(string $texte): self
+    public function setAuthor(?Club $author): self
     {
-        $this->texte = $texte;
+        $this->author = $author;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }

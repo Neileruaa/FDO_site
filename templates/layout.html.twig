@@ -1,48 +1,49 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    FDO
+	FDO
 {% endblock %}
 
 {% block header %}
-    {{ parent() }}
+	{{ parent() }}
 {% endblock %}
 
 {% block navigation %}
-    {{ parent() }}
+	{{ parent() }}
 
 
 {% endblock %}
 
 {% block body %}
-    <div class="page-wrap">
-        {{ parent() }}
+	<div class="page-wrap">
+		{{ parent() }}
 
-    </div>
+	</div>
 {% endblock %}
 
 {% block footer %}
-    <footer class="footer fixed-bottom">
-        <div class="container-fluid bg-primary">
-            <div class="container">
-                <div class="row py-3">
-                    <div class="col-md-9">
-                        <p class="text-white">© 2018 Copyright: Par Aurélien DREY, Antoine HEITZMANN, Raphael IENCO, Gauvain PATAKY, Olivier SALFRANC, Mattéo BILLET et l'IUT de Belfort-Montbéliard.</p>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="d-inline-block">
-                            <div class="bg-circle-outline d-inline-block">
-                            </div>
+	<footer class="footer fixed-bottom">
+		<div class="container-fluid bg-primary">
+			<div class="container">
+				<div class="row py-3">
+					<div class="col-md-9">
+						<p class="text-white">© 2018 Copyright: Par Aurélien DREY, Antoine HEITZMANN, Raphael IENCO,
+							Gauvain PATAKY, Olivier SALFRANC, Mattéo BILLET et l'IUT de Belfort-Montbéliard.</p>
+					</div>
+					<div class="col-md-3">
+						<div class="d-inline-block">
+							<div class="bg-circle-outline d-inline-block">
+							</div>
 
-                            <div class="bg-circle-outline d-inline-block">
-                            </div>
+							<div class="bg-circle-outline d-inline-block">
+							</div>
 
-                            <div class="bg-circle-outline d-inline-block">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
+							<div class="bg-circle-outline d-inline-block">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
 {% endblock %}

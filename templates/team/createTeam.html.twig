@@ -1,21 +1,22 @@
 {% extends 'layout.html.twig' %}
 
-{% block body %}
     {% block header %}
-        <header class="page-header mt-5">
+        <header class="page-header">
+            <h1 class="text-uppercase">
+                <strong>France Dance Organisation</strong>
+            </h1>
             <hr>
         </header>
     {% endblock %}
-    {#{% form_theme form 'bootstrap_4_horizontal_layout.html.twig' %}#}
-    {#{% form_theme formEquipe 'bootstrap_4_horizontal_layout.html.twig' %}#}
 
+{% block body %}
     <div class="container">
         <h1>Création d'équipe</h1><br>
-        {{ form(formEquipe) }}
-
+        {% include 'team/modalCreateTeam.html.twig' %}
+        <a href="#" class="btn btn-outline-success" data-toggle="modal" data-target="#exampleModalCenter">Ajouter une équipe</a>
         <hr>
         {% for team in club.teams if club.teams is not empty %}
-            Equipe{{ team.id }}|<a href="{{ path('Equipe_description', {'id': team.id}) }}">Voir</a>
+            Equipe{{ team.id }}|<a href="{{ path('Team.show', {'id': team.id}) }}">Voir</a><br>
         {% else %}
             <p>Pas de d'équipe dans ce club</p>
         {% endfor %}

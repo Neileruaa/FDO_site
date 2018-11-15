@@ -7,6 +7,8 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Fpdf\Fpdf;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Asset\Package;
+use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -63,7 +65,8 @@ class DossardController extends AbstractController {
 	}
 
 	public function createDossardPDF($id, $nom, $club, $categorie){
-		$logo = $this->get('kernel')->getProjectDir() . '/public/Images/logo_fdo.jpg';
+//		$logo = $this->get('kernel')->getProjectDir() . '/public/Images/logo_fdo.jpg';
+		$logo = $this->getParameter('images_directory')."logo_fdo.jpg";
 		$pdf = new Fpdf('P','mm', 'A4');
 		$pdf->SetMargins(8,8, 8);
 		$pdf->SetAutoPageBreak(false, 8);

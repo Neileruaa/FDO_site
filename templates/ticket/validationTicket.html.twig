@@ -1,0 +1,17 @@
+{% if is_granted('ROLE_ADMIN') %}
+	<form action="{{ path('Ticket.show', {id: ticket.id}) }}" method="post">
+		<div class="form-row align-items-center">
+			<div class="col-auto my-1">
+				<select name="etat" id="etat" class="custom-select mr-sm-2">
+					<option value="default" selected>Choisir état...</option>
+					<option value="attente" {% if ticket.etat == 'attente' %}selected{% endif %}>Attente</option>
+					<option value="valide" {% if ticket.etat == 'valide' %}selected{% endif %}>Validé</option>
+					<option value="refuse" {% if ticket.etat == 'refuse' %}selected{% endif %}>Refusé</option>
+				</select>
+			</div>
+			<div class="col-auto my-1">
+				<button type="submit" class="btn btn-primary" name="submit">Valider</button>
+			</div>
+		</div>
+	</form>
+{% endif %}

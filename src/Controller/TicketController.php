@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Ticket;
 use App\Form\TicketType;
 use App\Repository\TicketRepository;
+use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,18 +19,32 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class TicketController extends AbstractController {
 	/**
-	 * @Route("/show", name="Ticket.show", methods="GET")
+	 * @Route("/show", name="Ticket.show")
+	 * @Route("/show/{id}", name="Ticket.show")
+	 * @param TicketRepository $ticketRepository
+	 * @param ObjectManager $manager
+	 * @param int $id
+	 * @return Response
 	 */
-	public function show(TicketRepository $ticketRepository): Response {
-		if ($this->getUser()->getRoles() == 'ROLE_ADMIN')
+	public function show(TicketRepository $ticketRepository, ObjectManager $manager, $id=0){
+		if ($this->getUser()->getRoles() == ["ROLE_ADMIN"])
 			$tickets = $ticketRepository->findAll();
 		else
 			$tickets = $this->getUser()->getTickets();
+		if ($id!=0) {
+			$ticket = $manager->getRepository(Ticket::class)->find($id);
+			if (isset($_POST['submit'])) {
+				if (isset($_POST['etat']) && $_POST['etat'] != 'default') {
+					dump($_POST['etat']);
+					$ticket->setEtat($_POST['etat']);
+					$manager->persist($ticket);
+					$manager->flush();
+				}
+			}
+		}
+
 		return $this->render('ticket/show.twig', ['tickets' => $tickets]);
 	}
-
-
-	//TODO: Methodes pour voir uniquement les tickets d'un club
 
 	/**
 	 * @Route("/new", name="Ticket.new", methods="GET|POST")
@@ -45,6 +60,7 @@ class TicketController extends AbstractController {
 			$ticket = $form->getData();
 			$ticket->setCreatedAt(new \DateTime());
 			$ticket->setAuthor($this->getUser());
+			$ticket->setEtat("attente");
 
 			$em->persist($ticket);
 			$em->flush();

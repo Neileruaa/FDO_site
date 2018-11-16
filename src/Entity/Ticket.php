@@ -53,6 +53,11 @@ class Ticket
      */
     private $createdAt;
 
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $etat;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -102,6 +107,18 @@ class Ticket
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getEtat(): ?string
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(string $etat): self
+    {
+        $this->etat = $etat;
 
         return $this;
     }

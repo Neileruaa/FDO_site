@@ -5,10 +5,11 @@
 {% block body %}
     <h1>Liste des tickets</h1>
 
-    <table class="table">
+    <table class="table table-hover">
         <thead>
             <tr>
-                <th>Club</th>
+                {% if is_granted("ROLE_ADMIN") %}<th>Club</th> {% endif %}
+                <th>État</th>
                 <th>Titre</th>
                 <th>Message</th>
                 <th>Date d'envoi</th>
@@ -16,9 +17,20 @@
             </tr>
         </thead>
         <tbody>
-        {% for ticket in tickets %}
-            <tr>
+        {% for ticket in tickets if tickets is not empty %}
+            <tr class="
+                {% if ticket.etat == "attente" %}
+                    table-warning
+                {% elseif ticket.etat == "valide" %}
+                    table-success
+                {% elseif ticket.etat == "refuse" %}
+                    table-danger
+                {% endif %}
+            ">
+                {% if is_granted("ROLE_ADMIN") %}
                 <td>{{ ticket.author }}</td>
+                {% endif %}
+                <td>{{ ticket.etat }}</td>
                 <td>{{ ticket.title }}</td>
                 <td>{{ ticket.message|striptags|length> 100 ? ticket.message|striptags|slice(0, 100) ~ '...' : ticket.message|striptags}}</td>
                 <td>{{ ticket.createdAt ? ticket.createdAt|date('Y-m-d H:i') : '' }}</td>
@@ -29,11 +41,12 @@
                     {% endif %}
                     {#FIXME: mettre sur la meme ligne#}
                     {{ include('ticket/_delete_form.html.twig') }}
+                    {{ include('ticket/validationTicket.html.twig') }}
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">Pas de tickets actuellement !</td>
+                <td colspan="6">Pas de tickets actuellement !</td>
             </tr>
         {% endfor %}
         </tbody>

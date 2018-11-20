@@ -11,7 +11,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\IsTrue;
 
 class TeamType extends AbstractType
 {
@@ -42,7 +41,6 @@ class TeamType extends AbstractType
 	            'choice_label'=>function(Dancer $dancer){
             	    return strval($dancer->getNameDancer()." ". $dancer->getFirstNameDancer());
 	            },
-                'required'=>true,
 	            'expanded'=>true,
 	            'multiple'=>true,
 	            'by_reference'=>false

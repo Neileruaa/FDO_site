@@ -24,20 +24,23 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="{{ path('Home.index') }}"><i class="fas fa-home"></i> Home</a>
+                        <a class="nav-link js-scroll-trigger" href="{{ path('Home.index') }}"><i class="fas fa-home"></i>Accueil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="{{ path('Dossard.show') }}"><i class="fas fa-print"></i> PDF</a>
+                        <a class="nav-link js-scroll-trigger" href="{{ path('Dossard.show') }}"><i class="fas fa-print"></i>PDF</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="{{ path('Team.create') }}"><i class="fas fa-users"></i> Créer une équipe</a>
+                        <a class="nav-link js-scroll-trigger" href="{{ path('Team.create') }}"><i class="fas fa-users"></i>Equipe</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="{{ path('Dancer.create') }}"><i class="fas fa-user-edit"></i> Ajouter un danseur</a>
+                        <a class="nav-link js-scroll-trigger" href="{{ path('Dancer.create') }}"><i class="fas fa-user-edit"></i>Danseur</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="{{ path('Competition.show') }}"><i class="fas fa-trophy"></i>Compétitions</a>
                     </li>
                     {% if is_granted('ROLE_USER')  %}
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="{{ path('Ticket.new') }}"><i class="fas fa-envelope-open-text"></i> Envoyer un ticket</a>
+                            <a class="nav-link js-scroll-trigger" href="{{ path('Ticket.new') }}"><i class="fas fa-envelope-open-text"></i>Envoyer un ticket</a>
                         </li>
                     {% endif %}
 
@@ -56,7 +59,7 @@
                                 <strong>Menu club</strong>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ path('Competition.create') }}">création de competition</a>
+                                <!-- <a class="dropdown-item" href="{#{ path('Competition.create') }#}">création de competition</a> -->
                                 <a class="dropdown-item" href="{{ path('Team.surclassement') }}">surclasser une equipe</a>
                                 <a class="dropdown-item" href="/mailBox">boite mail</a>
                                 <div class="dropdown-divider"></div>

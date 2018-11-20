@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {% if is_granted('ROLE_ADMIN') %}
+        {% include 'competition/createCompetition.html.twig' %}
+        <a href="#" class="btn btn-outline-success" data-toggle="modal" data-target="#exampleModalCenter">Ajouter une compétition</a></br>
+    {% endif %}
+    {% if competitions is defined and competitions is not empty %}
+    <div class="table-responsive">
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Ville</th>
+                <th scope="col">Code postal</th>
+                <th scope="col">Adresse</th>
+                <th scope="col">Date</th>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <th scope="col">Action</th>
+                {% endif %}
+            </tr>
+            </thead>
+            <tbody>
+                {% for compet in competitions %}
+                    <tr>
+                        <th scope="row">{{ compet.city }}</th>
+                        <td>{{ compet.postalCode }}</td>
+                        <td>{{ compet.address }}</td>
+                        <td>{{ compet.getDateCompetition().format('d/m/Y') }}</td>
+                        {% if is_granted('ROLE_ADMIN') %}<td><a href="{{ path('Competition.delete', {id: compet.id}) }}" class="btn btn-outline-warning " data-toggle="modal">Supprimer</a></td>{% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+        {% else %}
+        <strong class="text-center">Pas de compétition de prévu</strong>
+    {% endif %}
+{% endblock %}

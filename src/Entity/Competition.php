@@ -26,19 +26,19 @@ class Competition
     private $dateCompetition;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Team", inversedBy="competitions")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Team", inversedBy="competitions", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=true)
      */
     private $teams;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Dance")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Dance", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $dances;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Club", inversedBy="competitions")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Club", inversedBy="competitions", cascade={"persist", "remove"})
      */
     private $clubOrganizer;
 

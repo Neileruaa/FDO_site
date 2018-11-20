@@ -94,7 +94,7 @@ class Club implements UserInterface, \Serializable {
     private $tickets;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Competition", mappedBy="clubOrganizer")
+     * @ORM\OneToMany(targetEntity="App\Entity\Competition", mappedBy="clubOrganizer", cascade={"persist", "remove"})
      */
     private $competitions;
 

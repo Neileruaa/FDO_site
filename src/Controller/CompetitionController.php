@@ -4,9 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Club;
 use App\Entity\Competition;
-use App\Entity\Place;
 use App\Form\CompetitionType;
-use App\Form\PlaceType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

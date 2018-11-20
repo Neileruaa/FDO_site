@@ -27,16 +27,9 @@ class Competition
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Team", inversedBy="competitions")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $teams;
-
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Place", mappedBy="competition")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $place;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Dance")
@@ -45,10 +38,24 @@ class Competition
     private $dances;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Club", mappedBy="competition")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Club", inversedBy="competitions")
      */
     private $clubOrganizer;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $city;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $address;
+
+    /**
+     * @ORM\Column(type="decimal", precision=5, scale=0)
+     */
+    private $postalCode;
 
 
     public function __construct()
@@ -105,37 +112,6 @@ class Competition
     }
 
     /**
-     * @return Collection|Place[]
-     */
-    public function getPlace(): Collection
-    {
-        return $this->place;
-    }
-
-    public function addPlace(Place $place)
-    {
-        if (!$this->place->contains($place)) {
-            $this->place[] = $place;
-         //   $place->setCompetition($this);
-        }
-
-        return $this;
-    }
-
-    public function removePlace(Place $place): self
-    {
-        if ($this->place->contains($place)) {
-            $this->place->removeElement($place);
-            // set the owning side to null (unless already changed)
-            if ($place->getCompetition() === $this) {
-                $place->setCompetition(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection|Dance[]
      */
     public function getDances(): Collection
@@ -161,33 +137,50 @@ class Competition
         return $this;
     }
 
-    /**
-     * @return Collection|Club[]
-     */
-    public function getClubOrganizer(): Collection
+    public function getClubOrganizer(): ArrayCollection
     {
         return $this->clubOrganizer;
     }
 
-    public function addClubOrganizer(Club $clubOrganizer): self
+    public function setClubOrganizer(?Club $clubOrganizer): self
     {
-        if (!$this->clubOrganizer->contains($clubOrganizer)) {
-            $this->clubOrganizer[] = $clubOrganizer;
-            $clubOrganizer->setCompetition($this);
-        }
+        $this->clubOrganizer = $clubOrganizer;
 
         return $this;
     }
 
-    public function removeClubOrganizer(Club $clubOrganizer): self
+    public function getCity(): ?string
     {
-        if ($this->clubOrganizer->contains($clubOrganizer)) {
-            $this->clubOrganizer->removeElement($clubOrganizer);
-            // set the owning side to null (unless already changed)
-            if ($clubOrganizer->getCompetition() === $this) {
-                $clubOrganizer->setCompetition(null);
-            }
-        }
+        return $this->city;
+    }
+
+    public function setCity(string $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(string $address): self
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getPostalCode()
+    {
+        return $this->postalCode;
+    }
+
+    public function setPostalCode($postalCode): self
+    {
+        $this->postalCode = $postalCode;
 
         return $this;
     }

@@ -2,55 +2,52 @@
 
 namespace App\Form;
 
-
 use App\Entity\Club;
 use App\Entity\Competition;
 use App\Entity\Dance;
-use App\Entity\Place;
-use App\Entity\Team;
-use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\FormTypeInterface;
 
 class CompetitionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('dateCompetition', DateType::class)
-
-
-            ->add('place', EntityType::class, array(
-                        'class' => Place::class,
-                        'choice_label' => 'cityPlace',
-                        'expanded'=>false,
-                        'multiple'=>false)
-            )
-
-            ->add('teams', EntityType::class, array(
-                    'class' => Team::class,
-                    'choice_label' => 'id',
-                    'expanded'=>false,
-                    'multiple'=>false)
-            )
-
-            ->add('dances', EntityType::class, array(
-                    'class' => Dance::class,
-                    'choice_label' => 'nameDance',
-                    'expanded'=>false,
-                    'multiple'=>true)
-            )
-            ->add('clubOrganizer', EntityType::class, array(
-                    'class' => Club::class,
-                    'choice_label' => 'Username',
-                    'expanded'=>false,
-                    'multiple'=>false)
-            )
-
+            ->add('dateCompetition', DateType::class, array(
+                'label'=>'Date de la compétition'
+            ))
+            ->add('city', TextType::class, array(
+                'label'=>"Ville"
+            ))
+            ->add('address', TextType::class, array(
+                'label'=>'Adresse'
+            ))
+            ->add('postalCode', NumberType::class, array(
+                'label'=>'Code postal'
+            ))
+            ->add('dances', EntityType::class, [
+                'label'=>'Liste des danses',
+                'class'=> Dance::class,
+                'choice_label'=>'nameDance',
+                'required'=>true,
+                'expanded'=>false,
+                'multiple'=>true,
+                'by_reference'=>false
+            ])
+            ->add('clubOrganizer', EntityType::class, [
+                'label'=>'Club organisateur',
+                'class'=> Club::class,
+                'choice_label'=>'username',
+                'required'=>true,
+                'expanded'=>false,
+                'multiple'=>false,
+                'by_reference'=>false
+            ])
         ;
     }
 

@@ -2,6 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Club;
+use App\Entity\Competition;
+use App\Entity\Place;
+use App\Form\CompetitionType;
+use App\Form\PlaceType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,7 +29,7 @@ class CompetitionController extends AbstractController {
 		if ($form->isSubmitted() && $form->isValid()) {
 			$manager->persist($competition);
 			$manager->flush();
-			return $this->redirectToRoute('security.login');
+			return $this->redirectToRoute('Competition.create');
 		}
 		return $this->render('admin/createCompetition.html.twig', ['form' => $form->createView()]);
 	}

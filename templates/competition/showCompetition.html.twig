@@ -25,7 +25,7 @@
                         <td>{{ compet.postalCode }}</td>
                         <td>{{ compet.address }}</td>
                         <td>{{ compet.getDateCompetition().format('d/m/Y') }}</td>
-                        {% if is_granted('ROLE_ADMIN') %}<td><a href="{{ path('Competition.delete', {id: compet.id}) }}" class="btn btn-outline-warning " data-toggle="modal">Supprimer</a></td>{% endif %}
+                        {% if is_granted('ROLE_ADMIN') %}<td><a href="{{ path('Competition.delete', {id: compet.id}) }}" class="btn btn-outline-warning">Supprimer</a></td>{% endif %}
                     </tr>
                 {% endfor %}
             </tbody>

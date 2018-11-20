@@ -37,7 +37,6 @@ class CompetitionController extends AbstractController {
      * @Route("/competition/delete/{id}", name="Competition.delete", requirements={"page"="\d+"})
      */
 	public function deleteCompetition(Competition $competition, ObjectManager $manager){
-
         $manager->remove($competition);
         $manager->flush();
         return $this->redirectToRoute("Competition.show");

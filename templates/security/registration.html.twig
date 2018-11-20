@@ -24,6 +24,14 @@
     {{ form_row(form.emailClub,{'attr':{'placeholder':'entrez votre mail '}}) }}
     {{ form_row(form.phoneClub,{'attr':{'placeholder':'entrez votre numero de telephone'}}) }}
 
+	    {% if errors is not empty%}
+            <div class="alert alert-danger">
+			    {{ errors[0] }}
+			    {#{{ errors }}#}
+            </div>
+	    {% endif %}
+        <div class="g-recaptcha mb-3" data-sitekey="6LfoFXwUAAAAAPz7SK8X1aQRKt0SzBQcQXBiM5Ba"></div>
+
         <button type="submit" class="btn btn-success">Valider</button>
         {{ form_end(form) }}
     </div>

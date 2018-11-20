@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Club;
 use App\Form\ClubType;
+use ReCaptcha\ReCaptcha;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -22,18 +23,28 @@ class SecurityController extends Controller {
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
 	 */
 	public function registration(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder) {
+		$recaptcha = new ReCaptcha('6LfoFXwUAAAAAHwbk-Eq0LHYCtmxY2OlFdnVtpYL');
+		$resp = $recaptcha->verify($request->request->get('g-recaptcha-response'), $request->getClientIp());
+		$errors = array();
 		$club = new Club();
 		$form = $this->createForm(ClubType::class, $club);
 		$form->handleRequest($request);
 		if ($form->isSubmitted() && $form->isValid()) {
-			$hash = $encoder->encodePassword($club, $club->getPassword());
-			$club->setPassword($hash);
-			$club->setRoles('ROLE_USER');
-			$manager->persist($club);
-			$manager->flush();
-			return $this->redirectToRoute('Security.login');
+			if ($resp->isSuccess()) {
+				$hash = $encoder->encodePassword($club, $club->getPassword());
+				$club->setPassword($hash);
+				$club->setRoles('ROLE_USER');
+				$manager->persist($club);
+				$manager->flush();
+				return $this->redirectToRoute('Security.login');
+			} else {
+				$errors = $resp->getErrorCodes();
+			}
 		}
-		return $this->render('security/registration.html.twig', ['form' => $form->createView()]);
+		return $this->render('security/registration.html.twig', [
+			'form' => $form->createView(),
+			'errors' => $errors
+			]);
 	}
 
 	/**

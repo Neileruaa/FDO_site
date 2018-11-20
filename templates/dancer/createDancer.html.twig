@@ -1,4 +1,5 @@
-{% extends 'layout.html.twig' %}
+{% extends 'base.html.twig' %}
+{% block title %}Gestion des danseurs{% endblock %}
 {% block header %}
     <header class="page-header">
         <h1 class="text-uppercase">
@@ -7,13 +8,13 @@
         <hr>
     </header>
 {% endblock %}
+
 {% block body %}
         <h1>Liste des danseurs</h1>
         {#{% form_theme formDanseur 'bootstrap_4_horizontal_layout.html.twig' %}#}
         {% include "dancer/modalCreateDancer.html.twig" %}
     <a href="#" class="btn btn-outline-success" data-toggle="modal" data-target="#exampleModalCenter">Ajouter un danseur</a>
-    </br>
-    </br>
+    <hr>
     <table class="table">
     {% if club.dancers is not empty %}
         <thead class="thead-dark">
@@ -32,14 +33,14 @@
                 <td>{{ dancer.firstNameDancer }}</td>
                 <td>{{ dancer.getDateBirthDancer().format('d-m-Y') }}</td>
                 <td>{{ dancer.club }}</td>
-                <td><a href="{{ path('Dancer.remove', {'id': dancer.id }) }}">Supprimer</a></td>
+                <td><a href="{{ path('Dancer.remove', {'id': dancer.id }) }}" class="btn btn-danger">Supprimer</a></td>
             </tr>
         {% endfor %}
         </tbody>
         </table>
     {% else %}
         <strong class="text-center">Pas de danseur dans ce club</strong>
+        </table>
     {% endif %}
 {% endblock %}
-
 

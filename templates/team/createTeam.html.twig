@@ -1,26 +1,19 @@
-{% extends 'layout.html.twig' %}
-
-    {% block header %}
-        <header class="page-header">
-            <h1 class="text-uppercase">
-                <strong>France Dance Organisation</strong>
-            </h1>
-            <hr>
-        </header>
-    {% endblock %}
-
+{% extends 'base.html.twig' %}
+{% block title %}Gestion des équipes{% endblock %}
 {% block body %}
     <div class="container">
         <h1>Création d'équipe</h1><br>
         {% include 'team/modalCreateTeam.html.twig' %}
         <a href="#" class="btn btn-outline-success" data-toggle="modal" data-target="#exampleModalCenter">Ajouter une équipe</a>
         <hr>
-        {% for team in club.teams if club.teams is not empty %}
+        {% if club.teams is not empty %}
+        {% for team in club.teams %}
             Equipe{{ team.id }}|<a href="{{ path('Team.show', {'id': team.id}) }}">Voir</a><br>
-        {% else %}
-            <p>Pas de d'équipe dans ce club</p>
         {% endfor %}
-        <a href="#myModal" class="trigger-btn" data-toggle="modal">Supprimer toutes les équipes</a>
+        <a href="#myModal" class="btn btn-danger" data-toggle="modal">Supprimer toutes les équipes</a>
+        {% else %}
+            <strong>Pas de d'équipe dans ce club</strong>
+        {% endif %}
     </div>
 
     <div id="myModal" class="modal fade">

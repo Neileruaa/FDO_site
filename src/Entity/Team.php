@@ -21,11 +21,15 @@ class Team
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Dance")
+     * @ORM\JoinColumn(nullable=false)
+     * @Assert\Count(min="1", max="10", minMessage="Cette équipe doit contenir au minimum 1 danse", maxMessage="Cette équipe doit contenir au plus 10 danses")
      */
     private $dances;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Dancer", inversedBy="teams")
+     * @ORM\JoinColumn(nullable=false)
+     * @Assert\Count(min="1", max="20", minMessage="Cette équipe doit contenir au minimum 1 danseur", maxMessage="Cette équipe doit contenir au plus 20 danseurs")
      */
     private $dancers;
 

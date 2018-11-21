@@ -19,7 +19,10 @@ class DancerType extends AbstractType
             ->add('firstNameDancer', TextType::class, array('label' => 'Prénom'))
             ->add('dateBirthDancer', DateType::class,[
                 'label'=>"Date de naissance",
-            	'widget'=>'single_text',
+	            'widget'=>'single_text',
+	            'format' => 'dd-mm-yyyy',
+	            'html5' => false,
+	            'attr' => ['class' => 'js-datepicker']
             ])
             ->add('emailDancer', TextType::class, array('label' => 'Adresse mail'))
 	        ->add('save', SubmitType::class, [

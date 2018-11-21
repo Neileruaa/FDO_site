@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <link rel="stylesheet" href="{{ asset('creative.css') }}">
         <script src='https://www.google.com/recaptcha/api.js'></script>
-
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css">
     {% endblock %}
 </head>
 <body>
@@ -129,13 +129,22 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
 
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 {# CKEDITOR #}
 <script src="//cdn.ckeditor.com/4.11.1/standard/ckeditor.js"></script>
 {% block javascripts %}
     <script type="text/javascript">
         $(function () {
             $('textarea.ckeditor').ckeditor();
-        })
+        });
+        $('.js-datepicker').datepicker({
+            dateFormat: 'dd-mm-yy',
+            buttonImageOnly: true,
+            changeMonth: true,
+            changeYear: true,
+        });
+
     </script>
 {% endblock %}
 </body>

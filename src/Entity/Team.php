@@ -45,9 +45,10 @@ class Team
     private $competitions;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Category", inversedBy="teams")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="teams")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $categories;
+    private $category;
 
 
     public function __construct()
@@ -159,32 +160,6 @@ class Team
         return $this;
     }
 
-    /**
-     * @return Collection|Category[]
-     */
-    public function getCategories(): Collection
-    {
-        return $this->categories;
-    }
-
-    public function addCategory(Category $category): self
-    {
-        if (!$this->categories->contains($category)) {
-            $this->categories[] = $category;
-        }
-
-        return $this;
-    }
-
-    public function removeCategory(Category $category): self
-    {
-        if ($this->categories->contains($category)) {
-            $this->categories->removeElement($category);
-        }
-
-        return $this;
-    }
-
     public function countDancers()
     {
         $i=0;
@@ -192,6 +167,18 @@ class Team
             $i+=1;
         }
         return $i;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
+
+        return $this;
     }
 
 

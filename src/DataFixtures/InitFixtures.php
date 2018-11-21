@@ -22,11 +22,8 @@ class InitFixtures extends Fixture
         $category2->setNameCategory("enfant");
         $category3->setNameCategory("senior");
 
-        $team=new Team();
-        $team->addCategory($category);
-        $manager->persist($team);
-        $manager->persist($category);
         $manager->persist($category2);
+        $manager->persist($category);
         $manager->persist($category3);
 
         $dances=[

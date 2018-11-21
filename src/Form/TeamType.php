@@ -39,7 +39,7 @@ class TeamType extends AbstractType
                 'label'=>'Liste des danseurs',
             	'class'=> Dancer::class,
 	            'choice_label'=>function(Dancer $dancer){
-            	    return strval($dancer->getNameDancer()." ". $dancer->getFirstNameDancer());
+            	    return strval($dancer->getNameDancer()." ". $dancer->getFirstNameDancer(). " | ".$dancer->getDateBirthDancer()->format('d-m-Y'));
 	            },
 	            'expanded'=>true,
 	            'multiple'=>true,

@@ -19,7 +19,11 @@ class CompetitionType extends AbstractType
     {
         $builder
             ->add('dateCompetition', DateType::class, array(
-                'label'=>'Date de la compétition'
+                'label'=>'Date de la compétition',
+                'widget'=>'single_text',
+                'format' => 'dd-mm-yyyy',
+                'html5' => false,
+                'attr' => ['class' => 'js-datepicker']
             ))
             ->add('city', TextType::class, array(
                 'label'=>"Ville"

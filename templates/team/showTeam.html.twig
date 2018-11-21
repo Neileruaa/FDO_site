@@ -1,5 +1,5 @@
 {% extends 'layout.html.twig' %}
-
+{% block title %}Équipe {{ team.id }}{% endblock %}
 {% block body %}
     {% block header %}
         <header class="page-header mt-5">
@@ -24,7 +24,7 @@
             <tr>
                 <th scope="row">{{ dancer.nameDancer }}</th>
                 <td>{{ dancer.firstNameDancer }}</td>
-                <td>Otto</td>
+                <td>{{ team.getCategory().nameCategory }}</td>
                 <td>{% for dance in list_dances %}{{ dance.nameDance }} {% endfor %}</td>
             </tr>
         {% endfor %}

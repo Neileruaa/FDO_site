@@ -24,7 +24,7 @@ class Category
     private $nameCategory;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Team", mappedBy="categories")
+     * @ORM\OneToMany(targetEntity="App\Entity\Team", mappedBy="category")
      */
     private $teams;
 
@@ -50,6 +50,11 @@ class Category
         return $this;
     }
 
+    public function __toString()
+    {
+         return $this->getNameCategory();
+    }
+
     /**
      * @return Collection|Team[]
      */
@@ -62,7 +67,7 @@ class Category
     {
         if (!$this->teams->contains($team)) {
             $this->teams[] = $team;
-            $team->addCategory($this);
+            $team->setCategory($this);
         }
 
         return $this;
@@ -72,15 +77,13 @@ class Category
     {
         if ($this->teams->contains($team)) {
             $this->teams->removeElement($team);
-            $team->removeCategory($this);
+            // set the owning side to null (unless already changed)
+            if ($team->getCategory() === $this) {
+                $team->setCategory(null);
+            }
         }
 
         return $this;
-    }
-
-    public function __toString()
-    {
-         return $this->getNameCategory();
     }
 
 

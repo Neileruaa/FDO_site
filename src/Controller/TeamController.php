@@ -33,8 +33,6 @@ class TeamController extends AbstractController
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
 	public function createTeam(Request $request) {
-		//TODO: Correct this error
-		//$formDel=$this->createDeleteForm();
 		$confirm=0;
 		$club = $this->getUser();
 		$team = new Team();
@@ -78,9 +76,19 @@ class TeamController extends AbstractController
 	public function showTeam(Team $team) {
 		return $this->render(
 			'team/showTeam.html.twig',
-			['list_dancer'=>$team->getDancers()]
+			['list_dancer'=>$team->getDancers(),'list_dances'=>$team->getDances()]
 		);
 	}
+
+    /**
+     * @Route("/team/delete/{id}", name="Team.delete", requirements={"id" = "\d+"})
+     * @param Team $team
+     */
+    public function deleteTeam(Team $team, ObjectManager $manager){
+        $manager->remove($team);
+        $manager->flush();
+        return $this->redirectToRoute("Team.create");
+    }
 
 	/**
 	 * @Route("/deleteAll/team" , name="Team.deleteAll")

@@ -10,10 +10,25 @@
         <br>
         <a href="{{ path('Team.create') }}">Retour</a>
         <br><br><br>
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Nom</th>
+                <th scope="col">Prénom</th>
+                <th scope="col">Catégorie</th>
+                <th scope="col">Danses</th>
+            </tr>
+            </thead>
+            <tbody>
         {% for dancer in list_dancer %}
-            {{ dancer.nameDancer }}
-            <br>
+            <tr>
+                <th scope="row">{{ dancer.nameDancer }}</th>
+                <td>{{ dancer.firstNameDancer }}</td>
+                <td>Otto</td>
+                <td>{% for dance in list_dances %}{{ dance.nameDance }} {% endfor %}</td>
+            </tr>
         {% endfor %}
+            </tbody>
+        </table>
     </div>
 {% endblock %}
-

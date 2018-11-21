@@ -17,6 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * @package App\Controller
  */
 class CompetitionController extends AbstractController {
+
 	/**
 	 * @Route("/competition/show", name="Competition.show")
 	 */

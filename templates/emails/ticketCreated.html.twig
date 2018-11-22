@@ -1,0 +1,11 @@
+<h3>Un nouveau ticket à été posté par un club</h3><br>
+
+Bonjour {{ name }}! <br>
+
+Le club {{ club }} a posté le ticket suivant, le {{ ticket.createdAt ? ticket.createdAt|date('Y-m-d H:i') : '' }} :<br>
+
+{{ ticket.message|raw }}
+
+Pour vous connecter, <a href="{{ url('Security.login') }}">cliquez ici</a>.
+
+Merci et que la chance soit avec vous !

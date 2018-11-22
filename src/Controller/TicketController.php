@@ -50,7 +50,7 @@ class TicketController extends AbstractController {
 	 * @Route("/new", name="Ticket.new", methods="GET|POST")
 	 * @IsGranted("ROLE_USER")
 	 */
-	public function new(Request $request): Response {
+	public function new(Request $request, \Swift_Mailer $mailer): Response {
 		$ticket = new Ticket();
 		$form = $this->createForm(TicketType::class, $ticket);
 		$form->handleRequest($request);
@@ -64,6 +64,22 @@ class TicketController extends AbstractController {
 
 			$em->persist($ticket);
 			$em->flush();
+
+			$message = (new \Swift_Message('Nouveau ticket'))
+				->setFrom($this->getUser()->getEmailClub())
+				//TODO: mettre le mail de l'admin
+				->setTo('aureliendrey@gmail.com')
+				->setBody(
+					$this->renderView(
+						'emails/ticketCreated.html.twig',[
+							'name' => $this->getUser()->getNameClubOwner(),
+							'club' => $this->getUser()->getUsername(),
+							'ticket' => $ticket
+						]
+					),
+					'text/html'
+				);
+			$mailer->send($message);
 
 			//TODO:Faire un message = "Ticket bien envoyé"
 			return $this->redirectToRoute('Ticket.show');

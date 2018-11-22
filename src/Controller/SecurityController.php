@@ -15,14 +15,15 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends Controller {
-	/**
-	 * @Route("/register", name="Security.registration")
-	 * @param Request $request
-	 * @param ObjectManager $manager
-	 * @param UserPasswordEncoderInterface $encoder
-	 * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-	 */
-	public function registration(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder) {
+    /**
+     * @Route("/register", name="Security.registration")
+     * @param Request $request
+     * @param ObjectManager $manager
+     * @param UserPasswordEncoderInterface $encoder
+     * @param \Swift_Mailer $mailer
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+	public function registration(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder, \Swift_Mailer $mailer) {
 		$recaptcha = new ReCaptcha('6LfoFXwUAAAAAHwbk-Eq0LHYCtmxY2OlFdnVtpYL');
 		$resp = $recaptcha->verify($request->request->get('g-recaptcha-response'), $request->getClientIp());
 		$errors = array();
@@ -36,6 +37,20 @@ class SecurityController extends Controller {
 				$club->setRoles('ROLE_USER');
 				$manager->persist($club);
 				$manager->flush();
+
+                $message = (new \Swift_Message('New Mail'))
+                    ->setFrom('fdotestemail@gmail.com')
+                    ->setTo($club->getEmailClub())
+                    ->setBody(
+                        $this->renderView(
+                            'emails/successful_registration.html.twig',[
+                                'name' => $club->getNameClubOwner()
+                            ]
+                        ),
+                        'text/html'
+                    );
+                $mailer->send($message);
+
 				return $this->redirectToRoute('Security.login');
 			} else {
 				$errors = $resp->getErrorCodes();

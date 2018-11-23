@@ -79,11 +79,27 @@ class TeamController extends AbstractController
                         if($ageDancer>=5 && $ageDancer<=11) $team->setCategory($enfant);
                         elseif ($ageDancer>=10 && $ageDancer<=15) $team->setCategory($junior);
                         elseif ($ageDancer>=14) $team->setCategory($adulte);
+                        else return $this->render(
+                            'team/createTeam.html.twig',
+                            array(
+                                'formEquipe'=>$form->createView(),
+                                'listEquipe'=>$list_teams,
+                                'club'=>$club
+                            )
+                        );
                         break;
                     case 2:
                         if($ageDancer>=5 && $ageDancer<=11) $team->setCategory($enfant);
                         elseif ($ageDancer>=10 && $ageDancer<=15) $team->setCategory($junior);
                         elseif ($ageDancer>=14) $team->setCategory($adulte);
+                        else return $this->render(
+                            'team/createTeam.html.twig',
+                            array(
+                                'formEquipe'=>$form->createView(),
+                                'listEquipe'=>$list_teams,
+                                'club'=>$club
+                            )
+                        );
                         break;
                     default:
                         $somme=0;
@@ -94,6 +110,14 @@ class TeamController extends AbstractController
                         if($moyenneAge>=5 && $moyenneAge<=11) $team->setCategory($enfant);
                         elseif ($moyenneAge>=10 && $moyenneAge<=15) $team->setCategory($junior);
                         elseif ($moyenneAge>=14) $team->setCategory($adulte);
+                        else return $this->render(
+                            'team/createTeam.html.twig',
+                            array(
+                                'formEquipe'=>$form->createView(),
+                                'listEquipe'=>$list_teams,
+                                'club'=>$club
+                            )
+                        );
                         break;
 
                 }

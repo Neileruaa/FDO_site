@@ -34,6 +34,19 @@ class CompetitionController extends AbstractController {
 		return $this->render('competition/showCompetition.html.twig', ['form' => $form->createView(),'competitions'=>$compet]);
 	}
 
+	/**
+	 * l'id est celui de la competition
+	 * @Route("/competition/addTeam/{id}", name="Competition.addTeam")
+	 * @param ObjectManager $manager
+	 * @param Request $request
+	 */
+	public function addTeamToCompetition(ObjectManager $manager, Request $request, Competition $competition) {
+		$listTeams = $this->getUser()->getTeams();
+		return $this->render('competition/addTeam.html.twig',[
+			'teams' => $listTeams
+		]);
+	}
+	
     /**
      * @Route("/competition/delete/{id}", name="Competition.delete", requirements={"page"="\d+"})
      */

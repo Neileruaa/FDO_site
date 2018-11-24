@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Inscrire des équipes pour cette compétition !
+{% endblock %}
+
+{% block body %}
+    {% for team in teams if teams is not empty %}
+        {{ team.id }}
+    {% else %}
+        <p>Vous devez créer des équipes ! Votre club n'en a pas encore !</p>
+    {% endfor %}
+{% endblock %}
+
+

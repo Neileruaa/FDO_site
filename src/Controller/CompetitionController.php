@@ -31,7 +31,10 @@ class CompetitionController extends AbstractController {
 			$manager->flush();
 			return $this->redirectToRoute('Competition.show');
 		}
-		return $this->render('competition/showCompetition.html.twig', ['form' => $form->createView(),'competitions'=>$compet]);
+		return $this->render('competition/showCompetition.html.twig', [
+			'form' => $form->createView(),
+			'competitions'=>$compet
+		]);
 	}
 
 	/**

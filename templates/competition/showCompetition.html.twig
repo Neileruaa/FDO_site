@@ -30,7 +30,6 @@
                         <td>{{ compet.getDateCompetition().format('d/m/Y') }}</td>
                         <td>
                             <a href="#" class="btn btn-outline-success" data-toggle="modal" data-target="#T{{ compet.id }}">Voir les danses</a>
-                            {#FIXME: Le modal prend toujours le premier ! #}
                             <hr>
                         </td>
                         {% if is_granted('ROLE_ADMIN') %}

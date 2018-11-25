@@ -144,21 +144,10 @@ class TeamController extends AbstractController
 	}
 
 	/**
-	 * @Route("/team/{id}", name="Team.show", requirements={"id" = "\d+"})
+	 * @Route("/team/delete/{id}", name="Team.delete", requirements={"id" = "\d+"})
 	 * @param Team $team
-	 * @return \Symfony\Component\HttpFoundation\Response
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
-	public function showTeam(Team $team) {
-		return $this->render(
-			'team/showTeam.html.twig',
-			['list_dancer'=>$team->getDancers(),'list_dances'=>$team->getDances(),'team'=>$team]
-		);
-	}
-
-    /**
-     * @Route("/team/delete/{id}", name="Team.delete", requirements={"id" = "\d+"})
-     * @param Team $team
-     */
     public function deleteTeam(Team $team, ObjectManager $manager){
         $manager->remove($team);
         $manager->flush();

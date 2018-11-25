@@ -41,6 +41,18 @@ class CompetitionController extends AbstractController {
 
 	/**
 	 * l'id est celui de la competition
+	 * @Route("/competition/viewDetails/{id}", name="Competition.viewDetails")
+	 * @param Competition $competition
+	 * @return \Symfony\Component\HttpFoundation\Response
+	 */
+	public function detailsCompetition(Competition $competition) {
+		return $this->render('competition/viewDétailsCompetition.html.twig',[
+			'compet' => $competition
+		]);
+	}
+
+	/**
+	 * l'id est celui de la competition
 	 * @Route("/competition/addTeam/{id}", name="Competition.addTeam")
 	 * @param ObjectManager $manager
 	 * @param Request $request

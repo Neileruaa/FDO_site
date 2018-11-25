@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Détails compétition
+{% endblock %}
+
+
+{% block body %}
+    <a href="{{ path('Competition.show') }}" class="btn btn-primary float-left">Retour aux compétitions</a>
+    <h1>Compétitions numero : {{ compet.id }}</h1>
+
+    <ul class="list-group mb-5">
+        <li class="list-group-item">{{ compet.clubOrganizer.username }}</li>
+        {#TODO:Afficher description#}
+        <li class="list-group-item">{{ compet.dateCompetition|date('d-m-Y') }}</li>
+        <li class="list-group-item">{{ compet.city }}</li>
+        <li class="list-group-item">{{ compet.postalCode }}</li>
+        <li class="list-group-item">{{ compet.address }}</li>
+        <li class="list-group-item">
+            {% for dance in compet.dances %}
+                {{ dance.nameDance }}
+                <hr>
+            {% else %}
+                Pas de dances renseignée pour cette compétition
+            {% endfor %}
+        </li>
+    </ul>
+    {% if compet.teams is not empty %}
+        <div class="row">
+            {% for team in compet.teams %}
+                {% include 'team/modalViewDetailsTeam.html.twig' %}
+                <div class="col-lg-4 mb-2">
+                    <div class="card text-center">
+                        <div class="card-header">
+                            {{ team.club.username }}
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title">Équipe:{{ team.id }}</h4>
+                            <p class="card-text">Cette équipe est inscrite en {{ team.category }}.</p>
+                            <p class="card-text">Pour danser les danses suivantes : {% for dance in team.dances %}{{ dance.nameDance }},{% endfor %}</p>
+                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#T{{ team.id }}">Voir</a>
+                        </div>
+                        <div class="card-footer text-muted">
+                            2 days ago (TODO: METTRE DATE INSCRIPTION)
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+        </div>
+    {% else %}
+        <div>
+            <p>Pas encore d'équipes inscrites ! </p>
+        </div>
+    {% endif %}
+{% endblock %}
+
+

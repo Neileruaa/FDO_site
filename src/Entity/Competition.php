@@ -137,7 +137,7 @@ class Competition
         return $this;
     }
 
-    public function getClubOrganizer(): ArrayCollection
+    public function getClubOrganizer()
     {
         return $this->clubOrganizer;
     }

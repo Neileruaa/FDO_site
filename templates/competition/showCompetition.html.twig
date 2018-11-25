@@ -22,14 +22,14 @@
             </thead>
             <tbody>
                 {% for compet in competitions %}
+                    {% include "competition/modalShowDances.html.twig" %}
                     <tr>
                         <th scope="row">{{ compet.city }}</th>
                         <td>{{ compet.postalCode }}</td>
                         <td>{{ compet.address }}</td>
                         <td>{{ compet.getDateCompetition().format('d/m/Y') }}</td>
                         <td>
-                            <a href="#" class="btn btn-outline-success" data-toggle="modal" data-target="#exampleModalCenter">Voir les danses</a>
-                            {% include "competition/modalShowDances.html.twig" %}
+                            <a href="#" class="btn btn-outline-success" data-toggle="modal" data-target="#T{{ compet.id }}">Voir les danses</a>
                             {#FIXME: Le modal prend toujours le premier ! #}
                             <hr>
                         </td>

@@ -51,10 +51,8 @@ class DossardController extends AbstractController {
 	public function createDossard(Team $team, $dance){
 		$pdf = $this->createDossardPDF($team->getId(),
 			$team->getDancers(),
-			//TODO:Faire un champs nom clubs dans l'entité
 			$team->getClub()->getUsername(),
-			//TODO: Afficher la bonne categorie
-			$dance);
+			$team->getCategory());
 
 		return new Response(
 			$pdf->Output(),
@@ -79,12 +77,13 @@ class DossardController extends AbstractController {
 		//height = 202 ; largeur d'une page A4 = 210 mm donc -8
 		$pdf->Cell(0, $height, $id, 1, 0 , 'C');
 		$pdf->Image($logo,10,12,40);
-		$pdf->SetFont('Arial','', 20);
+		$pdf->SetFont('Arial','', 14);
 		$namesToPrint="";
 		foreach ($nom as $dancer){
-			$namesToPrint.= $dancer->getNameDancer()." ";
+			$namesToPrint.= $dancer->getNameDancer()." ".$dancer->getFirstNameDancer()[0].".  ";
 		}
 		$pdf->Text(10, 148-10 , utf8_decode($namesToPrint));
+		$pdf->SetFont('Arial','', 20);
 		$pdf->Text(210-10-$pdf->GetStringWidth(utf8_decode($club)),16, utf8_decode($club));
 		//Partie catégorie
 		$pdf->SetFont('Times', 'B', 38);

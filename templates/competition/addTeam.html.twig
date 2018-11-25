@@ -5,11 +5,28 @@
 {% endblock %}
 
 {% block body %}
-    {% for team in teams if teams is not empty %}
-        {{ team.id }}
-    {% else %}
-        <p>Vous devez créer des équipes ! Votre club n'en a pas encore !</p>
-    {% endfor %}
+    <div class="row justify-content-center align-items-center">
+
+        {% for team in teams if teams is not empty %}
+        <div class="col">
+                <div class="card m-3">
+                    <div class="card-header">
+                        {{ team.category }}
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Equipe {{ team.id }}</h5>
+                        <a href="{{ path('Team.registerToCompetition', {'idCompet': compet.id, 'idTeam': team.id}) }}" class="btn btn-primary">Inscrire cette équipe</a>
+                    </div>
+                    <div class="card-footer text-muted">
+                        {% for dance in team.dances %}{{ dance.nameDance }} {% endfor %}
+                    </div>
+                </div>
+        </div>
+        {% else %}
+            <p>Vous devez créer des équipes ! Votre club n'en a pas encore !</p>
+        {% endfor %}
+
+    </div>
 {% endblock %}
 
 

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Entity\Competition;
 use App\Entity\Team;
 use App\Form\TeamType;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -179,5 +180,26 @@ class TeamController extends AbstractController
 			$manager->flush();
 		}
 		return $this->redirectToRoute("Team.create");
+	}
+
+	/**
+	 * @Route("/registerTeam/{idTeam}/{idCompet}", name="Team.registerToCompetition")
+	 * @param $idTeam
+	 * @param $idCompet
+	 * @param ObjectManager $manager
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
+	 */
+	public function registerTeamCompetition($idTeam, $idCompet, ObjectManager $manager) {
+		$team = $this->getDoctrine()->getRepository(Team::class)->find($idTeam);
+		$competition = $this->getDoctrine()->getRepository(Competition::class)->find($idCompet);
+
+		$competition->addTeam($team);
+		$team->addCompetition($competition);
+
+		$manager->persist($team);
+		$manager->persist($competition);
+		$manager->flush();
+
+		return $this->redirectToRoute('Competition.show');
 	}
 }

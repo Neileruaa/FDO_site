@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Club;
 use App\Entity\Competition;
 use App\Form\CompetitionType;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -42,14 +44,41 @@ class CompetitionController extends AbstractController {
 	 * @Route("/competition/addTeam/{id}", name="Competition.addTeam")
 	 * @param ObjectManager $manager
 	 * @param Request $request
+	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
 	public function addTeamToCompetition(ObjectManager $manager, Request $request, Competition $competition) {
-		$listTeams = $this->getUser()->getTeams();
+		$listTeams = self::checkDanceOfTeam($competition->getDances()->toArray(), $this->getUser()->getTeams()->toArray());
 		return $this->render('competition/addTeam.html.twig',[
-			'teams' => $listTeams
+			'teams' => $listTeams,
+			'compet' => $competition
 		]);
 	}
-	
+
+	private function checkDanceOfTeam($availableDances, $teams){
+		dump($availableDances);
+		$teamWhoCanRegister = array();
+		foreach ($teams as $team){
+			foreach ($team->getDances()->toArray() as $team_dance){
+				foreach ($availableDances as $dance){
+					if ($team_dance->getNameDance() == $dance->getNameDance()){
+						array_push($teamWhoCanRegister, $team);
+					}
+				}
+			}
+		}
+		$teamWhoCanRegister = self::removeDuplicateItem($teamWhoCanRegister);
+		dump($teamWhoCanRegister);
+		return $teamWhoCanRegister;
+	}
+
+	private function removeDuplicateItem($array){
+		$new = array();
+		foreach ($array as $value){
+			$new[serialize($value)] = $value;
+		}
+		return array_values($new);
+	}
+
     /**
      * @Route("/competition/delete/{id}", name="Competition.delete", requirements={"page"="\d+"})
      */

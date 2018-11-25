@@ -1,4 +1,4 @@
-{% extends 'layout.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block body %}
     {% block header %}
@@ -10,11 +10,13 @@
         <h1> Choix du dossard à imprimer</h1><br>
         <div class="btn-group-vertical">
             {# je dois changer l'affichage car ce n'est pas correcte, pas d'inspi #}
-            {% for dossard in team.dances %}
-                <button class="btn btn-default">
-                    <a href="{{ path('Dossard.create', {id: team.id, dance:dossard.nameDance}) }}">Dossard pour {{ dossard.nameDance }}</a>
-                </button><br>
-            {% endfor %}
+            <div class="row">
+                {% for dossard in team.dances %}
+                    <div class="col-md-3 mb-2">
+                        <a target="_blank" href="{{ path('Dossard.create', {id: team.id, dance:dossard.nameDance}) }}" class="btn btn-primary">{{ dossard.nameDance }}</a>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
 {% endblock %}

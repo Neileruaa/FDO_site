@@ -8,20 +8,24 @@
     <div class="row justify-content-center align-items-center">
 
         {% for team in teams if teams is not empty %}
-        <div class="col">
+            {% include 'team/modalViewDetailsTeam.html.twig' %}
+            <div class="col">
                 <div class="card m-3">
                     <div class="card-header">
                         {{ team.category }}
                     </div>
                     <div class="card-body">
                         <h5 class="card-title">Equipe {{ team.id }}</h5>
-                        <a href="{{ path('Team.registerToCompetition', {'idCompet': compet.id, 'idTeam': team.id}) }}" class="btn btn-primary">Inscrire cette équipe</a>
+                        <div class="btn-group" role="group" aria-label="Options">
+                            <a href="{{ path('Team.registerToCompetition', {'idCompet': compet.id, 'idTeam': team.id}) }}" class="btn btn-outline-success">Inscrire cette équipe</a>
+                            <a href="#" class="btn btn-outline-secondary" data-toggle="modal" data-target="#T{{ team.id }}">Voir</a>
+                        </div>
                     </div>
                     <div class="card-footer text-muted">
-                        {% for dance in team.dances %}{{ dance.nameDance }} {% endfor %}
+                        {% for dance in team.dances %}{{ dance.nameDance }}<br> {% endfor %}
                     </div>
                 </div>
-        </div>
+            </div>
         {% else %}
             <p>Vous devez créer des équipes ! Votre club n'en a pas encore !</p>
         {% endfor %}

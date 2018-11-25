@@ -81,7 +81,8 @@ class TicketController extends AbstractController {
 				);
 			$mailer->send($message);
 
-			//TODO:Faire un message = "Ticket bien envoyé"
+			$this->addFlash('success', 'Votre ticket a bien été envoyé !');
+
 			return $this->redirectToRoute('Ticket.show');
 		}
 
@@ -105,6 +106,8 @@ class TicketController extends AbstractController {
 
 		if ($form->isSubmitted() && $form->isValid()) {
 			$this->getDoctrine()->getManager()->flush();
+
+			$this->addFlash('success', 'Votre ticket a bien été envoyé !');
 
 			return $this->redirectToRoute('Ticket.show', ['id' => $ticket->getId()]);
 		}

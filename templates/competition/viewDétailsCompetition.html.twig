@@ -6,17 +6,18 @@
 
 
 {% block body %}
-    <a href="{{ path('Competition.show') }}" class="btn btn-primary float-left">Retour aux compétitions</a>
-    <h1>Compétitions numero : {{ compet.id }}</h1>
-
+    <h1>{{ compet.title }}</h1></br>
+    <div class="form-row text-center"><div class="col-12"><a href="{{ path('Competition.show') }}" class="btn btn-primary">Retour aux compétitions</a></div></div></br>
+    
+    <div class="container">
     <ul class="list-group mb-5">
-        <li class="list-group-item">{{ compet.clubOrganizer.username }}</li>
+        <li class="list-group-item"><strong>Club organisateur : </strong> {{ compet.clubOrganizer.username }}</li>
         {#TODO:Afficher description#}
-        <li class="list-group-item">{{ compet.dateCompetition|date('d-m-Y') }}</li>
-        <li class="list-group-item">{{ compet.city }}</li>
-        <li class="list-group-item">{{ compet.postalCode }}</li>
-        <li class="list-group-item">{{ compet.address }}</li>
-        <li class="list-group-item">
+        <li class="list-group-item"><strong>Date de la compétition : </strong>{{ compet.dateCompetition|date('d-m-Y') }}</li>
+        <li class="list-group-item"><strong>Ville : </strong>{{ compet.city }}</li>
+        <li class="list-group-item"><strong>Code postal : </strong>{{ compet.postalCode }}</li>
+        <li class="list-group-item"><strong>Adresse : </strong>{{ compet.address }}</li>
+        <li class="list-group-item"><strong>Liste des danses de la compétition : </strong>
             {% for dance in compet.dances %}
                 {{ dance.nameDance }}
                 <hr>
@@ -24,7 +25,9 @@
                 Pas de dances renseignée pour cette compétition
             {% endfor %}
         </li>
+        <li class="list-group-item"><strong>Description de la compétition : </strong>{{ compet.description }}</li>
     </ul>
+    </div>
     {% if compet.teams is not empty %}
         <div class="row">
             {% for team in compet.teams %}

@@ -21,11 +21,13 @@ class Dancer
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min="2", minMessage="Votre nom doit faire au moins 2 caractères")
      */
     private $nameDancer;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min="2", minMessage="Votre prénom doit faire au moins 2 caractères")
      */
     private $firstNameDancer;
 
@@ -36,6 +38,7 @@ class Dancer
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Email()
      */
     private $emailDancer;
 

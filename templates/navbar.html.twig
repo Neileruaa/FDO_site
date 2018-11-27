@@ -15,7 +15,7 @@
 					<a class="nav-link js-scroll-trigger" href="{{ path('Dossard.show') }}"><i class="fas fa-print"></i> PDF</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link js-scroll-trigger" href="{{ path('Team.create') }}"><i class="fas fa-users"></i> Equipe</a>
+					<a class="nav-link js-scroll-trigger" href="{{ path('Team.create') }}"><i class="fas fa-users"></i> Équipe</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link js-scroll-trigger" href="{{ path('Dancer.create') }}"><i class="fas fa-user-edit"></i> Danseur</a>
@@ -31,9 +31,9 @@
 
 				<li class="nav-item">
 					{% if is_granted('ROLE_ADMIN') %}
-						<a class="nav-link js-scroll-trigger" href="{{ path('Ticket.show') }}"><i class="fas fa-envelope"></i> Tous les tickets</a>
+						<a class="nav-link js-scroll-trigger" href="{{ path('Ticket.show') }}"><i class="fas fa-envelope"></i> Tickets</a>
 					{% else %}
-						<a class="nav-link js-scroll-trigger" href="{{ path('Ticket.show') }}"><i class="fas fa-envelope"></i> Voir mes tickets</a>
+						<a class="nav-link js-scroll-trigger" href="{{ path('Ticket.show') }}"><i class="fas fa-envelope"></i> Tickets</a>
 					{% endif %}
 				</li>
 				{% if is_granted('ROLE_ADMIN') %}{# si on est admin, affiche la navBar de l'admin#}
@@ -44,11 +44,10 @@
 							<strong>Menu club</strong>
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<!-- <a class="dropdown-item" href="{#{ path('Competition.create') }#}">création de competition</a> -->
-							<a class="dropdown-item" href="{{ path('Team.surclassement') }}">surclasser une equipe</a>
-							<a class="dropdown-item" href="/mailBox">boite mail</a>
+							<a class="dropdown-item" href="{{ path('Team.surclassement') }}">Surclasser une equipe</a>
+							<a class="dropdown-item" href="/mailBox">Boîte de réception</a>
 							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="{{ path('User.show') }}">voir profil</a>
+							<a class="dropdown-item" href="{{ path('User.show') }}">Voir profil</a>
 						</div>
 					</li>
 					<hr>
@@ -56,11 +55,11 @@
 
 				{%  if not app.user  %}
 					<li class="nav-item">
-						<a class="nav-link js-scroll-trigger" href="/login" ><i class="fa fa-sign-out-alt"></i> Connexion !</a>
+						<a class="nav-link js-scroll-trigger" href="/login" ><i class="fa fa-sign-out-alt"></i> Connexion</a>
 					</li>
 				{% else %}
 					<li class="nav-item">
-						<a class="nav-link js-scroll-trigger" href="/logout" ><i class="fa fa-sign-out-alt"></i> Deconnexion !</a>
+						<a class="nav-link js-scroll-trigger" href="/logout" ><i class="fa fa-sign-out-alt"></i> Deconnexion</a>
 					</li>
 				{% endif %}
 			</ul>

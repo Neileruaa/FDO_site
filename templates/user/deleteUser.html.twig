@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title %}{% endblock %}
+{% block title %}Suppression du profil{% endblock %}
 
 {% block body %}
 
@@ -7,10 +7,10 @@
         <h2> Etes vous certain de vouloir supprimer ce profil ? cette action sera definitive !</h2>
 
         <form action="" name="delete" method="POST" >
-            <button type="submit" class="btn btn-success">OUI</button>
+            <button type="submit" class="btn btn-success">O</button>
         </form>
         <form action="{{ path('User.show') }}" name="back" method="POST">
-            <button type="submit" class="btn btn-success">NON</button>
+            <button type="submit" class="btn btn-success">Non</button>
         </form>
 
     </div>

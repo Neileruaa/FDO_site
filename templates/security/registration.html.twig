@@ -7,18 +7,16 @@
         <h1>Inscription</h1>
 	    <hr>
 	    {{ form_start(form) }}
+            {{ form_widget(form) }}
 
-    {{ form_widget(form) }}
+            {% if errors is not empty%}
+                <div class="alert alert-danger">
+                    {{ errors[0] }}
+                </div>
+            {% endif %}
 
-	    {% if errors is not empty%}
-            <div class="alert alert-danger">
-			    {{ errors[0] }}
-			    {#{{ errors }}#}
-            </div>
-	    {% endif %}
-        <div class="g-recaptcha mb-3" data-sitekey="6LfoFXwUAAAAAPz7SK8X1aQRKt0SzBQcQXBiM5Ba"></div>
-
-        <button type="submit" class="btn btn-success">Valider</button>
+            <div class="g-recaptcha mb-3" data-sitekey="6LfoFXwUAAAAAPz7SK8X1aQRKt0SzBQcQXBiM5Ba"></div>
+            <button type="submit" class="btn btn-success">Valider</button>
         {{ form_end(form) }}
     </div>
 {% endblock %}

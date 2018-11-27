@@ -1,31 +1,35 @@
-{% extends 'base.html.twig' %}
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-{% block title %}Bonjour{% endblock %}
+	<title>Espace connexion</title>
 
-{% block body %}
-	{% block header %}
-		<header class="page-header mt-5">
-			<hr>
-		</header>
-	{% endblock %}
-	<div class="container">
-		<h1> connexion</h1>
+	<!-- Bootstrap core CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css">
+
+	<!-- Custom styles for this template -->
+	<link rel="stylesheet" href="{{ asset('login.css') }}">
+</head>
+
+<body class="text-center ">
+	<form class="form-signin"  action="{{ path('Security.login') }}" method="POST">
+		<img src="{{ asset('Images/logo_fdo.jpg') }}" width="200" height="100" class="d-inline-block align-top mb-2" alt="">
+		<h1 class="h3 mb-3 font-weight-normal">Connexion:</h1>
 		{% if errors %}
 			<div class="alert alert-danger">
 				{{ errors.messageKey | trans(errors.messageData, 'security') }}
 			</div>
 		{% endif %}
-		<form action="{{ path('Security.login') }}" method="POST">
-			<div class="form-group">
-				<input type="text" required name="_username" placeholder="Adresse mail" class="form-control">
-			</div>
-			<div class="form-group">
-				<input type="password" required name="_password" placeholder="mot de passe" class="form-control">
-			</div>
-			<div class="form-group">
-				<button type="submit" class="btn btn-success">connexion</button>
-			</div>
-		</form>
-		Pas de compte ? <a href="{{ path('Security.registration') }}"> créez en un !</a>
-	</div>
-{% endblock %}
+		<label for="inputEmail" class="sr-only">Adresse email</label>
+		<input type="email" id="inputEmail" class="form-control" placeholder="Adresse email" required autofocus name="_username">
+		<label for="inputPassword" class="sr-only">Mot de passe</label>
+		<input type="password" id="inputPassword" name="_password" class="form-control" placeholder="Mot de passe" required>
+		<div class="mb-2">Pas encore de compte ? <a href="{{ path('Security.registration') }}"> Créez en un !</a></div>
+		<button class="btn btn-lg btn-primary btn-block" type="submit">Se connecter</button>
+		<p class="mt-5 mb-3 text-muted">&copy; 2018-2019</p>
+	</form>
+</body>
+</html>

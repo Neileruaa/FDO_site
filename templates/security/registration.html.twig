@@ -3,17 +3,12 @@
 {% block title %}Hello{% endblock %}
 
 {% block body %}
-
-    {% block header %}
-        <header class="page-header mt-5">
-            <hr>
-        </header>
-    {% endblock %}
     <div class="container">
         <h1> inscription</h1>
+        <hr>
 
 
-    {{ form_start(form) }}
+	    {{ form_start(form) }}
 
     {{ form_row(form.username,{'attr':{'placeholder':'entrez le nom du club'}}) }}
     {{ form_row(form.nameClubOwner,{'attr':{'placeholder':'entrez le nom du gerant du club'}}) }}

@@ -7,14 +7,11 @@
         </header>
     {% endblock %}
     <h1> Choix du dossard à imprimer</h1><br>
-    <div class="btn-group-vertical">
-        {# je dois changer l'affichage car ce n'est pas correcte, pas d'inspi #}
-        <div class="row">
-            {% for dossard in team.dances %}
-                <div class="col-lg-4 mb-2">
-                    <a target="_blank" href="{{ path('Dossard.create', {id: team.id, dance:dossard.nameDance}) }}" class="btn btn-primary">{{ dossard.nameDance }}</a>
-                </div>
-            {% endfor %}
-        </div>
+    <div class="row">
+        {% for dossard in team.dances %}
+            <div class="col-md-4 col-12 mb-2">
+                <a target="_blank" href="{{ path('Dossard.create', {id: team.id, dance:dossard.nameDance}) }}" class="btn btn-primary">{{ dossard.nameDance }}</a>
+            </div>
+        {% endfor %}
     </div>
 {% endblock %}

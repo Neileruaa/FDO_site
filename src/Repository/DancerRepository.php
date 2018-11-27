@@ -19,6 +19,16 @@ class DancerRepository extends ServiceEntityRepository
         parent::__construct($registry, Dancer::class);
     }
 
+	public function findAllNotAuthorizedDancer() {
+		return $this->createQueryBuilder('d')
+			->andWhere('d.isAuthorized = 0')
+			->orderBy('d.id', 'ASC')
+			->getQuery()
+			->getArrayResult()
+			;
+	}
+
+
 //    /**
 //     * @return Dancer[] Returns an array of Dancer objects
 //     */

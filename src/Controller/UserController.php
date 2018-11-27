@@ -60,14 +60,14 @@ class UserController extends AbstractController {
 		$form->handleRequest($request);
 
 		if ($form->isSubmitted() && $form->isValid()) {
-			$club = $form->getData();
+            $club = $form->getData();
 			$hash = $encoder->encodePassword($club, $club->getPassword());
 			$club->setPassword($hash);
 			$manager->persist($club);
 			$manager->flush();
-
 			return $this->redirectToRoute('User.show');
 		}
+
 		return $this->render('user/editUser.html.twig', ['form' => $form->createView()]);
 	}
 }

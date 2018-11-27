@@ -54,6 +54,11 @@ class Dancer
      */
     private $club;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isAuthorized;
+
     public function __construct()
     {
         $this->team = new ArrayCollection();
@@ -150,6 +155,18 @@ class Dancer
     public function setClub(?Club $club): self
     {
         $this->club = $club;
+
+        return $this;
+    }
+
+    public function getIsAuthorized(): ?bool
+    {
+        return $this->isAuthorized;
+    }
+
+    public function setIsAuthorized(bool $isAuthorized): self
+    {
+        $this->isAuthorized = $isAuthorized;
 
         return $this;
     }

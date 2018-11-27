@@ -10,8 +10,9 @@ namespace App\Controller;
 
 
 use App\Entity\Dancer;
-use App\Entity\Danseur;
 use App\Entity\Team;
+use Doctrine\Common\Persistence\ObjectManager;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use App\Form\DancerType;
 use phpDocumentor\Reflection\Types\This;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -61,6 +62,7 @@ class DancerController extends AbstractController {
 			$dancerToSave = $form->getData();
 			$dancerToSave->setClub($club);
 			$club->addDancer($dancerToSave);
+			$dancerToSave->setIsAuthorized(false);
 			$em->persist($dancerToSave);
 			$em->flush();
 
@@ -77,5 +79,38 @@ class DancerController extends AbstractController {
 				'club'=>$club
 			)
 		);
+	}
+
+	/**
+	 * @Route("/dancer/show/all/notAuthorized", name="Dancer.showAllNotAuthorizedDancer")
+	 * @isGranted("ROLE_ADMIN")
+	 */
+	public function showAllNotAuthorizedDancer() {
+		$dancers = $this->getDoctrine()->getRepository(Dancer::class)->findAllNotAuthorizedDancer();
+		return $this->render('dancer/showAll.html.twig',[
+			'dancers' => $dancers
+		]);
+	}
+
+	/**
+	 * @Route("/dancer/show/all", name="Dancer.showAllDancers")
+	 * @isGranted("ROLE_ADMIN")
+	 */
+	public function showAllDancers() {
+		$dancers = $this->getDoctrine()->getRepository(Dancer::class)->findAll();
+		return $this->render('dancer/showAll.html.twig',[
+			'dancers' => $dancers
+		]);
+	}
+
+	/**
+	 * @Route("/dancer/authorize/{id}", name="Dancer.authorize")
+	 * @isGranted("ROLE_ADMIN")
+	 */
+	public function authorizeDancer(Dancer $dancer, ObjectManager $manager) {
+		$dancer->setIsAuthorized(true);
+		$manager->persist($dancer);
+		$manager->flush();
+		return $this->redirectToRoute('Dancer.showAllDancers');
 	}
 }

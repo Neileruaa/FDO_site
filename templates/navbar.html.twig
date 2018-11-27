@@ -44,8 +44,9 @@
 							<strong>Menu club</strong>
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="{{ path('Team.surclassement') }}">Surclasser une equipe</a>
-							<a class="dropdown-item" href="/mailBox">Boîte de réception</a>
+							<!-- <a class="dropdown-item" href="{#{ path('Competition.create') }#}">création de competition</a> -->
+							<a class="dropdown-item" href="{{ path('Dancer.showAllDancers') }}">Tous les danseurs</a>
+							<a class="dropdown-item" href="{{ path('Dancer.showAllNotAuthorizedDancer') }}">Demande danseurs</a>
 							<div class="dropdown-divider"></div>
 							<a class="dropdown-item" href="{{ path('User.show') }}">Voir profil</a>
 						</div>

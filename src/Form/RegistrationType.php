@@ -6,6 +6,7 @@ use App\Entity\Club;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -18,38 +19,45 @@ class RegistrationType extends AbstractType
     {
         $builder
             ->add('username',TextType::class, array(
-                'label'=>'Nom du club',
-                'placeholder'=>'entrez le nom du club'
+                'label'=>'Nom du club','attr' => array(
+                    'placeholder' =>'entrez le nom du club'
+                )
             ))
             ->add('nameClubOwner',TextType::class, array(
-                'label'=>'Nom du gérant',
-                'placeholder'=>'entrez le nom du gerant du club'
+                'label'=>'Nom du gérant','attr' => array(
+                    'placeholder' =>'entrez le nom du gérant du club'
+                )
             ))
             ->add('villeClub',TextType::class, array(
-                'label'=>"Ville",
-                'placeholder'=>'entrez votre ville'
+                'label'=>'Ville','attr' => array(
+                    'placeholder' =>'entrez la ville du club'
+                )
             ))
-            ->add('codePostalClub',TextType::class, array(
-                'label'=>'Code postal',
-                'placeholder'=>'entrez le codePostal de votre ville'
+            ->add('codePostalClub',NumberType::class, array(
+                'label'=>'Code postal','attr' => array(
+                    'placeholder' =>'entrez le code postal du club'
+                )
             ))
-            ->add('password',PasswordType::class, array(
-                'label'=>'Mot de passe',
-                'placeholder'=>'mot de passe'
+            ->add('phoneClub',NumberType::class, array(
+                'label'=>'Numéro de téléphone','attr' => array(
+                    'placeholder' =>'entrez le numéro de téléphone du club'
+                )
             ))
-            ->add('confirmPassword',PasswordType::class, array(
-                'label'=>'Confirmer le mot de passe',
-                'placeholder'=>'confirmer votre mot de passe'
+            ->add('emailClub',TextType::class, array(
+                'label'=>'E-mail','attr' => array(
+                    'placeholder' =>'entrez votre e-mail'
+                )
             ))
-            ->add('emailClub', EmailType::class, array(
-                'label'=>'Adresse e-mail',
-                'placeholder'=>'entrez votre mail'
+            ->add('password', PasswordType::class, array(
+                'label'=>'Mot de passe','attr' => array(
+                    'placeholder' =>'entrez votre mot de passe'
+                )
             ))
-            ->add('phoneClub',TextType::class, array(
-                'label'=>'Numéro de téléphone',
-                'placeholder'=>'entrez votre numero de telephone'
+            ->add('confirmPassword', PasswordType::class, array(
+                'label'=>'Confirmation','attr' => array(
+                    'placeholder' =>'confirmer le mot de passe'
+                )
             ))
-
         ;
     }
 

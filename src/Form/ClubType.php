@@ -6,6 +6,7 @@ use App\Entity\Club;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -35,7 +36,7 @@ class ClubType extends AbstractType
                     'placeholder' =>'entrez le code postal du club'
                 )
             ))
-            ->add('phoneClub',NumberType::class, array(
+            ->add('phoneClub',TextType::class, array(
                 'label'=>'Numéro de téléphone','attr' => array(
                     'placeholder' =>'entrez le numéro de téléphone du club'
                 )

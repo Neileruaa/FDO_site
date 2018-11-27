@@ -9,6 +9,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -18,6 +19,9 @@ class CompetitionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('title', TextType::class, array(
+                'label'=>"Nom de la compétition"
+            ))
             ->add('dateCompetition', DateType::class, array(
                 'label'=>'Date de la compétition',
                 'widget'=>'single_text',
@@ -52,6 +56,12 @@ class CompetitionType extends AbstractType
                 'multiple'=>false,
                 'by_reference'=>false
             ])
+            ->add('nbMaxTeam', NumberType::class, array(
+                'label'=>'Nombres d\'équipe maximum'
+            ))
+            ->add('description', TextareaType::class, array(
+                'label'=>"Description de la compétition"
+            ))
         ;
     }
 

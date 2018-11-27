@@ -57,6 +57,21 @@ class Competition
      */
     private $postalCode;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $title;
+
+    /**
+     * @ORM\Column(type="decimal", precision=4, scale=0)
+     */
+    private $nbMaxTeam;
+
+    /**
+     * @ORM\Column(type="string", length=1000, nullable=true)
+     */
+    private $description;
+
 
     public function __construct()
     {
@@ -181,6 +196,42 @@ class Competition
     public function setPostalCode($postalCode): self
     {
         $this->postalCode = $postalCode;
+
+        return $this;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(string $title): self
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getNbMaxTeam()
+    {
+        return $this->nbMaxTeam;
+    }
+
+    public function setNbMaxTeam($nbMaxTeam): self
+    {
+        $this->nbMaxTeam = $nbMaxTeam;
 
         return $this;
     }

@@ -12,6 +12,7 @@
         <table class="table">
             <thead class="thead-dark">
             <tr>
+                <th scope="col">Nom</th>
                 <th scope="col">Ville</th>
                 <th scope="col">Code postal</th>
                 <th scope="col">Adresse</th>
@@ -19,13 +20,15 @@
                 <th scope="col">Danses</th>
                 <th scope="col"></th>
                 <th scope="col">Action</th>
+                <th scope="col">Ajout</th>
             </tr>
             </thead>
             <tbody>
                 {% for compet in competitions %}
                     {% include "competition/modalShowDances.html.twig" %}
                     <tr>
-                        <th scope="row">{{ compet.city }}</th>
+                        <th scope="row">{{ compet.title }}</th>
+                        <td>{{ compet.city }}</td>
                         <td>{{ compet.postalCode }}</td>
                         <td>{{ compet.address }}</td>
                         <td>{{ compet.getDateCompetition().format('d/m/Y') }}</td>
@@ -33,7 +36,7 @@
                             <a href="#" class="btn btn-outline-success" data-toggle="modal" data-target="#T{{ compet.id }}">Voir les danses</a>
                         </td>
                         <td>
-                            <a href="{{ path('Competition.viewDetails', {'id': compet.id}) }}" class="btn btn-outline-secondary">Plus d'informations</a>
+                            <a href="{{ path('Competition.viewDetails', {'id': compet.id}) }}" class="btn btn-outline-secondary">Informations</a>
                         </td>
                         {% if is_granted('ROLE_ADMIN') %}
                             <td><a href="{{ path('Competition.delete', {id: compet.id}) }}" class="btn btn-danger">Supprimer</a></td>

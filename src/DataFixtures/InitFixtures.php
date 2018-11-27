@@ -18,9 +18,9 @@ class InitFixtures extends Fixture
         $category=new Category();
         $category2=new Category();
         $category3=new Category();
-        $category->setNameCategory("junior");
-        $category2->setNameCategory("enfant");
-        $category3->setNameCategory("senior");
+        $category->setNameCategory("Junior");
+        $category2->setNameCategory("Enfant");
+        $category3->setNameCategory("Adulte");
 
         $manager->persist($category2);
         $manager->persist($category);

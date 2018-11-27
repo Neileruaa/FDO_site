@@ -56,11 +56,11 @@
 
 				{%  if not app.user  %}
 					<li class="nav-item">
-						<a class="nav-link js-scroll-trigger" href="/login" ><i class="fa fa-sign-out-alt"></i> Connexion</a>
+						<a class="nav-link js-scroll-trigger" href="{{ path('Security.login') }}" ><i class="fa fa-sign-out-alt"></i> Connexion</a>
 					</li>
 				{% else %}
 					<li class="nav-item">
-						<a class="nav-link js-scroll-trigger" href="/logout" ><i class="fa fa-sign-out-alt"></i> Deconnexion</a>
+						<a class="nav-link js-scroll-trigger" href="{{ path('Security.logout') }}" ><i class="fa fa-sign-out-alt"></i> Deconnexion</a>
 					</li>
 				{% endif %}
 			</ul>

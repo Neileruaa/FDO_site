@@ -10,14 +10,7 @@
 
 	    {{ form_start(form) }}
 
-    {{ form_row(form.username,{'attr':{'placeholder':'entrez le nom du club'}}) }}
-    {{ form_row(form.nameClubOwner,{'attr':{'placeholder':'entrez le nom du gerant du club'}}) }}
-    {{ form_row(form.villeClub,{'attr':{'placeholder':'entrez votre ville'}}) }}
-    {{ form_row(form.codePostalClub,{'attr':{'placeholder':'entrez le codePostal de votre ville'}}) }}
-    {{ form_row(form.password,{'attr':{'placeholder':'mot de passe'}}) }}
-    {{ form_row(form.confirmPassword,{'attr':{'placeholder':'confirmer votre mot de passe'}}) }}
-    {{ form_row(form.emailClub,{'attr':{'placeholder':'entrez votre mail '}}) }}
-    {{ form_row(form.phoneClub,{'attr':{'placeholder':'entrez votre numero de telephone'}}) }}
+    {{ form_widget(form) }}
 
 	    {% if errors is not empty%}
             <div class="alert alert-danger">

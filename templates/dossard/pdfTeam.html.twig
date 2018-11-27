@@ -1,20 +1,20 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {% block header %}
-        <header class="page-header mt-5">
-            <hr>
-        </header>
-    {% endblock %}
     <div class="container">
-        <h1>Page d'impression de PDF</h1>
-        {% for team in user.teams if user.teams is not empty %}
-            <p>
-                <a href="{{ path('Dossard.choose', {id: team.id}) }}"> Dossards de l'équipe : {{ team.id }}</a>
-            </p>
+        <h1>Dossards des équipes</h1>
+        <hr>
+        {% if user.teams is not empty %}
+            <div class="row">
+	            {% for team in user.teams %}
+                    <div class="col-lg-3 mb-4">
+                        <a href="{{ path('Dossard.choose', {id: team.id}) }}" class="btn btn-info"> Dossards de l'équipe : {{ team.id }}</a>
+                    </div>
+	            {% endfor %}
+            </div>
         {% else %}
             <p>Il vous faut créer une équipe</p>
-        {% endfor %}
+        {% endif %}
     </div>
 {% endblock %}
 

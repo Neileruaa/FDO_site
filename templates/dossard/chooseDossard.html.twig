@@ -1,17 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {% block header %}
-        <header class="page-header mt-5">
-            <hr>
-        </header>
-    {% endblock %}
-    <h1> Choix du dossard à imprimer</h1><br>
+    <h1> Choix du dossard à imprimer</h1>
+    <hr>
     <div class="row">
         {% for dossard in team.dances %}
-            <div class="col-md-4 col-12 mb-2">
-                <a target="_blank" href="{{ path('Dossard.create', {id: team.id, dance:dossard.nameDance}) }}" class="btn btn-primary">{{ dossard.nameDance }}</a>
-            </div>
+	        {#<div class="col-md-4 col-12 mb-2">#}
+            <a target="_blank" href="{{ path('Dossard.create', {id: team.id, dance:dossard.nameDance}) }}" class="btn btn-primary btn-block">{{ dossard.nameDance }}</a>
+	        {#</div>#}
         {% endfor %}
     </div>
 {% endblock %}

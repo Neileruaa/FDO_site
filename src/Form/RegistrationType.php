@@ -17,14 +17,30 @@ class RegistrationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username',TextType::class)
-            ->add('nameClubOwner',TextType::class)
-            ->add('villeClub',TextType::class)
-            ->add('codePostalClub',TextType::class)
-            ->add('password',PasswordType::class)
-            ->add('confirmPassword',PasswordType::class)
-            ->add('emailClub', EmailType::class)
-            ->add('phoneClub',TextType::class)
+            ->add('username',TextType::class, array(
+                'label'=>'Nom du club'
+            ))
+            ->add('nameClubOwner',TextType::class, array(
+                'label'=>'Nom du propriétaire du club'
+            ))
+            ->add('villeClub',TextType::class, array(
+                'label'=>"Ville"
+            ))
+            ->add('codePostalClub',TextType::class, array(
+                'label'=>'Code postal'
+            ))
+            ->add('password',PasswordType::class, array(
+                'label'=>'Mot de passe'
+            ))
+            ->add('confirmPassword',PasswordType::class, array(
+                'label'=>'Confirmer le mot de passe'
+            ))
+            ->add('emailClub', EmailType::class, array(
+                'label'=>'Adresse e-mail'
+            ))
+            ->add('phoneClub',TextType::class, array(
+                'label'=>'Numéro de téléphone'
+            ))
 
         ;
     }

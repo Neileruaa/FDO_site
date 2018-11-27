@@ -46,7 +46,7 @@ class Club implements UserInterface, \Serializable {
 
 	/**
 	 * @ORM\Column(type="string", length=10, nullable=true)
-     * @Assert\Regex(pattern="/^[0][0-9]{9}$/", message="Un numéro de téléphone n'est composé que de chiffre")
+     * @Assert\Regex(pattern="/^[0][0-9]{9}$/", message="Le numéro de téléphone doit contenir 10 chiffre et doit commencer par un 0")
      */
 	private $phoneClub;
 

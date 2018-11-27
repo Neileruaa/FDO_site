@@ -81,7 +81,7 @@ class TeamController extends AbstractController
                     case 1:
                         if($ageDancer>=5 && $ageDancer<=11) $team->setCategory($enfant);
                         elseif ($ageDancer>=10 && $ageDancer<=15) $team->setCategory($junior);
-                        elseif ($ageDancer>=14) $team->setCategory($adulte);
+                        elseif ($ageDancer>=14 && $ageDancer<100) $team->setCategory($adulte);
                         else {
                             $this->addFlash('danger', 'Le danseur n\'a pas l\'âge requis! ');
                             return $this->render(
@@ -96,7 +96,7 @@ class TeamController extends AbstractController
                     case 2:
                         if($ageDancer>=5 && $ageDancer<=11) $team->setCategory($enfant);
                         elseif ($ageDancer>=10 && $ageDancer<=15) $team->setCategory($junior);
-                        elseif ($ageDancer>=14) $team->setCategory($adulte);
+                        elseif ($ageDancer>=14 && $ageDancer<100) $team->setCategory($adulte);
                         else {
                             $this->addFlash('danger', 'Un des danseurs n\'a pas l\'âge requis ! ');
                             return $this->render(
@@ -127,7 +127,7 @@ class TeamController extends AbstractController
                         $moyenneAge=$somme/$sizeTeam;
                         if($moyenneAge>=5 && $moyenneAge<=11) $team->setCategory($enfant);
                         elseif ($moyenneAge>=10 && $moyenneAge<=15) $team->setCategory($junior);
-                        elseif ($moyenneAge>=14) $team->setCategory($adulte);
+                        elseif ($moyenneAge>=14 && $moyenneAge<100) $team->setCategory($adulte);
                         else {
                             $this->addFlash('danger', 'Un des danseurs n\'a pas l\'âge requis ! ');
                             return $this->render(

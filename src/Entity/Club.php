@@ -46,8 +46,8 @@ class Club implements UserInterface, \Serializable {
 
 	/**
 	 * @ORM\Column(type="string", length=10, nullable=true)
-	 * @Assert\Length(min="10", max="10", minMessage="Votre mot de passe doit faire au moins 6 caracteres")
-	 */
+     * @Assert\Regex(pattern="/^[0][0-9]{9}$/", message="Un numéro de téléphone n'est composé que de chiffre")
+     */
 	private $phoneClub;
 
 	/**

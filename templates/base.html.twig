@@ -52,23 +52,25 @@
                                 <a class="nav-link js-scroll-trigger" href="{{ path('Ticket.show') }}"><i class="fas fa-envelope"></i>Tickets</a>
 	                        {% endif %}
                         </li>
-                    {% if is_granted('ROLE_ADMIN') %}{# si on est admin, affiche la navBar de l'admin#}
+
                     <hr>
+                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER')%}
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-toolbox"></i>
                                 <strong>Menu club</strong>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <!-- <a class="dropdown-item" href="{#{ path('Competition.create') }#}">création de competition</a> -->
+                                {% if is_granted('ROLE_ADMIN') %}{# si on est admin, affiche la navBar de l'admin#}
                                 <a class="dropdown-item" href="{{ path('Team.surclassement') }}">Surclasser une équipe</a>
+                                {% endif %}
                                 <a class="dropdown-item" href="/mailBox">Boite de réception</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ path('User.show') }}">Voir profil</a>
                             </div>
                         </li>
-                    <hr>
                     {% endif %}
+                    <hr>
 
                     {%  if not app.user  %}
                         <li class="nav-item">

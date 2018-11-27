@@ -4,6 +4,7 @@ namespace App\Controller;
 
 
 use App\Entity\Club;
+use App\Form\ClubType;
 use App\Form\RegistrationType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -55,14 +56,16 @@ class UserController extends AbstractController {
 	 */
 	public function editUser(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder) {
 		$club = $this->getUser();
-		$form = $this->createForm(RegistrationType::class, $club);
+		$form = $this->createForm(ClubType::class, $club);
 		$form->handleRequest($request);
+
 		if ($form->isSubmitted() && $form->isValid()) {
 			$club = $form->getData();
 			$hash = $encoder->encodePassword($club, $club->getPassword());
 			$club->setPassword($hash);
 			$manager->persist($club);
 			$manager->flush();
+
 			return $this->redirectToRoute('User.show');
 		}
 		return $this->render('user/editUser.html.twig', ['form' => $form->createView()]);

@@ -13,6 +13,7 @@ use App\Entity\Dancer;
 use App\Entity\Danseur;
 use App\Entity\Team;
 use App\Form\DancerType;
+use phpDocumentor\Reflection\Types\This;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -64,8 +65,9 @@ class DancerController extends AbstractController {
 			$em->flush();
 
 			return $this->redirectToRoute('Dancer.create');
-		}elseif ($form->isSubmitted() && !$form->isValid())
+		}elseif ($form->isSubmitted() && !$form->isValid()){
 			$this->addFlash('danger', 'Il y a eut une erreur lors de l\'inscription de ce danseur ! ');
+		}
 
 		return $this->render(
 			'dancer/createDancer.html.twig',

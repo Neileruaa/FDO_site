@@ -15,7 +15,8 @@ class ReglementType extends AbstractType
         $builder
             ->add('title')
             ->add('pdfFile', FileType::class, array(
-                'label'=>'Choisir un règlement (fichier pdf uniquement)'
+                'label'=>'Choisir un règlement (fichier pdf uniquement)',
+	            'attr' => array('accept'=>'.pdf', 'id' =>'customFile')
             ))
         ;
     }

@@ -5,8 +5,8 @@
 {% block body %}
     <h1>Upload un règlement</h1>
     <hr>
-
-    {{ include('reglement/_form.html.twig') }}
-
+    <div class="text-left">
+        {{ include('reglement/_form.html.twig') }}
+    </div>
     <a href="{{ path('Reglements.index') }}">back to list</a>
 {% endblock %}

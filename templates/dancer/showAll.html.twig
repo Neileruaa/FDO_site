@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Danseurs en attente de validation !</h1>
+    <h1>Danseurs en attente de validation</h1>
     <hr>
     {% if dancers is not empty %}
         {% for dancer in dancers %}
@@ -27,7 +27,7 @@
             {% endif %}
         {% endfor %}
     {% else %}
-        <h3>Aucun club n'a encore inscrit de danseurs pour le moment !</h3>
+        <strong>Aucun club n'a encore inscrit de danseurs pour le moment !</strong>
     {% endif %}
 {% endblock %}
 

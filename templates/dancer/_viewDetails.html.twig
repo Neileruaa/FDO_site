@@ -1,0 +1,27 @@
+<div class="modal fade" id="T{{ dancer.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="exampleModalCenterTitle">{{ dancer.firstNameDancer }} {{ dancer.nameDancer }} </h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body" style="overflow: auto;">
+				<ul class="list-group">
+					<li class="list-group-item">{{ dancer.emailDancer }}</li>
+					<li class="list-group-item">{{ dancer.dateBirthDancer|date('d-m-Y') }}</li>
+					<li class="list-group-item">{% if dancer.isAuthorized == 1 %}L'administrateur a validé la création de ce danseur. {% else %} L'administrateur n'a pas encore validé la création de ce danseur.{% endif %}</li>
+					<li class="list-group-item">{{ dancer.club.username }}</li>
+					<li class="list-group-item">
+						{% for team in dancer.teams %}
+							Équipe:{{ team.id }}<br>
+						{% else %}
+							Ce jour n'est pas encore assigné dans une équipe.
+						{% endfor %}
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>

@@ -20,11 +20,16 @@ class DancerRepository extends ServiceEntityRepository
     }
 
 	public function findAllByAuthorized() {
-		return $this->createQueryBuilder('d')
-			->orderBy('d.isAuthorized', 'ASC')
-			->getQuery()
-			->getArrayResult()
-			;
+		$em = $this->getEntityManager();
+		$qb = $em->createQueryBuilder();
+
+		$qb->select('d, club, teams')
+			->from('App\Entity\Dancer','d')
+			->join('d.club', 'club')
+			->join('d.teams', 'teams')
+			->orderBy('d.isAuthorized', 'ASC');
+
+		return $qb->getQuery()->getArrayResult();
 	}
 
 

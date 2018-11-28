@@ -26,6 +26,7 @@
             <tbody>
                 {% for compet in competitions %}
                     {% include "competition/modalShowDances.html.twig" %}
+                    {% include "competition/_deleteConfirmation.html.twig" %}
                     <tr>
                         <th scope="row">{{ compet.title }}</th>
                         <td>{{ compet.city }}</td>
@@ -39,7 +40,7 @@
                             <a href="{{ path('Competition.viewDetails', {'id': compet.id}) }}" class="btn btn-outline-secondary">Informations</a>
                         </td>
                         {% if is_granted('ROLE_ADMIN') %}
-                            <td><a href="{{ path('Competition.delete', {id: compet.id}) }}" class="btn btn-danger">Supprimer</a></td>
+                            <td><a href="#" data-toggle="modal" data-target="#delete{{ compet.id }}" class="btn btn-danger">Supprimer</a></td>
                             <td><a href="{{ path('Competition.addTeam', {id: compet.id}) }}" class="btn btn-info">Ajouter une équipe</a></td>
                         {% else %}
                             <td><a href="{{ path('Competition.addTeam', {id: compet.id}) }}" class="btn btn-info">Ajouter une équipe</a></td>

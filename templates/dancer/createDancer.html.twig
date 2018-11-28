@@ -27,12 +27,13 @@
         </thead>
         <tbody>
         {% for dancer in club.dancers %}
+            {% include'dancer/_deleteConfirmation.html.twig' %}
             <tr class="table-{% if dancer.isAuthorized == 1  %}success{% else %}warning{% endif %}">
                 <th scope="row">{{ dancer.nameDancer }}</th>
                 <td>{{ dancer.firstNameDancer }}</td>
                 <td>{{ dancer.getDateBirthDancer().format('d-m-Y') }}</td>
                 <td>{{ dancer.club }}</td>
-                <td><a href="{{ path('Dancer.remove', {'id': dancer.id }) }}" class="btn btn-danger">Supprimer</a></td>
+                <td><a href="#"  data-toggle="modal" data-target="#delete{{ dancer.id }}" class="btn btn-danger">Supprimer</a></td>
             </tr>
         {% endfor %}
         </tbody>

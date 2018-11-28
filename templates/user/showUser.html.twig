@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block title %}Détails du profil{% endblock %}
 {% block body %}
+    {% include'user/_deleteConfirmation.html.twig' %}
     <h1>Détails du profil</h1>
     <div class="container">
         <ul class="list-group mb-5">
@@ -14,7 +15,7 @@
 <form action="{{ path('User.edit') }}">
     <button type="submit" class="btn btn-success">Modifier profil</button>
 </form>
-    <a  href="{{ path('User.delete', {id: users.id}) }}" class="btn btn-danger text-right float-right">Supprimer ce profil</a>
+    <a  href="#" data-toggle="modal" data-target="#delete" class="btn btn-danger text-right float-right">Supprimer ce profil</a>
 
 
 {% endblock %}

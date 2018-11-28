@@ -4,28 +4,18 @@
 
 {% block body %}
     <h1>Reglement index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Règlements</th>
-            </tr>
-        </thead>
-        <tbody>
+    <hr>
+    <ul class="list-group list-group-flush text-left mb-4">
         {% for reglement in reglements %}
-            <tr>
-                {#TODO: link to the right file ! #}
-                <td>
-                    <a target="_blank" href="{{ asset('uploads/reglements/' ~ reglement.pdfFile) }}">{{ reglement.title }}</a>
-                </td>
-            </tr>
+            <li class="list-group-item">
+                <a target="_blank" href="{{ asset('uploads/reglements/' ~ reglement.pdfFile) }}">{{ reglement.title }}</a>
+                <div class="text-right">
+                    {% include 'reglement/_delete_form.html.twig' %}
+                </div>
+            </li>
         {% else %}
-            <tr>
-                <td colspan="1">Pas encore de règlements enregistrés</td>
-            </tr>
+            <li class="list-group-item">Pas encore de règlements enregistrés</li>
         {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('Reglement.new') }}">Create new</a>
+    </ul>
+    <a href="{{ path('Reglement.new') }}" class="btn btn-primary">Create new</a>
 {% endblock %}

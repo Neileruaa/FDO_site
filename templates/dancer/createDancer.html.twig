@@ -27,7 +27,7 @@
         </thead>
         <tbody>
         {% for dancer in club.dancers %}
-            <tr>
+            <tr class="table-{% if dancer.isAuthorized == 1  %}success{% else %}warning{% endif %}">
                 <th scope="row">{{ dancer.nameDancer }}</th>
                 <td>{{ dancer.firstNameDancer }}</td>
                 <td>{{ dancer.getDateBirthDancer().format('d-m-Y') }}</td>

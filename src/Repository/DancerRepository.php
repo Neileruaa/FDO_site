@@ -24,7 +24,7 @@ class DancerRepository extends ServiceEntityRepository
 		$qb = $em->createQueryBuilder();
 
 		$qb->select('d, club, teams')
-			->from('App\Entity\Dancer','d')
+			->from('App:Dancer','d')
 			->join('d.club', 'club')
 			->join('d.teams', 'teams')
 			->orderBy('d.isAuthorized', 'ASC');

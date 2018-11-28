@@ -6,6 +6,7 @@ use App\Entity\Category;
 use App\Entity\Dance;
 use App\Entity\Dancer;
 use App\Entity\Team;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -38,6 +39,10 @@ class TeamType extends AbstractType
             ->add('dancers', EntityType::class, [
                 'label'=>'Liste des danseurs',
             	'class'=> Dancer::class,
+		        'query_builder' => function (EntityRepository $er) {
+			        return $er->createQueryBuilder('d')
+				        ->andWhere('d.isAuthorized = 1');
+		        },
 	            'choice_label'=>function(Dancer $dancer){
             	    return strval($dancer->getNameDancer()." ". $dancer->getFirstNameDancer(). " | ".$dancer->getDateBirthDancer()->format('d-m-Y'));
 	            },

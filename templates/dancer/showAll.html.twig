@@ -20,8 +20,8 @@
                 </div>
 
             {% else %}
-                <div class="alert alert-success" role="alert">
-                    <a href="#" class="float-left ">{{ dancer.nameDancer }} {{ dancer.firstNameDancer }}</a>
+                <div class="alert alert-success text-left" role="alert">
+                    <a href="#" class="btn btn-outline-primary" data-toggle="modal" data-target="#T{{ dancer.id }}">{{ dancer.nameDancer }} {{ dancer.firstNameDancer }}</a>
                     <a href="{{ path('Dancer.remove', {id: dancer.id}) }}"><span class="btn btn-danger float-right"><i class="fas fa-trash-alt"></i></span></a>
                 </div>
             {% endif %}

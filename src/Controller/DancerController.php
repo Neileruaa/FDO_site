@@ -19,6 +19,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * @Security("is_granted('ROLE_USER') or is_granted('ROLE_ADMIN')")
@@ -31,7 +32,7 @@ class DancerController extends AbstractController {
 	 * @param Dancer $dancer
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
-	public function removeDancer(Dancer $dancer) {
+	public function removeDancer(Dancer $dancer, Request $request) {
 		$em=$this->getDoctrine()->getManager();
 		$list_teams = $dancer->getTeams();
 		foreach ($list_teams as $team){
@@ -40,7 +41,11 @@ class DancerController extends AbstractController {
 		}
 		$em->remove($dancer);
 		$em->flush();
-		return $this->redirectToRoute('Dancer.create');
+		if ($request->headers->all()['referer'][0] == $this->generateUrl("Dancer.create", array(),UrlGeneratorInterface::ABSOLUTE_URL)){
+			return $this->redirectToRoute('Dancer.create');
+		}else{
+			return $this->redirectToRoute('Dancer.showAllDancers');
+		}
 	}
 
 	/**
@@ -82,22 +87,11 @@ class DancerController extends AbstractController {
 	}
 
 	/**
-	 * @Route("/dancer/show/all/notAuthorized", name="Dancer.showAllNotAuthorizedDancer")
-	 * @isGranted("ROLE_ADMIN")
-	 */
-	public function showAllNotAuthorizedDancer() {
-		$dancers = $this->getDoctrine()->getRepository(Dancer::class)->findAllNotAuthorizedDancer();
-		return $this->render('dancer/showAll.html.twig',[
-			'dancers' => $dancers
-		]);
-	}
-
-	/**
 	 * @Route("/dancer/show/all", name="Dancer.showAllDancers")
 	 * @isGranted("ROLE_ADMIN")
 	 */
 	public function showAllDancers() {
-		$dancers = $this->getDoctrine()->getRepository(Dancer::class)->findAll();
+		$dancers = $this->getDoctrine()->getRepository(Dancer::class)->findAllByAuthorized();
 		return $this->render('dancer/showAll.html.twig',[
 			'dancers' => $dancers
 		]);

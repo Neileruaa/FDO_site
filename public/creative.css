@@ -3,11 +3,27 @@ html {
     width: 100%;
     height: 100%;
 }
-
+.carousel-item {
+    height: 100vh;
+    min-height: 300px;
+    background: no-repeat center center scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.img1{
+    background-image: url("Images/dance1.jpg");
+}
+.img2{
+    background-image: url("Images/dance2.jpg");
+}
+.img3{
+    background-image: url("Images/dance3.jpg");
+}
 body {
     font-family: 'Montserrat', sans-serif;
 }
-
 hr {
     max-width: 50px;
     border-width: 3px;

@@ -70,4 +70,14 @@ class UserController extends AbstractController {
 
 		return $this->render('user/editUser.html.twig', ['form' => $form->createView()]);
 	}
+
+    /**
+     * @Route("/user/show/all", name="User.showAll")
+     */
+    public function showAllClub(){
+        $clubs = $this->getDoctrine()->getRepository(Club::class)->findAll();
+        return $this->render('user/showAll.html.twig', array(
+            'clubs' => $clubs
+        ));
+	}
 }

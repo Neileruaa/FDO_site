@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Annuaire club ! {% endblock %}
+
+{% block body %}
+    <h1>Bienvenue dans l'annuaire des clubs.</h1>
+    <hr>
+    {% if clubs is not empty %}
+        <ul class="list-group list-group-flush text-left">
+            {% for club in clubs %}
+                <li class="list-group-item">
+                    <h3>{{ club.username }}</h3>
+                    {{ club.nameClubOwner }}<br>
+                    {{ club.villeClub }} ({{ club.codePostalClub }})<br>
+                    {{ club.emailClub }}<br>
+                    {{ club.dancers|length }} danseur(s) inscrit(s)<br>
+                    {{ club.competitions|length }} compétition(s) organisée(s)
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <strong>Pas encore de clubs inscrits ! </strong>
+    {% endif %}
+{% endblock %}
+
+

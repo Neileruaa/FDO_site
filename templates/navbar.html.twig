@@ -23,6 +23,9 @@
 				<li class="nav-item">
 					<a class="nav-link js-scroll-trigger" href="{{ path('Competition.show') }}"><i class="fas fa-trophy"></i> Compétitions</a>
 				</li>
+				<li class="nav-item">
+					<a class="nav-link js-scroll-trigger" href="{{ path('User.showAll') }}"><i class="fas fa-address-book"></i> Annuaire</a>
+				</li>
 				{% if is_granted('ROLE_USER')  %}
 					<li class="nav-item">
 						<a class="nav-link js-scroll-trigger" href="{{ path('Ticket.new') }}"><i class="fas fa-envelope-open-text"></i> Envoyer un ticket</a>

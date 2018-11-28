@@ -18,7 +18,7 @@
             <tbody>
         {% for team in club.teams %}
             {% include 'team/modalViewDetailsTeam.html.twig' %}
-            {% include 'team/_deleteConfirmation.html.twig' %}
+            {% include '_deleteConfirmation.html.twig' with {"id" : team.id, "message" : "Êtes-vous sûr de bien vouloir supprimer l'équipe "~team.id, "path" : path('Team.delete',{id: team.id})} %}
             <tr>
                 <th scope="row">Equipe {{ team.id }}</th>
                 <td><a href="#" class="btn btn-outline-primary" data-toggle="modal" data-target="#T{{ team.id }}">Voir</a></td>

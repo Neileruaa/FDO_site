@@ -1,4 +1,4 @@
-<div id="delete{{ team.id }}" class="modal fade">
+<div id="delete{{ id }}" class="modal fade">
     <div class="modal-dialog modal-confirm">
         <div class="modal-content">
             <div class="modal-header">
@@ -6,11 +6,11 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
             <div class="modal-body">
-                <p>Êtes-vous vraiment sûr de vouloir supprimer <strong>l'équipe numéro {{ team.id }}</strong> ?</p>
+                <p>{{ message }}</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-info" data-dismiss="modal">Annuler</button>
-                <a href="{{ path('Team.delete',{id: team.id}) }}" class="btn btn-danger">Supprimer</a>
+                <a href="{{ path }}" class="btn btn-danger">Supprimer</a>
             </div>
         </div>
     </div>

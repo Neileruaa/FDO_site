@@ -27,7 +27,7 @@
         </thead>
         <tbody>
         {% for dancer in club.dancers %}
-            {% include'dancer/_deleteConfirmation.html.twig' %}
+            {% include'_deleteConfirmation.html.twig' with {"id" : dancer.id, "message" : "Êtes vous sûr de vouloir supprimer le dancer : "~dancer.firstNameDancer~" "~dancer.nameDancer~" ?", "path":path('Dancer.remove', {'id': dancer.id })} %}
             <tr class="table-{% if dancer.isAuthorized == 1  %}success{% else %}warning{% endif %}">
                 <th scope="row">{{ dancer.nameDancer }}</th>
                 <td>{{ dancer.firstNameDancer }}</td>

@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    Admin : Danseurs
+    Liste de tous les danseurs
 {% endblock %}
 
 {% block body %}
@@ -10,12 +10,13 @@
     {% if dancers is not empty %}
         {% for dancer in dancers %}
 	        {% include 'dancer/_viewDetails.html.twig' %}
-	        {% if dancer.isAuthorized == 0 %}
+            {% include '_deleteConfirmation.html.twig' with {"id": dancer.id, "message": "Êtes-vous sûr de bien vouloir supprimer le danseur : "~dancer.firstNameDancer~" "~dancer.nameDancer, "path": path('Dancer.remove', {id: dancer.id}) } %}
+            {% if dancer.isAuthorized == 0 %}
                 <div class="alert alert-warning text-left" role="alert">
                     <a href="#" class="btn btn-outline-primary" data-toggle="modal" data-target="#T{{ dancer.id }}">{{ dancer.nameDancer }} {{ dancer.firstNameDancer }}</a>
                     <div class="btn-group center float-right" role="group" aria-label="option">
                         <a href="{{ path('Dancer.authorize', {id: dancer.id}) }}" class="btn btn-success"><i class="fas fa-check"></i></a>
-                        <a href="{{ path('Dancer.remove', {id: dancer.id}) }}" class="btn btn-danger"><i class="fas fa-times"></i></a>
+                        <a href="{{ path('Dancer.remove', {id: dancer.id}) }}" data-toggle="modal" data-target="#delete{{ dancer.id }}" class="btn btn-danger"><i class="fas fa-times"></i></a>
                     </div>
                 </div>
 
@@ -30,5 +31,3 @@
         <strong>Aucun club n'a encore inscrit de danseurs pour le moment</strong>
     {% endif %}
 {% endblock %}
-
-

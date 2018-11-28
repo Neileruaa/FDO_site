@@ -15,6 +15,7 @@
                 <div class="alert alert-warning text-left" role="alert">
                     <a href="#" class="btn btn-outline-primary" data-toggle="modal" data-target="#T{{ dancer.id }}">{{ dancer.nameDancer }} {{ dancer.firstNameDancer }}</a>
                     <div class="btn-group center float-right" role="group" aria-label="option">
+                        <a href="{{ path('Dancer.edit', {id: dancer.id}) }}" class="btn btn-success"><i class="fas fa-id-card"></i></a>
                         <a href="{{ path('Dancer.authorize', {id: dancer.id}) }}" class="btn btn-success"><i class="fas fa-check"></i></a>
                         <a href="{{ path('Dancer.remove', {id: dancer.id}) }}" data-toggle="modal" data-target="#delete{{ dancer.id }}" class="btn btn-danger"><i class="fas fa-times"></i></a>
                     </div>

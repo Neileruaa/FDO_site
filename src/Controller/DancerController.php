@@ -9,6 +9,7 @@
 namespace App\Controller;
 
 
+use App\Entity\Dance;
 use App\Entity\Dancer;
 use App\Entity\Team;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -65,6 +66,7 @@ class DancerController extends AbstractController {
 			// $form->getData() holds the submitted values
 			// but, the original `$task` variable has also been updated
 			$dancerToSave = $form->getData();
+
 			$dancerToSave->setClub($club);
 			$club->addDancer($dancerToSave);
 			$dancerToSave->setIsAuthorized(false);
@@ -85,6 +87,29 @@ class DancerController extends AbstractController {
 			)
 		);
 	}
+
+    /**
+     * @Route("/dancer/edit/{id}", name="Dancer.edit", requirements={"page"="\d+"})
+     * @param Dancer $dancer
+     * @isGranted("ROLE_ADMIN")
+     */
+	public function editDancer(Dancer $dancer, Request $request){
+        $dancers = $this->getDoctrine()->getRepository(Dancer::class)->findBy([],['isAuthorized'=>'ASC']);
+	    $em=$this->getDoctrine()->getManager();
+        $form=$this->createForm(DancerType::class, $dancer);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $dancer=$form->getData();
+            $em->persist($dancer);
+            $em->flush();
+            return $this->redirectToRoute('Dancer.showAllDancers');
+        }elseif ($form->isSubmitted() && !$form->isValid()){
+            $this->addFlash('danger', 'Il y a eut une erreur lors de la modification de ce danseur ! ');
+        }
+
+        return $this->render('dancer/editDancer.html.twig', ["form"=>$form->createView()]);
+    }
 
 	/**
 	 * @Route("/dancer/show/all", name="Dancer.showAllDancers")

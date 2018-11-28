@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ReglementRepository")
@@ -18,6 +19,8 @@ class Reglement
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="S'il vous plaît, choisissez un fichier PDF")
+     * @Assert\File(mimeTypes={ "application/pdf" })
      */
     private $pdfFile;
 
@@ -31,12 +34,12 @@ class Reglement
         return $this->id;
     }
 
-    public function getPdfFile(): ?string
+    public function getPdfFile()
     {
         return $this->pdfFile;
     }
 
-    public function setPdfFile(string $pdfFile): self
+    public function setPdfFile(string $pdfFile)
     {
         $this->pdfFile = $pdfFile;
 

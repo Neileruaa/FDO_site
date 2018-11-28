@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Enregistrer règlement{% endblock %}
+
+{% block body %}
+    <h1>Upload un règlement</h1>
+    <hr>
+
+    {{ include('reglement/_form.html.twig') }}
+
+    <a href="{{ path('Reglements.index') }}">back to list</a>
+{% endblock %}

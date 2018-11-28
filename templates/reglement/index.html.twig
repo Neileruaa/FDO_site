@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reglements{% endblock %}
+
+{% block body %}
+    <h1>Reglement index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Règlements</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reglement in reglements %}
+            <tr>
+                {#TODO: link to the right file ! #}
+                <td>
+                    <a target="_blank" href="{{ asset('uploads/reglements/' ~ reglement.pdfFile) }}">{{ reglement.title }}</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="1">Pas encore de règlements enregistrés</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('Reglement.new') }}">Create new</a>
+{% endblock %}

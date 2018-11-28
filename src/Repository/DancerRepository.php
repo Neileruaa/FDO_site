@@ -19,20 +19,6 @@ class DancerRepository extends ServiceEntityRepository
         parent::__construct($registry, Dancer::class);
     }
 
-	public function findAllByAuthorized() {
-		$em = $this->getEntityManager();
-		$qb = $em->createQueryBuilder();
-
-		$qb->select('d, club, teams')
-			->from('App\Entity\Dancer','d')
-			->join('d.club', 'club')
-			->join('d.teams', 'teams')
-			->orderBy('d.isAuthorized', 'ASC');
-
-		return $qb->getQuery()->getArrayResult();
-	}
-
-
 //    /**
 //     * @return Dancer[] Returns an array of Dancer objects
 //     */

@@ -91,7 +91,7 @@ class DancerController extends AbstractController {
 	 * @isGranted("ROLE_ADMIN")
 	 */
 	public function showAllDancers() {
-		$dancers = $this->getDoctrine()->getRepository(Dancer::class)->findAllByAuthorized();
+		$dancers = $this->getDoctrine()->getRepository(Dancer::class)->findBy([],['isAuthorized'=>'ASC']);
 		return $this->render('dancer/showAll.html.twig',[
 			'dancers' => $dancers
 		]);

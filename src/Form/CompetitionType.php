@@ -25,7 +25,7 @@ class CompetitionType extends AbstractType
             ->add('dateCompetition', DateType::class, array(
                 'label'=>'Date de la compétition',
                 'widget'=>'single_text',
-                'format' => 'dd-mm-yyyy',
+                'format' => 'd-M-y',
                 'html5' => false,
                 'attr' => ['class' => 'js-datepicker']
             ))

@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Dancer;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -17,16 +18,16 @@ class DancerType extends AbstractType
         $builder
             ->add('nameDancer', TextType::class, array('label' => 'Nom'))
             ->add('firstNameDancer', TextType::class, array('label' => 'Prénom'))
-            ->add('dateBirthDancer', DateType::class,[
+            ->add('dateBirthDancer', DateTimeType::class,[
                 'label'=>"Date de naissance",
 	            'widget'=>'single_text',
-	            'format' => 'dd-mm-yyyy',
+	            'format' => 'd-M-y',
 	            'html5' => false,
 	            'attr' => ['class' => 'js-datepicker']
             ])
             ->add('emailDancer', TextType::class, array('label' => 'Adresse mail'))
 	        ->add('save', SubmitType::class, [
-                'label' => 'Ajouter',
+                'label' => 'Valider',
                 'attr' => ['class' => 'btn btn-outline-success'],
             ])
         ;

@@ -8,19 +8,19 @@
 				</button>
 			</div>
 			<div class="modal-body" style="overflow: auto;">
-				<ul class="list-group">
-					<li class="list-group-item">{{ dancer.emailDancer }}</li>
-					<li class="list-group-item">{{ dancer.dateBirthDancer|date('d-m-Y') }}</li>
-					<li class="list-group-item">{% if dancer.isAuthorized == 1 %}L'administrateur a validé la création de ce danseur. {% else %} L'administrateur n'a pas encore validé la création de ce danseur.{% endif %}</li>
-					<li class="list-group-item">{{ dancer.club.username }}</li>
-					<li class="list-group-item">
-						{% for team in dancer.teams %}
-							Équipe:{{ team.id }}<br>
-						{% else %}
-							Ce jour n'est pas encore assigné dans une équipe.
-						{% endfor %}
-					</li>
-				</ul>
+                <ul class="list-group">
+                    <li class="list-group-item">{{ dancer.emailDancer }}</li>
+                    <li class="list-group-item">{{ dancer.dateBirthDancer|date('d-m-Y') }}</li>
+                    <li class="list-group-item">{% if dancer.isAuthorized == 1 %}L'administrateur a validé la création de ce danseur. {% else %} L'administrateur n'a pas encore validé la création de ce danseur.{% endif %}</li>
+                    <li class="list-group-item">{{ dancer.club.username }}</li>
+                    <li class="list-group-item">
+                        {% for team in dancer.teams %}
+                            Équipe:{{ team.id }}<br>
+                        {% else %}
+                            Ce jour n'est pas encore assigné dans une équipe.
+                        {% endfor %}
+                    </li>
+                </ul>
 			</div>
 		</div>
 	</div>

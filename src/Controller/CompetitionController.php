@@ -12,6 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Security("is_granted('ROLE_USER') or is_granted('ROLE_ADMIN')")
@@ -98,5 +99,23 @@ class CompetitionController extends AbstractController {
         $manager->remove($competition);
         $manager->flush();
         return $this->redirectToRoute("Competition.show");
+    }
+
+    /**
+     * @Route("/competition/edit/{id}", name="Competition.edit", requirements={"page"="\d+"})
+     * @param Competition $competition
+     * @isGranted("ROLE_ADMIN")
+     */
+    public function editCompetition(Competition $compet, ObjectManager $manager, Request $request){
+        $form=$this->createForm(CompetitionType::class, $compet);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager->persist($compet);
+            $manager->flush();
+            return $this->redirectToRoute('Competition.show');
+        }
+        return $this->render('competition/editCompetition.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 }

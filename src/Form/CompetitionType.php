@@ -9,6 +9,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -53,8 +54,7 @@ class CompetitionType extends AbstractType
                 'choice_label'=>'username',
                 'required'=>true,
                 'expanded'=>false,
-                'multiple'=>false,
-                'by_reference'=>false
+                'multiple'=>false
             ])
             ->add('nbMaxTeam', NumberType::class, array(
                 'label'=>'Nombres d\'équipe maximum'
@@ -62,6 +62,10 @@ class CompetitionType extends AbstractType
             ->add('description', TextareaType::class, array(
                 'label'=>"Description de la compétition"
             ))
+            ->add('save', SubmitType::class, [
+                'label' => 'Valider',
+                'attr' => ['class' => 'btn btn-outline-success'],
+            ])
         ;
     }
 

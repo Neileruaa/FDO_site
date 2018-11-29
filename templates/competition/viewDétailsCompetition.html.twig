@@ -26,6 +26,9 @@
             {% endfor %}
         </li>
         <li class="list-group-item"><strong>Description de la compétition : </strong>{{ compet.description }}</li>
+        {% if is_granted('ROLE_ADMIN') %}
+            <li class="list-group-item"><strong>Modifier la compétition : </strong><a href="{{ path('Competition.edit', {id: compet.id}) }}" class="btn btn-success"><i class="fas fa-id-card"></i></a></li>
+        {% endif %}
     </ul>
     </div>
     {% if compet.teams is not empty %}

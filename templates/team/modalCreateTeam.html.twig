@@ -8,7 +8,12 @@
                 </button>
             </div>
             <div class="modal-body" style="overflow: auto;">
-                {{ form(formEquipe) }}
+                {{ form_start(formEquipe) }}
+                {{ form_row(formEquipe.dances) }}
+                {{ form_row(formEquipe.dancers) }}
+                {#{ form_row(formEquipe.category) }#}
+                {{ form_row(formEquipe.save) }}
+                {{ form_end(formEquipe) }}
             </div>
         </div>
     </div>

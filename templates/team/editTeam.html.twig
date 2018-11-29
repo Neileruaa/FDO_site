@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+{% block title %}Modification de l'équipe{% endblock %}
+
+{% block body %}
+    {{ form_start(form) }}
+    {{ form_row(form.dances) }}
+    {{ form_row(form.dancers) }}
+    <label class="float-left">Catégorie</label>
+    <div class="form-check-inline">
+        <label class="form-check-label">
+            <input type="radio" name="category" id="category" value="1" class="form-check-input" {% if team.getCategory().nameCategory=="Enfant" %}checked{% endif %}> Enfant
+        </label>
+    </div>
+    <div class="form-check-inline">
+        <label class="form-check-label">
+            <input type="radio" name="category" id="category" value="2" class="form-check-input" {% if team.getCategory().nameCategory=="Junior" %}checked{% endif %}> Junior
+        </label>
+    </div>
+    <div class="form-check-inline disabled">
+        <label class="form-check-label">
+            <input type="radio" name="category" id="category" value="3" class="form-check-input" {% if team.getCategory().nameCategory=="Adulte" %}checked{% endif %}> Adulte
+        </label>
+    </div>
+    {{ form_row(form.save) }}
+    {{ form_end(form) }}
+{% endblock %}

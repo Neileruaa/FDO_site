@@ -45,7 +45,7 @@ class Team
     private $competitions;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="teams")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="teams", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $category;
@@ -58,7 +58,6 @@ class Team
         $this->dances = new ArrayCollection();
         $this->dancers = new ArrayCollection();
         $this->competitions = new ArrayCollection();
-        $this->categories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -169,7 +168,7 @@ class Team
         return $i;
     }
 
-    public function getCategory(): ?Category
+    public function getCategory()
     {
         return $this->category;
     }

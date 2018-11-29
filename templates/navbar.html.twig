@@ -42,17 +42,20 @@
 						<a class="nav-link js-scroll-trigger" href="{{ path('Ticket.show') }}"><i class="fas fa-envelope"></i> Tickets</a>
 					{% endif %}
 				</li>
-				{% if is_granted('ROLE_ADMIN') %}{# si on est admin, affiche la navBar de l'admin#}
+				{# si on est admin, affiche la navBar de l'admin#}
 					<hr>
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							<i class="fas fa-toolbox"></i>
-							<strong>Menu club</strong>
+							<strong>Menu {% if is_granted('ROLE_ADMIN') %}admin{% else %}club{% endif %}</strong>
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<!-- <a class="dropdown-item" href="{#{ path('Competition.create') }#}">création de competition</a> -->
-							<a class="dropdown-item" href="{{ path('Dancer.showAllDancers') }}">Tous les danseurs</a>
-							<div class="dropdown-divider"></div>
+                            {% if is_granted('ROLE_ADMIN') %}
+								<a class="dropdown-item" href="{{ path('Dancer.showAllDancers') }}">Tous les danseurs</a>
+								<a class="dropdown-item" href="{{ path('Team.showAll') }}">Toutes les équipes</a>
+								<div class="dropdown-divider"></div>
+							{% endif %}
+							<a class="dropdown-item" href="{{ path('User.showAll') }}"><i class="fas fa-address-book"></i> Annuaire</a>
 							<a class="dropdown-item" href="{{ path('User.show') }}">Voir profil</a>
 						</div>
 					</li>

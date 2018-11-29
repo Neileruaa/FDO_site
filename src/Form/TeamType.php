@@ -42,7 +42,15 @@ class TeamType extends AbstractType {
 					return strval($dancer->getNameDancer() . " " . $dancer->getFirstNameDancer() . " | " . $dancer->getDateBirthDancer()->format('d-m-Y'));
 				},
 				'expanded' => true, 'multiple' => true, 'by_reference' => false])
-				->add('save', SubmitType::class, ['label' => 'Ajouter l\'équipe', 'attr' => ['class' => 'btn btn-outline-success']]);
+            //->add('category', EntityType::class, array(
+            //    'label'=>"Catégorie",
+            //    'class' => Category::class,
+            //    'choice_label' => 'nameCategory',
+            //    'required' => false,
+            //    'expanded'=>true,
+            //    'multiple'=>false
+            //))
+				->add('save', SubmitType::class, ['label' => 'Valider', 'attr' => ['class' => 'btn btn-outline-success']]);
 	}
 
 	public function configureOptions(OptionsResolver $resolver) {

@@ -66,7 +66,9 @@ class UserController extends AbstractController {
 			$manager->persist($club);
 			$manager->flush();
 			return $this->redirectToRoute('User.show');
-		}
+		}if ($form->isSubmitted() && $form->isValid()) {
+            return $this->render('User.show');
+        }
 
 		return $this->render('user/editUser.html.twig', ['form' => $form->createView()]);
 	}

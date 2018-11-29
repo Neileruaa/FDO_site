@@ -12,6 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * @Security("is_granted('ROLE_USER') or is_granted('ROLE_ADMIN')")
@@ -167,10 +168,14 @@ class TeamController extends AbstractController
 	 * @param Team $team
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
-    public function deleteTeam(Team $team, ObjectManager $manager){
+    public function deleteTeam(Team $team, ObjectManager $manager, Request $request){
         $manager->remove($team);
         $manager->flush();
-        return $this->redirectToRoute("Team.create");
+        if ($request->headers->all()['referer'][0] == $this->generateUrl("Team.create", array(),UrlGeneratorInterface::ABSOLUTE_URL)){
+            return $this->redirectToRoute('Team.create');
+        }else{
+            return $this->redirectToRoute('Team.showAll');
+        }
     }
 
 	/**
@@ -210,4 +215,50 @@ class TeamController extends AbstractController
 
 		return $this->redirectToRoute('Competition.show');
 	}
+
+    /**
+     * @Route("team/showAll", name="Team.showAll")
+     * @isGranted("ROLE_ADMIN")
+     */
+	public function showAllTeams(){
+        $list_team=$this->getDoctrine()->getRepository(Team::class)->findAll();
+        return $this->render('team/showAll.html.twig', ["teams"=>$list_team]);
+    }
+
+    /**
+     * @Route("/team/edit/{id}", name="Team.edit", requirements={"page"="\d+"})
+     * @param Team $team
+     * @isGranted("ROLE_ADMIN")
+     */
+    public function editTeam(Team $team, Request $request){
+        $em=$this->getDoctrine()->getManager();
+        $form=$this->createForm(TeamType::class, $team, array('club' => $this->getUser()));
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $team=$form->getData();
+            //$category=$this->getDoctrine()->getRepository(Category::class)->findAll();
+            switch ($request->get('category')){
+                case 1:
+                    $enfant=$em->getRepository(Category::class)->find(1);
+                    $team->setCategory($enfant);
+                    break;
+                case 2:
+                    $junior=$em->getRepository(Category::class)->find(2);
+                    $team->setCategory($junior);
+                    break;
+                case 3:
+                    $adulte=$em->getRepository(Category::class)->find(3);
+                    $team->setCategory($adulte);
+                    break;
+            }
+            $em->persist($team);
+            $em->flush();
+            return $this->redirectToRoute('Team.showAll');
+        }elseif ($form->isSubmitted() && !$form->isValid()){
+            $this->addFlash('danger', 'Il y a eut une erreur lors de la modification de cette équipe ! ');
+        }
+
+        return $this->render('team/editTeam.html.twig', ["form"=>$form->createView(), 'team'=>$team]);
+    }
 }

@@ -20,7 +20,7 @@ body{
     background-color: transparent;
 }
 #footer-image{
-    background-image: url("Images/danceTest.jpg");
+    background-image: url("../Images/danceTest.jpg");
     background-position: center center;
     background-repeat: no-repeat;
     /*background-attachment: fixed;*/

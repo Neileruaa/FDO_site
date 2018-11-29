@@ -13,13 +13,13 @@ html {
     background-size: cover;
 }
 .img1{
-    background-image: url("Images/dance1.jpg");
+    background-image: url("../Images/dance1.jpg");
 }
 .img2{
-    background-image: url("Images/dance2.jpg");
+    background-image: url("../Images/dance2.jpg");
 }
 .img3{
-    background-image: url("Images/dance3.jpg");
+    background-image: url("../Images/dance3.jpg");
 }
 body {
     font-family: 'Montserrat', sans-serif;
@@ -60,7 +60,7 @@ header.masthead {
     padding-top: 10rem;
     padding-bottom: calc(10rem - 56px);
 //background-image: url("../img/header.jpg");
-    background-image: url("/Images/header.png");
+    background-image: url("/public/Images/header.png");
     background-position: center center;
     background-size: cover;
 }

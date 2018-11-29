@@ -25,6 +25,7 @@
                 <div class="alert alert-success text-left" role="alert">
                     <a href="#" class="btn btn-outline-primary" data-toggle="modal" data-target="#T{{ dancer.id }}">{{ dancer.nameDancer }} {{ dancer.firstNameDancer }}</a>
                     <a href="{{ path('Dancer.remove', {id: dancer.id}) }}"><span class="btn btn-danger float-right"><i class="fas fa-trash-alt"></i></span></a>
+                    <a href="{{ path('Dancer.edit', {id: dancer.id}) }}" class="btn btn-success float-right"><i class="fas fa-id-card"></i></a>
                 </div>
             {% endif %}
         {% endfor %}

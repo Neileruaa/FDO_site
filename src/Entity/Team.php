@@ -45,7 +45,7 @@ class Team
     private $competitions;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="teams", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="teams")
      * @ORM\JoinColumn(nullable=false)
      */
     private $category;

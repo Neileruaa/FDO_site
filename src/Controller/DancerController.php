@@ -13,6 +13,7 @@ use App\Entity\Dance;
 use App\Entity\Dancer;
 use App\Entity\Team;
 use Doctrine\Common\Persistence\ObjectManager;
+use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use App\Form\DancerType;
 use phpDocumentor\Reflection\Types\This;
@@ -49,17 +50,18 @@ class DancerController extends AbstractController {
 		}
 	}
 
-	/**
-	 * @Route("/dancer/create", name="Dancer.create")
-	 * @param Request $request
-	 * @return \Symfony\Component\HttpFoundation\Response
-	 */
+    /**
+     * @Route("/dancer/create", name="Dancer.create")
+     * @param Request $request
+     * @param PaginatorInterface $paginator
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
 	public function createDancer(Request $request) {
 		$club = $this->getUser();
 		$em = $this->getDoctrine()->getManager();
 		$dancer = new Dancer();
 		$form= $this->createForm(DancerType::class, $dancer);
-		$list_dancers = $em->getRepository(Dancer::class)->findAll();
+        $list_dancers=$em->getRepository(Dancer::class)->findAll();
 		$form->handleRequest($request);
 
 		if ($form->isSubmitted() && $form->isValid()) {
@@ -72,7 +74,6 @@ class DancerController extends AbstractController {
 			$dancerToSave->setIsAuthorized(false);
 			$em->persist($dancerToSave);
 			$em->flush();
-
 			return $this->redirectToRoute('Dancer.create');
 		}elseif ($form->isSubmitted() && !$form->isValid()){
 			$this->addFlash('danger', 'Il y a eut une erreur lors de l\'inscription de ce danseur ! ');
@@ -81,9 +82,9 @@ class DancerController extends AbstractController {
 		return $this->render(
 			'dancer/createDancer.html.twig',
 			array(
-				'formDanseur'=>$form->createView(),
-				'listDancer'=>$list_dancers,
-				'club'=>$club
+                'listDancer'=>$list_dancers,
+                'club'=>$club,
+                'formDanseur'=>$form->createView()
 			)
 		);
 	}
@@ -115,8 +116,10 @@ class DancerController extends AbstractController {
 	 * @Route("/dancer/show/all", name="Dancer.showAllDancers")
 	 * @isGranted("ROLE_ADMIN")
 	 */
-	public function showAllDancers() {
-		$dancers = $this->getDoctrine()->getRepository(Dancer::class)->findBy([],['isAuthorized'=>'ASC']);
+	public function showAllDancers(PaginatorInterface $paginator, Request $request) {
+        $dancers=$paginator->paginate($this->getDoctrine()->getRepository(Dancer::class)->findBy([],['isAuthorized'=>'ASC']),
+            $request->query->getInt('page', 1),10
+        );
 		return $this->render('dancer/showAll.html.twig',[
 			'dancers' => $dancers
 		]);

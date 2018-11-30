@@ -7,6 +7,7 @@ use App\Entity\Competition;
 use App\Entity\Team;
 use App\Form\TeamType;
 use Doctrine\Common\Persistence\ObjectManager;
+use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,15 +22,6 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  */
 class TeamController extends AbstractController
 {
-	/**
-	 * @Route("/team/surclassement", name="Team.surclassement")
-	 * @IsGranted("ROLE_ADMIN")
-	 */
-	public function surclasserTeam(ObjectManager $manager) {
-		$allTeams = $manager->getRepository(Team::class)->findAll();
-		return $this->render('admin/surclassement.html.twig', ['teams' => $allTeams]);
-	}
-
 	/**
 	 * @Route("/team/create", name="Team.create")
 	 * @param Request $request
@@ -220,8 +212,10 @@ class TeamController extends AbstractController
      * @Route("team/showAll", name="Team.showAll")
      * @isGranted("ROLE_ADMIN")
      */
-	public function showAllTeams(){
-        $list_team=$this->getDoctrine()->getRepository(Team::class)->findAll();
+	public function showAllTeams(PaginatorInterface $paginator, Request $request){
+        $list_team=$paginator->paginate($this->getDoctrine()->getRepository(Team::class)->findAll(),
+            $request->query->getInt('page', 1),10
+        );
         return $this->render('team/showAll.html.twig', ["teams"=>$list_team]);
     }
 

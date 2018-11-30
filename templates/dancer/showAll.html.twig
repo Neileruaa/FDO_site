@@ -29,6 +29,9 @@
                 </div>
             {% endif %}
         {% endfor %}
+        <div class="pagination justify-content-center">
+            {{ knp_pagination_render(dancers) }}
+        </div>
     {% else %}
         <strong>Aucun club n'a encore inscrit de danseurs pour le moment</strong>
     {% endif %}

@@ -19,6 +19,9 @@
                 </div>
             </div>
         {% endfor %}
+        <div class="pagination justify-content-center">
+            {{ knp_pagination_render(teams) }}
+        </div>
     {% else %}
         <strong>Aucun club n'a encore inscrit d'équipe pour le moment</strong>
     {% endif %}

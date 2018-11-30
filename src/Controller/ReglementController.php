@@ -70,15 +70,13 @@ class ReglementController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="Reglement.delete", methods="DELETE")
+     * @Route("/delete/{id}", name="Reglement.delete")
      */
     public function delete(Request $request, Reglement $reglement): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$reglement->getId(), $request->request->get('_token'))) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($reglement);
             $em->flush();
-        }
 
         return $this->redirectToRoute('Reglements.index');
     }

@@ -9,13 +9,18 @@
         {% for reglement in reglements %}
             <li class="list-group-item">
                 <a target="_blank" href="{{ asset('uploads/reglements/' ~ reglement.pdfFile) }}">{{ reglement.title }}</a>
+                {% if is_granted('ROLE_ADMIN') %}
                 <div class="text-right">
-                    {% include 'reglement/_delete_form.html.twig' %}
+                    {% include '_deleteConfirmation.html.twig' with {"id": reglement.id, "message": "Êtes-vous sûr de bien vouloir supprimer le réglement "~reglement.title~" ?", "path": path('Reglement.delete', {id: reglement.id}) } %}
+                    <a href="#" data-toggle="modal" data-target="#delete{{ reglement.id }}" class="btn btn-danger"><i class="fas fa-times"></i></a>
                 </div>
+                {% endif %}
             </li>
         {% else %}
             <li class="list-group-item">Pas encore de règlements enregistrés</li>
         {% endfor %}
     </ul>
-    <a href="{{ path('Reglement.new') }}" class="btn btn-primary">Create new</a>
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('Reglement.new') }}" class="btn btn-primary">Create new</a>
+    {% endif %}
 {% endblock %}

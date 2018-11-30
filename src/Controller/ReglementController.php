@@ -6,6 +6,8 @@ use App\Entity\Reglement;
 use App\Form\ReglementType;
 use App\Repository\ReglementRepository;
 use App\Service\FileUploader;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,6 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
+ * @Security("is_granted('ROLE_USER') or is_granted('ROLE_ADMIN')")
  * @Route("/reglement")
  */
 class ReglementController extends AbstractController
@@ -71,8 +74,9 @@ class ReglementController extends AbstractController
 
     /**
      * @Route("/delete/{id}", name="Reglement.delete")
+     * @IsGranted("ROLE_ADMIN")
      */
-    public function delete(Request $request, Reglement $reglement): Response
+    public function delete(Request $request, Reglement $reglement)
     {
             $em = $this->getDoctrine()->getManager();
             $em->remove($reglement);

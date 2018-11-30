@@ -7,11 +7,11 @@
     <hr>
     <ul class="list-group list-group-flush text-left mb-4">
         {% for reglement in reglements %}
+            {% include '_deleteConfirmation.html.twig' with {"id": reglement.id, "message": "Êtes-vous sûr de bien vouloir supprimer le réglement "~reglement.title~" ?", "path": path('Reglement.delete', {id: reglement.id}) } %}
             <li class="list-group-item">
                 <a target="_blank" href="{{ asset('uploads/reglements/' ~ reglement.pdfFile) }}">{{ reglement.title }}</a>
                 {% if is_granted('ROLE_ADMIN') %}
                 <div class="text-right">
-                    {% include '_deleteConfirmation.html.twig' with {"id": reglement.id, "message": "Êtes-vous sûr de bien vouloir supprimer le réglement "~reglement.title~" ?", "path": path('Reglement.delete', {id: reglement.id}) } %}
                     <a href="#" data-toggle="modal" data-target="#delete{{ reglement.id }}" class="btn btn-danger"><i class="fas fa-times"></i></a>
                 </div>
                 {% endif %}
@@ -21,6 +21,6 @@
         {% endfor %}
     </ul>
     {% if is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('Reglement.new') }}" class="btn btn-primary">Create new</a>
+        <a href="{{ path('Reglement.new') }}" class="btn btn-primary">Créer</a>
     {% endif %}
 {% endblock %}

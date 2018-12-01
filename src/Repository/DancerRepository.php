@@ -19,6 +19,20 @@ class DancerRepository extends ServiceEntityRepository
         parent::__construct($registry, Dancer::class);
     }
 
+    public function searchDancer($nom){
+        $entityManager = $this->getEntityManager();
+
+        $qb = $entityManager->createQueryBuilder();
+
+        $qb->select('d')
+            ->from('App\Entity\Dancer', 'd')
+            ->join('d.club', 'c')
+            ->join('d.teams', 't')
+            ->where('d.nameDancer= :nom')
+            ->setParameter('nom', $nom);
+
+        return $qb->getQuery()->getResult();
+    }
 //    /**
 //     * @return Dancer[] Returns an array of Dancer objects
 //     */

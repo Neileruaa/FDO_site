@@ -19,9 +19,12 @@ use App\Form\DancerType;
 use phpDocumentor\Reflection\Types\This;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SearchType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Validator\Constraints\Length;
 
 /**
  * @Security("is_granted('ROLE_USER') or is_granted('ROLE_ADMIN')")
@@ -120,8 +123,25 @@ class DancerController extends AbstractController {
         $dancers=$paginator->paginate($this->getDoctrine()->getRepository(Dancer::class)->findBy([],['isAuthorized'=>'ASC']),
             $request->query->getInt('page', 1),10
         );
+
+        $formulaire = $this->createFormBuilder()
+            ->add('search', SearchType::class, array('constraints' => new Length(array('min' => 3)), 'attr' => array('placeholder' => 'Rechercher un danseur par nom de famille'), 'required'=>false, 'label'=>"Rechercher" ))
+            ->add('send', SubmitType::class, array('label' => 'Rechercher'))
+            ->getForm();
+
+        $formulaire->handleRequest($request);
+        if($formulaire->isSubmitted() && $formulaire->isValid())
+        {
+            $search = $formulaire['search']->getData();
+            if ($search!=null){
+                $dancers=$paginator->paginate($this->getDoctrine()->getRepository(Dancer::class)->searchDancer($search),
+                    $request->query->getInt('page', 1),10
+                );
+            }
+        }
 		return $this->render('dancer/showAll.html.twig',[
-			'dancers' => $dancers
+			'dancers' => $dancers,
+            'form'=>$formulaire->createView()
 		]);
 	}
 

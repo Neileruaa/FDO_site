@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Category;
 use App\Entity\Competition;
+use App\Entity\Dance;
 use App\Entity\Team;
+use App\Entity\Dancer;
 use App\Form\TeamType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Knp\Component\Pager\PaginatorInterface;
@@ -41,6 +43,20 @@ class TeamController extends AbstractController
 			// $form->getData() holds the submitted values
 			// but, the original `$task` variable has also been updated32
 			$list_dancers = $form->get("dancers")->getData();
+			$list_dances=$form->get("dances")->getData();
+
+			if (!$this->verifTeam($list_dancers, $list_dances)){
+                $this->addFlash('danger', 'Impossible, un danseur ne peut pas danser la même danse dans 2 équipes différentes de mêmes tailles');
+                return $this->render(
+                    'team/createTeam.html.twig',
+                    array(
+                        'formEquipe' => $form->createView(),
+                        'listEquipe' => $list_teams,
+                        'club' => $club
+                    )
+                );
+            }
+
             $sizeTeam=count($list_dancers);
 			$team = $form->getData();
 
@@ -154,6 +170,31 @@ class TeamController extends AbstractController
 			)
 		);
 	}
+
+    /**
+     * @param Dancer[] $dancers
+     * @param Dance[] $dances
+     * @return bool
+     */
+	public function verifTeam($dancers, $dances){
+        $sizeTeam=count($dancers);
+        foreach ($dancers as $dancer){
+            foreach ($dancer->getTeams() as $team){
+                if (count($team->getDancers())==$sizeTeam){
+                    foreach ($team->getDances() as $danceTeam){
+                        if ($team->getId()!=null){
+                            foreach ($dances as $dance){
+                                if($dance->getNameDance()==$danceTeam->getNameDance()){
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return true;
+    }
 
 	/**
 	 * @Route("/team/delete/{id}", name="Team.delete", requirements={"id" = "\d+"})

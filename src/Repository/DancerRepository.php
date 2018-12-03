@@ -21,18 +21,16 @@ class DancerRepository extends ServiceEntityRepository
 
     public function searchDancer($nom){
         $entityManager = $this->getEntityManager();
-
-        $qb = $entityManager->createQueryBuilder();
-
-        $qb->select('d')
-            ->from('App\Entity\Dancer', 'd')
-            ->join('d.club', 'c')
-            ->join('d.teams', 't')
-            ->where('d.nameDancer= :nom')
-            ->setParameter('nom', $nom);
-
-        return $qb->getQuery()->getResult();
+        return $this->createQueryBuilder('d')
+            ->select('d')
+            ->andWhere('d.nameDancer = :nom')
+            ->setParameter('nom', $nom)
+            ->orderBy('d.isAuthorized', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
     }
+
 //    /**
 //     * @return Dancer[] Returns an array of Dancer objects
 //     */

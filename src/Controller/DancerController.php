@@ -123,7 +123,6 @@ class DancerController extends AbstractController {
         $dancers=$paginator->paginate($this->getDoctrine()->getRepository(Dancer::class)->findBy([],['isAuthorized'=>'ASC']),
             $request->query->getInt('page', 1),10
         );
-
         $formulaire = $this->createFormBuilder()
             ->add('search', SearchType::class, array('constraints' => new Length(array('min' => 3)), 'attr' => array('placeholder' => 'Rechercher un danseur par nom de famille'), 'required'=>false, 'label'=>"Rechercher" ))
             ->add('send', SubmitType::class, array('label' => 'Rechercher'))

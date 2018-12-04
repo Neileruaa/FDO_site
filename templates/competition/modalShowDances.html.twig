@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalCenterTitle">Danse(s) de cette competition</h5>
+                <h5 class="modal-title" id="exampleModalCenterTitle">Danse(s) de cette compétition</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -10,10 +10,6 @@
             <div class="modal-body" style="overflow: auto;">
                 {% for dance in compet.dances %}{{ dance.nameDance }}<br>{% endfor %}
             </div>
-            <!--<div class="modal-footer">
-                <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Retour</button>
-                <a href="{#{ path('commande.create') }#}" class="btn btn-outline-success">Valider danseur</a>
-            </div>-->
         </div>
     </div>
 </div>

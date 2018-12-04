@@ -79,7 +79,7 @@ class DancerController extends AbstractController {
 			$em->flush();
 			return $this->redirectToRoute('Dancer.create');
 		}elseif ($form->isSubmitted() && !$form->isValid()){
-			$this->addFlash('danger', 'Il y a eut une erreur lors de l\'inscription de ce danseur ! ');
+			$this->addFlash('danger', 'Il y a eut une erreur lors de l\'inscription de ce danseur');
 		}
 
 		return $this->render(
@@ -109,7 +109,7 @@ class DancerController extends AbstractController {
             $em->flush();
             return $this->redirectToRoute('Dancer.showAllDancers');
         }elseif ($form->isSubmitted() && !$form->isValid()){
-            $this->addFlash('danger', 'Il y a eut une erreur lors de la modification de ce danseur ! ');
+            $this->addFlash('danger', 'Il y a eut une erreur lors de la modification de ce danseur');
         }
 
         return $this->render('dancer/editDancer.html.twig', ["form"=>$form->createView()]);

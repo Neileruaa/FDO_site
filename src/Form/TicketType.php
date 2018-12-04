@@ -19,7 +19,7 @@ class TicketType extends AbstractType
             ])
             ->add('message', TextareaType::class, [
 	            'attr'=> array('class'=>'ckeditor'),
-	            'label' => 'Message:'
+	            'label' => 'Message :'
             ])
         ;
     }

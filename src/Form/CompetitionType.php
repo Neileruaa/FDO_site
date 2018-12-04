@@ -57,7 +57,7 @@ class CompetitionType extends AbstractType
                 'multiple'=>false
             ])
             ->add('nbMaxTeam', NumberType::class, array(
-                'label'=>'Nombres d\'équipe maximum'
+                'label'=>'Nombre d\'équipes maximum'
             ))
             ->add('description', TextareaType::class, array(
                 'label'=>"Description de la compétition"

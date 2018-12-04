@@ -4,7 +4,7 @@
 			<div class="col-auto my-1">
 				<select name="etat" id="etat" class="custom-select mr-sm-2">
 					<option value="default" selected>Choisir état...</option>
-					<option value="attente" {% if ticket.etat == 'attente' %}selected{% endif %}>Attente</option>
+					<option value="attente" {% if ticket.etat == 'attente' %}selected{% endif %}>En attente</option>
 					<option value="valide" {% if ticket.etat == 'valide' %}selected{% endif %}>Validé</option>
 					<option value="refuse" {% if ticket.etat == 'refuse' %}selected{% endif %}>Refusé</option>
 				</select>

@@ -10,7 +10,7 @@
     {% if teams is not empty %}
         {% for team in teams %}
             {% include 'team/modalViewDetailsTeam.html.twig' %}
-            {% include '_deleteConfirmation.html.twig' with {"id": team.id, "message": "Êtes-vous sûr de bien vouloir supprimer l'équipe "~team.id~" ?", "path": path('Team.delete', {id: team.id}) } %}
+            {% include '_deleteConfirmation.html.twig' with {"id": team.id, "message": "Êtes-vous sûr(e) de vouloir supprimer l'équipe "~team.id~" ?", "path": path('Team.delete', {id: team.id}) } %}
             <div class="alert alert-warning text-left" role="alert">
                 <a href="#" class="btn btn-outline-primary" data-toggle="modal" data-target="#T{{ team.id }}">Équipe {{ team.id}}</a><strong> Club : </strong>{{ team.getClub() }}
                 <div class="btn-group center float-right" role="group" aria-label="option">

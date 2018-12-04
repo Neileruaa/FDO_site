@@ -40,8 +40,6 @@ class TeamController extends AbstractController
 		$form->handleRequest($request);
 
 		if ($form->isSubmitted() && $form->isValid()) {
-			// $form->getData() holds the submitted values
-			// but, the original `$task` variable has also been updated32
 			$list_dancers = $form->get("dancers")->getData();
 			$list_dances=$form->get("dances")->getData();
 
@@ -66,7 +64,7 @@ class TeamController extends AbstractController
                     $ecart = abs(abs(intval($list_dancers{0}->getDateBirthDancer()->format("Y")))-abs(intval($list_dancers{1}->getDateBirthDancer()->format("Y"))));
 
                     if ($ecart>4) {
-                        $this->addFlash('danger', 'L\'écart entre les deux danseurs est supérieur à 4 ans ! ');
+                        $this->addFlash('danger', 'L\'écart entre les deux danseurs est supérieur à 4 ans');
                         return $this->render(
                             'team/createTeam.html.twig',
                             array(
@@ -92,7 +90,7 @@ class TeamController extends AbstractController
                         elseif ($ageDancer>=10 && $ageDancer<=15) $team->setCategory($junior);
                         elseif ($ageDancer>=14 && $ageDancer<100) $team->setCategory($adulte);
                         else {
-                            $this->addFlash('danger', 'Le danseur n\'a pas l\'âge requis! ');
+                            $this->addFlash('danger', 'Le danseur n\'a pas l\'âge requis');
                             return $this->render(
                             'team/createTeam.html.twig',
                             array(
@@ -107,7 +105,7 @@ class TeamController extends AbstractController
                         elseif ($ageDancer>=10 && $ageDancer<=15) $team->setCategory($junior);
                         elseif ($ageDancer>=14 && $ageDancer<100) $team->setCategory($adulte);
                         else {
-                            $this->addFlash('danger', 'Un des danseurs n\'a pas l\'âge requis ! ');
+                            $this->addFlash('danger', 'Un des danseurs n\'a pas l\'âge requis');
                             return $this->render(
                             'team/createTeam.html.twig',
                             array(
@@ -121,7 +119,7 @@ class TeamController extends AbstractController
                         $somme=0;
                         foreach ($list_dancers as $d){
                             if($currentDate-($d->getDateBirthDancer()->format("Y"))<5){
-                                    $this->addFlash('danger', 'Un des danseurs n\'a pas l\'âge requis ! ');
+                                    $this->addFlash('danger', 'Un des danseurs n\'a pas l\'âge requis');
                                     return $this->render(
                                         'team/createTeam.html.twig',
                                         array(
@@ -138,7 +136,7 @@ class TeamController extends AbstractController
                         elseif ($moyenneAge>=10 && $moyenneAge<=15) $team->setCategory($junior);
                         elseif ($moyenneAge>=14 && $moyenneAge<100) $team->setCategory($adulte);
                         else {
-                            $this->addFlash('danger', 'Un des danseurs n\'a pas l\'âge requis ! ');
+                            $this->addFlash('danger', 'Un des danseurs n\'a pas l\'âge requis');
                             return $this->render(
                                 'team/createTeam.html.twig',
                                 array(
@@ -291,7 +289,7 @@ class TeamController extends AbstractController
             $em->flush();
             return $this->redirectToRoute('Team.showAll');
         }elseif ($form->isSubmitted() && !$form->isValid()){
-            $this->addFlash('danger', 'Il y a eut une erreur lors de la modification de cette équipe ! ');
+            $this->addFlash('danger', 'Il y a eut une erreur lors de la modification de cette équipe');
         }
 
         return $this->render('team/editTeam.html.twig', ["form"=>$form->createView(), 'team'=>$team]);

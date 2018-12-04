@@ -26,7 +26,7 @@
             <tbody>
                 {% for compet in competitions %}
                     {% include "competition/modalShowDances.html.twig" %}
-                    {% include "_deleteConfirmation.html.twig" with {"id": compet.id, "message": "Êtes-vous sûr de vouloir supprimer la compétition : "~compet.title~" ?", "path" : path('Competition.delete', {id: compet.id})}%}
+                    {% include "_deleteConfirmation.html.twig" with {"id": compet.id, "message": "Êtes-vous sûr(e) de vouloir supprimer la compétition : "~compet.title~" ?", "path" : path('Competition.delete', {id: compet.id})}%}
                     <tr>
                         <th scope="row">{{ compet.title }}</th>
                         <td>{{ compet.city }}</td>
@@ -51,6 +51,6 @@
         </table>
     </div>
         {% else %}
-        <strong class="text-center">Pas de compétition de prévu</strong>
+        <strong class="text-center">Pas de compétition de prévue</strong>
     {% endif %}
 {% endblock %}

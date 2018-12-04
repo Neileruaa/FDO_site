@@ -2,7 +2,7 @@
 {% block title %}Détails du profil{% endblock %}
 {% block body %}
     <h1>Détails du profil</h1>
-    {% include '_deleteConfirmation.html.twig' with {"id" : "", "message": "Êtes-vous sûr de bien vouloir supprimer ce profil ?", "path" : path('User.delete', {id: users.id}) } %}
+    {% include '_deleteConfirmation.html.twig' with {"id" : "", "message": "Êtes-vous sûr(e) de bien vouloir supprimer ce profil ?", "path" : path('User.delete', {id: users.id}) } %}
     <div class="container">
         <ul class="list-group mb-5">
             <li class="list-group-item"><strong>Nom du club : </strong> {{ users.getUsername() }}</li>
@@ -13,7 +13,7 @@
         </ul>
     </div>
 <form action="{{ path('User.edit') }}">
-    <button type="submit" class="btn btn-success">Modifier profil</button>
+    <button type="submit" class="btn btn-success">Modifier ce profil</button>
 </form>
     <a  href="#" data-toggle="modal" data-target="#delete" class="btn btn-danger text-right float-right">Supprimer ce profil</a>
 

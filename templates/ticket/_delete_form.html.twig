@@ -1,4 +1,4 @@
-<form method="post" action="{{ path('Ticket.delete', {'id': ticket.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce ticket ?');">
+<form method="post" action="{{ path('Ticket.delete', {'id': ticket.id}) }}" onsubmit="return confirm('Êtes-vous sûr(e) de vouloir supprimer ce ticket ?');">
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ ticket.id) }}">
     <button class="btn btn-danger">Supprimer</button>

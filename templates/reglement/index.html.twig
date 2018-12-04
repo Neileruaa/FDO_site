@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Reglements{% endblock %}
+{% block title %}Documents{% endblock %}
 
 {% block body %}
-    <h1>Reglement index</h1>
+    <h1>Documents</h1>
     <hr>
     <ul class="list-group list-group-flush text-left mb-4">
         {% for reglement in reglements %}
@@ -17,7 +17,7 @@
                 {% endif %}
             </li>
         {% else %}
-            <li class="list-group-item">Pas encore de règlements enregistrés</li>
+            <li class="list-group-item">Pas encore de document enregistré</li>
         {% endfor %}
     </ul>
     {% if is_granted('ROLE_ADMIN') %}

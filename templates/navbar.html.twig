@@ -21,7 +21,7 @@
 					<a class="nav-link js-scroll-trigger" href="{{ path('Dancer.create') }}"><i class="fas fa-user-edit"></i> Danseur</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link js-scroll-trigger" href="{{ path('Competition.show') }}"><i class="fas fa-trophy"></i> Compétitions</a>
+					<a class="nav-link js-scroll-trigger" href="{{ path('Competition.show') }}"><i class="fas fa-trophy"></i> Compétition</a>
 				</li>
 				{% if is_granted('ROLE_USER')  %}
 					<li class="nav-item">
@@ -30,11 +30,7 @@
 				{% endif %}
 
 				<li class="nav-item">
-					{% if is_granted('ROLE_ADMIN') %}
 						<a class="nav-link js-scroll-trigger" href="{{ path('Ticket.show') }}"><i class="fas fa-envelope"></i> Tickets</a>
-					{% else %}
-						<a class="nav-link js-scroll-trigger" href="{{ path('Ticket.show') }}"><i class="fas fa-envelope"></i> Tickets</a>
-					{% endif %}
 				</li>
 					<hr>
 					<li class="nav-item dropdown">
@@ -49,7 +45,7 @@
 								<div class="dropdown-divider"></div>
 							{% endif %}
 							<a class="dropdown-item" href="{{ path('User.showAll') }}"><i class="fas fa-address-book"></i> Annuaire</a>
-							<a class="dropdown-item" href="{{ path('Reglements.index') }}"><i class="far fa-file-pdf"></i> Règlements</a>
+							<a class="dropdown-item" href="{{ path('Reglements.index') }}"><i class="far fa-file-pdf"></i> Réglements</a>
 							<a class="dropdown-item" href="{{ path('User.show') }}">Voir profil</a>
 						</div>
 					</li>
@@ -61,7 +57,7 @@
 					</li>
 				{% else %}
 					<li class="nav-item">
-						<a class="nav-link js-scroll-trigger" href="{{ path('Security.logout') }}" ><i class="fa fa-sign-out-alt"></i> Deconnexion</a>
+						<a class="nav-link js-scroll-trigger" href="{{ path('Security.logout') }}" ><i class="fa fa-sign-out-alt"></i> Déconnexion</a>
 					</li>
 				{% endif %}
 			</ul>

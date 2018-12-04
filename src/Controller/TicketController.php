@@ -81,7 +81,7 @@ class TicketController extends AbstractController {
 				);
 			$mailer->send($message);
 
-			$this->addFlash('success', 'Votre ticket a bien été envoyé !');
+			$this->addFlash('success', 'Votre ticket a bien été envoyé');
 
 			return $this->redirectToRoute('Ticket.show');
 		}

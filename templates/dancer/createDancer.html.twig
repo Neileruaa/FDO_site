@@ -27,7 +27,7 @@
         </thead>
         <tbody>
         {% for dancer in club.dancers %}
-            {% include'_deleteConfirmation.html.twig' with {"id" : dancer.id, "message" : "Êtes vous sûr de vouloir supprimer le dancer : "~dancer.firstNameDancer~" "~dancer.nameDancer~" ?", "path":path('Dancer.remove', {'id': dancer.id })} %}
+            {% include'_deleteConfirmation.html.twig' with {"id" : dancer.id, "message" : "Êtes vous sûr(e) de vouloir supprimer le dancer : "~dancer.firstNameDancer~" "~dancer.nameDancer~" ?", "path":path('Dancer.remove', {'id': dancer.id })} %}
 	        {% include 'dancer/_viewDetails.html.twig' %}
             <tr class="table-{% if dancer.isAuthorized == 1  %}success{% else %}warning{% endif %}">
                 <th scope="row">{{ dancer.nameDancer }}</th>

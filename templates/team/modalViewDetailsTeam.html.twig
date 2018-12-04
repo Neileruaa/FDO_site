@@ -8,8 +8,22 @@
                 </button>
             </div>
             <div class="modal-body" style="overflow: auto;">
+                {% if team.dances is not empty %}
+                <strong>Catégorie</strong></br>
+                    {{ team.getCategory().nameCategory }}
+                <hr>
+                <strong>Liste des danses</strong></br>
+                    {% for dance in team.dances %}
+                        {{ dance.nameDance }}
+                        <br>
+                    {% endfor %}
+                    {% else %}
+                        <p>Pas de danse pour cette équipe</p>
+                {% endif %}
+                <hr>
+                <strong>Membre(s) de l'équipe</strong></br>
                 {% for dancer in team.dancers %}
-                    {{ dancer.nameDancer }} {{ dancer.firstNameDancer }} | {{ dancer.dateBirthDancer|date('d-m-Y') }} ({{ team.getCategory().nameCategory }})
+                    {{ dancer.nameDancer }} {{ dancer.firstNameDancer }} | {{ dancer.dateBirthDancer|date('d-m-Y') }}
                     <br>
                 {% else %}
                     <p>Pas de danseurs dans cette équipe</p>

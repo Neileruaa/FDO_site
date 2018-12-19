@@ -19,7 +19,9 @@
                 <th scope="col">Date</th>
                 <th scope="col">Danses</th>
                 <th scope="col"></th>
-                <th scope="col">Action</th>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <th scope="col">Action</th>
+                {% endif %}
                 <th scope="col">Ajout</th>
             </tr>
             </thead>

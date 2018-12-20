@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block title %}Gestion des compétitions{% endblock %}
 {% block body %}
-    <h1> Création de compétitions </h1>
+    <h1> Liste des compétitions </h1>
     {% if is_granted('ROLE_ADMIN') %}
         {% include 'competition/createCompetition.html.twig' %}
         <a href="#" class="btn btn-outline-success" data-toggle="modal" data-target="#exampleModalCenter">Ajouter une compétition</a></br>

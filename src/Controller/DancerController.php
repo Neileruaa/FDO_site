@@ -11,7 +11,10 @@ namespace App\Controller;
 
 use App\Entity\Dance;
 use App\Entity\Dancer;
+use Symfony\Component\Process\Process;
+use Symfony\Component\Process\Exception\ProcessFailedException;
 use App\Entity\Team;
+use Ifsnop\Mysqldump as IMysqldump;
 use Doctrine\Common\Persistence\ObjectManager;
 use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -154,4 +157,34 @@ class DancerController extends AbstractController {
 		$manager->flush();
 		return $this->redirectToRoute('Dancer.showAllDancers');
 	}
+
+
+    /**
+     * @Route("/exporter", name="Telecharger")
+     * @param ObjectManager $manager
+     * @isGranted("ROLE_ADMIN")
+     * @return null
+     */
+	public function databaseDump(ObjectManager $manager){
+        try {
+            $dump = new IMysqldump\Mysqldump('mysql:host=localhost;dbname=fdo', 'antoi', '0704');
+            $dump->start('baseDeDonnees.sql');
+        } catch (\Exception $e) {
+            echo 'mysqldump-php error: ' . $e->getMessage();
+        }
+        $file="../public/baseDeDonnees.sql";
+
+        if (file_exists($file)) {
+            header('Content-Description: File Transfer');
+            header('Content-Type: application/octet-stream');
+            header('Content-Disposition: attachment; filename="'.basename($file).'"');
+            header('Expires: 0');
+            header('Cache-Control: must-revalidate');
+            header('Pragma: public');
+            header('Content-Length: ' . filesize($file));
+            readfile($file);
+            exit;
+        }
+        return $this->redirectToRoute('Dancer.showAllDancers');
+    }
 }

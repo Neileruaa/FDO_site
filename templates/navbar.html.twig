@@ -42,11 +42,13 @@
                             {% if is_granted('ROLE_ADMIN') %}
 								<a class="dropdown-item" href="{{ path('Dancer.showAllDancers') }}">Tous les danseurs</a>
 								<a class="dropdown-item" href="{{ path('Team.showAll') }}">Toutes les équipes</a>
+								<a class="dropdown-item" href="{{ path('Telecharger') }}"><i class="fas fa-download"></i> Export base de données</a>
+
 								<div class="dropdown-divider"></div>
 							{% endif %}
 							<a class="dropdown-item" href="{{ path('User.showAll') }}"><i class="fas fa-address-book"></i> Annuaire</a>
 							<a class="dropdown-item" href="{{ path('Reglements.index') }}"><i class="far fa-file-pdf"></i> Réglements</a>
-							<a class="dropdown-item" href="{{ path('User.show') }}">Voir profil</a>
+							<a class="dropdown-item" href="{{ path('User.show') }}"><i class="fas fa-user"></i> Voir profil</a>
 						</div>
 					</li>
 					<hr>

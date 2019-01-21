@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+{% block title %}Liste des juges{% endblock %}
+{% block body %}
+<h1>Liste des juges</h1>
+    {% if is_granted('ROLE_ADMIN') %}
+        {% include 'judge/_create.html.twig' %}
+        <a href="#" class="btn btn-outline-success" data-toggle="modal" data-target="#exampleModalCenter">Ajouter un juge</a></br>
+    {% endif %}
+    <hr>
+    {% if judges is not empty %}
+        <div class="table-responsive">
+            <table class="table">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">N° de juge</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Prénom</th>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <th scope="col">Action</th>
+                    {% endif %}
+                </tr>
+                </thead>
+                <tbody>
+                    {% for judge in judges %}
+                        {% include "_deleteConfirmation.html.twig" with {"id": judge.id, "message": "Êtes-vous sûr(e) de vouloir supprimer le juge "~judge.nameJudge~" "~judge.firstNameJudge~" ?", "path" : path('Judge.delete', {id: judge.id})}%}
+                    <tr>
+                        <th scope="row">{{ judge.id }}</th>
+                        <td>{{ judge.nameJudge }}</td>
+                        <td>{{ judge.firstNameJudge }}</td>
+                        {% if is_granted('ROLE_ADMIN') %}
+                        <td>
+                            <a href="{{ path('Judge.edit', {id: judge.id}) }}" class="btn btn-success"><i class="fas fa-id-card"></i></a>
+                            <a href="#" data-toggle="modal" data-target="#delete{{ judge.id }}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                        </td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <strong>Aucun juge n'a encore été enregistré.</strong>
+    {% endif %}
+{% endblock %}

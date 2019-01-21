@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Judge;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -18,6 +19,10 @@ class JudgeType extends AbstractType
             ])
             ->add('firstNameJudge', TextType::class,[
                 'label'=>'Prénom'
+            ])
+            ->add('save', SubmitType::class, [
+                'label' => 'Valider',
+                'attr' => ['class' => 'btn btn-outline-success'],
             ])
         ;
     }

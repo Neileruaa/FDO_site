@@ -35,6 +35,8 @@ class TeamController extends AbstractController
 		$team = new Team();
 		$form = $this->createForm(TeamType::class, $team, array('club' => $this->getUser()));
 		$em = $this->getDoctrine()->getManager();
+		$team->setIsPresent(false);
+
 		//$team->addCategory($em->getRepository(Category::class)->find(1));
 		$list_teams=$em->getRepository(Team::class)->findAll();
 		$form->handleRequest($request);
@@ -63,7 +65,7 @@ class TeamController extends AbstractController
                 if ($sizeTeam==2){
                     $ecart = abs(abs(intval($list_dancers{0}->getDateBirthDancer()->format("Y")))-abs(intval($list_dancers{1}->getDateBirthDancer()->format("Y"))));
 
-                    if ($ecart>4) {
+                    if ($ecart>4 &&(intval(date("Y"))-$birthDateDancer)<14) {
                         $this->addFlash('danger', 'L\'écart entre les deux danseurs est supérieur à 4 ans');
                         return $this->render(
                             'team/createTeam.html.twig',

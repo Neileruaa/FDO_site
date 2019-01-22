@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Club;
 use App\Entity\Competition;
 use App\Entity\Dance;
+use App\Entity\Judge;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -44,6 +45,15 @@ class CompetitionType extends AbstractType
                 'class'=> Dance::class,
                 'choice_label'=>'nameDance',
                 'required'=>true,
+                'expanded'=>false,
+                'multiple'=>true,
+                'by_reference'=>false
+            ])
+            ->add('judges', EntityType::class, [
+                'label'=>'Liste des juges',
+                'class'=> Judge::class,
+                'choice_label'=>'nameJudge',
+                'required'=>false,
                 'expanded'=>false,
                 'multiple'=>true,
                 'by_reference'=>false

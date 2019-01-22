@@ -35,7 +35,7 @@ class TeamController extends AbstractController
 		$team = new Team();
 		$form = $this->createForm(TeamType::class, $team, array('club' => $this->getUser()));
 		$em = $this->getDoctrine()->getManager();
-		$team->setIsPresent(false);
+		$team->setIsPresent(true);
 
 		//$team->addCategory($em->getRepository(Category::class)->find(1));
 		$list_teams=$em->getRepository(Team::class)->findAll();

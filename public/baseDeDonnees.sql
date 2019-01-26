@@ -3,7 +3,7 @@
 -- Host: localhost	Database: fdo
 -- ------------------------------------------------------
 -- Server version 	5.7.24-0ubuntu0.18.04.1
--- Date: Tue, 22 Jan 2019 12:04:11 +0100
+-- Date: Sat, 26 Jan 2019 15:07:10 +0100
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -99,7 +99,7 @@ CREATE TABLE `competition` (
   PRIMARY KEY (`id`),
   KEY `IDX_B50A2CB1FDD8E52A` (`club_organizer_id`),
   CONSTRAINT `FK_B50A2CB1FDD8E52A` FOREIGN KEY (`club_organizer_id`) REFERENCES `club` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -109,7 +109,7 @@ CREATE TABLE `competition` (
 LOCK TABLES `competition` WRITE;
 /*!40000 ALTER TABLE `competition` DISABLE KEYS */;
 SET autocommit=0;
-INSERT INTO `competition` VALUES (1,1,'2019-01-02','dazeda','aedaz',90000,'dezza',23,'zedzefzefz'),(2,1,'2019-01-02','dazeda','aedaz',90000,'dezza',23,'adzazda');
+INSERT INTO `competition` VALUES (3,1,'2019-01-26','Belfort','aedaz',90000,'Compet 1',34,'azertyuio'),(4,2,'2019-01-30','Mulhouse','aedaz',68000,'Compet 2',23,'azefrgthy');
 /*!40000 ALTER TABLE `competition` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -141,7 +141,7 @@ CREATE TABLE `competition_dance` (
 LOCK TABLES `competition_dance` WRITE;
 /*!40000 ALTER TABLE `competition_dance` DISABLE KEYS */;
 SET autocommit=0;
-INSERT INTO `competition_dance` VALUES (1,2),(1,3),(2,3),(2,4);
+INSERT INTO `competition_dance` VALUES (3,1),(3,2),(4,1),(4,3);
 /*!40000 ALTER TABLE `competition_dance` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -173,12 +173,12 @@ CREATE TABLE `competition_judge` (
 LOCK TABLES `competition_judge` WRITE;
 /*!40000 ALTER TABLE `competition_judge` DISABLE KEYS */;
 SET autocommit=0;
-INSERT INTO `competition_judge` VALUES (1,3);
+INSERT INTO `competition_judge` VALUES (3,3),(4,3);
 /*!40000 ALTER TABLE `competition_judge` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
 
--- Dumped table `competition_judge` with 1 row(s)
+-- Dumped table `competition_judge` with 2 row(s)
 --
 
 --
@@ -205,11 +205,12 @@ CREATE TABLE `competition_team` (
 LOCK TABLES `competition_team` WRITE;
 /*!40000 ALTER TABLE `competition_team` DISABLE KEYS */;
 SET autocommit=0;
+INSERT INTO `competition_team` VALUES (3,3),(4,3);
 /*!40000 ALTER TABLE `competition_team` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
 
--- Dumped table `competition_team` with 0 row(s)
+-- Dumped table `competition_team` with 2 row(s)
 --
 
 --
@@ -286,7 +287,7 @@ CREATE TABLE `judge` (
   `name_judge` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `first_name_judge` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -296,12 +297,12 @@ CREATE TABLE `judge` (
 LOCK TABLES `judge` WRITE;
 /*!40000 ALTER TABLE `judge` DISABLE KEYS */;
 SET autocommit=0;
-INSERT INTO `judge` VALUES (3,'Heitzmann','Antoine');
+INSERT INTO `judge` VALUES (3,'Heitzmann','Antoine'),(4,'Drey','Aurélien');
 /*!40000 ALTER TABLE `judge` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
 
--- Dumped table `judge` with 1 row(s)
+-- Dumped table `judge` with 2 row(s)
 --
 
 --
@@ -527,4 +528,4 @@ COMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on: Tue, 22 Jan 2019 12:04:11 +0100
+-- Dump completed on: Sat, 26 Jan 2019 15:07:10 +0100

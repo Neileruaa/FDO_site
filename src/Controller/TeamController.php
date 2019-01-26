@@ -35,13 +35,13 @@ class TeamController extends AbstractController
 		$team = new Team();
 		$form = $this->createForm(TeamType::class, $team, array('club' => $this->getUser()));
 		$em = $this->getDoctrine()->getManager();
-		$team->setIsPresent(true);
 
 		//$team->addCategory($em->getRepository(Category::class)->find(1));
 		$list_teams=$em->getRepository(Team::class)->findAll();
 		$form->handleRequest($request);
 
 		if ($form->isSubmitted() && $form->isValid()) {
+            $team->setIsPresent(true);
 			$list_dancers = $form->get("dancers")->getData();
 			$list_dances=$form->get("dances")->getData();
 

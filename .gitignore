@@ -101,3 +101,4 @@ node_modules/*
 
 # End of https://www.gitignore.io/api/phpstorm
 /node_modules/
+/public/baseDeDonnees.sql

@@ -60,6 +60,16 @@ class Team
      */
     private $size;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Row", mappedBy="teams")
+     */
+    private $rows;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Resultat", mappedBy="team")
+     */
+    private $resultats;
+
 
     public function __construct()
     {
@@ -68,6 +78,8 @@ class Team
         $this->dances = new ArrayCollection();
         $this->dancers = new ArrayCollection();
         $this->competitions = new ArrayCollection();
+        $this->rows = new ArrayCollection();
+        $this->resultats = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -191,8 +203,8 @@ class Team
     }
 
 	public function __toString() {
-                  		return strval($this->getId());
-                  	}
+                                                		return strval($this->getId());
+                                                	}
 
     public function getIsPresent(): ?bool
     {
@@ -214,6 +226,65 @@ class Team
     public function setSize(string $size): self
     {
         $this->size = $size;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Row[]
+     */
+    public function getRows(): Collection
+    {
+        return $this->rows;
+    }
+
+    public function addRow(Row $row): self
+    {
+        if (!$this->rows->contains($row)) {
+            $this->rows[] = $row;
+            $row->addTeam($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRow(Row $row): self
+    {
+        if ($this->rows->contains($row)) {
+            $this->rows->removeElement($row);
+            $row->removeTeam($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Resultat[]
+     */
+    public function getResultats(): Collection
+    {
+        return $this->resultats;
+    }
+
+    public function addResultat(Resultat $resultat): self
+    {
+        if (!$this->resultats->contains($resultat)) {
+            $this->resultats[] = $resultat;
+            $resultat->setTeam($this);
+        }
+
+        return $this;
+    }
+
+    public function removeResultat(Resultat $resultat): self
+    {
+        if ($this->resultats->contains($resultat)) {
+            $this->resultats->removeElement($resultat);
+            // set the owning side to null (unless already changed)
+            if ($resultat->getTeam() === $this) {
+                $resultat->setTeam(null);
+            }
+        }
 
         return $this;
     }

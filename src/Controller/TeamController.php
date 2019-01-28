@@ -59,6 +59,21 @@ class TeamController extends AbstractController
 
             $sizeTeam=count($list_dancers);
 			$team = $form->getData();
+			if ($sizeTeam==1) $team->setSize("solo");
+			elseif ($sizeTeam==2) $team->setSize("duo");
+			elseif ($sizeTeam>=4 && $sizeTeam<=8) $team->setSize("smallGroup");
+			elseif ($sizeTeam>=9 && $sizeTeam<=24) $team->setSize("formation");
+			else {
+                $this->addFlash('danger', 'Une équipe ne peut être constituée que de 1 ou 2 danseurs, ou de 4 à 24 danseurs.');
+                return $this->render(
+                    'team/createTeam.html.twig',
+                    array(
+                        'formEquipe' => $form->createView(),
+                        'listEquipe' => $list_teams,
+                        'club' => $club
+                    )
+                );
+            }
 
 			foreach ($list_dancers  as $dancer){
                 $birthDateDancer=intval($dancer->getDateBirthDancer()->format("Y"));

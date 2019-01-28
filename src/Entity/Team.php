@@ -55,6 +55,11 @@ class Team
      */
     private $isPresent;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $size;
+
 
     public function __construct()
     {
@@ -186,8 +191,8 @@ class Team
     }
 
 	public function __toString() {
-         		return strval($this->getId());
-         	}
+                  		return strval($this->getId());
+                  	}
 
     public function getIsPresent(): ?bool
     {
@@ -197,6 +202,18 @@ class Team
     public function setIsPresent(bool $isPresent): self
     {
         $this->isPresent = $isPresent;
+
+        return $this;
+    }
+
+    public function getSize(): ?string
+    {
+        return $this->size;
+    }
+
+    public function setSize(string $size): self
+    {
+        $this->size = $size;
 
         return $this;
     }

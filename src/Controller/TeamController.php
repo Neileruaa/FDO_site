@@ -98,6 +98,7 @@ class TeamController extends AbstractController
                         if (intval($list_dancers{0}->getDateBirthDancer()->format("Y"))>intval($list_dancers{1}->getDateBirthDancer()->format("Y"))) $birthDateDancer=intval($list_dancers{0}->getDateBirthDancer()->format("Y"));
                         elseif (intval($list_dancers{0}->getDateBirthDancer()->format("Y"))<intval($list_dancers{1}->getDateBirthDancer()->format("Y"))) $birthDateDancer=intval($list_dancers{1}->getDateBirthDancer()->format("Y"));
                 }
+			    $currentDate=intval(date("Y"));
 			    $ageDancer=$currentDate-$birthDateDancer;
 
 			    $enfant=$em->getRepository(Category::class)->find(1);

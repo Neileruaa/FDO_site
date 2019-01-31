@@ -80,7 +80,11 @@ class TeamController extends AbstractController
                 if ($sizeTeam==2){
                     $ecart = abs(abs(intval($list_dancers{0}->getDateBirthDancer()->format("Y")))-abs(intval($list_dancers{1}->getDateBirthDancer()->format("Y"))));
 
-                    if ($ecart>4 &&(intval(date("Y"))-$birthDateDancer)<14) {
+                    $currentDate=intval(date("Y"));
+                    $age1=$currentDate-intval($list_dancers{0}->getDateBirthDancer()->format("Y"));
+                    $age2=$currentDate-intval($list_dancers{1}->getDateBirthDancer()->format("Y"));
+                    if ($age1>=16 && $age2>=16);
+                    if ($ecart>4) {
                         $this->addFlash('danger', 'L\'écart entre les deux danseurs est supérieur à 4 ans');
                         return $this->render(
                             'team/createTeam.html.twig',
@@ -91,10 +95,9 @@ class TeamController extends AbstractController
                             )
                         );
                     }
-                        if (intval($list_dancers{0}->getDateBirthDancer()->format("Y"))>intval($list_dancers{1}->getDateBirthDancer()->format("Y"))) $birthDateDancer=intval($list_dancers{0}->getDateBirthDancer()->format("Y"));
-                        elseif (intval($list_dancers{0}->getDateBirthDancer()->format("Y"))<intval($list_dancers{1}->getDateBirthDancer()->format("Y"))) $birthDateDancer=intval($list_dancers{1}->getDateBirthDancer()->format("Y"));
+                    if (intval($list_dancers{0}->getDateBirthDancer()->format("Y"))>intval($list_dancers{1}->getDateBirthDancer()->format("Y"))) $birthDateDancer=intval($list_dancers{0}->getDateBirthDancer()->format("Y"));
+                elseif (intval($list_dancers{0}->getDateBirthDancer()->format("Y"))<intval($list_dancers{1}->getDateBirthDancer()->format("Y"))) $birthDateDancer=intval($list_dancers{1}->getDateBirthDancer()->format("Y"));
                 }
-			    $currentDate=intval(date("Y"));
 			    $ageDancer=$currentDate-$birthDateDancer;
 
 			    $enfant=$em->getRepository(Category::class)->find(1);

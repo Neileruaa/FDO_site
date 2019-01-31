@@ -74,6 +74,7 @@ class TeamController extends AbstractController
                     )
                 );
             }
+            $currentDate=intval(date("Y"));
 
 			foreach ($list_dancers  as $dancer){
                 $birthDateDancer=intval($dancer->getDateBirthDancer()->format("Y"));

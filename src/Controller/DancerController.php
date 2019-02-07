@@ -167,7 +167,7 @@ class DancerController extends AbstractController {
      */
 	public function databaseDump(ObjectManager $manager){
         try {
-            $dump = new IMysqldump\Mysqldump('mysql:host=localhost;dbname=fdo', 'antoi', '0704');
+            $dump = new IMysqldump\Mysqldump('mysql:host=localhost;dbname=mogi6927_fdo', 'mogi6927_root', 'mogi6927_root');
             $dump->start('baseDeDonnees.sql');
         } catch (\Exception $e) {
             echo 'mysqldump-php error: ' . $e->getMessage();

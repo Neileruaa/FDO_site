@@ -19,7 +19,7 @@ class Row
     private $id;
 
     /**
-     * @ORM\Column(type="decimal", precision=5, scale=0, nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $numTour;
 
@@ -54,9 +54,14 @@ class Row
     private $isDone;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $passageSimul;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $nbJudge;
 
     public function __construct()
     {
@@ -174,6 +179,18 @@ class Row
     public function setPassageSimul(?bool $passageSimul): self
     {
         $this->passageSimul = $passageSimul;
+
+        return $this;
+    }
+
+    public function getNbJudge(): ?int
+    {
+        return $this->nbJudge;
+    }
+
+    public function setNbJudge(?int $nbJudge): self
+    {
+        $this->nbJudge = $nbJudge;
 
         return $this;
     }

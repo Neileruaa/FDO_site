@@ -42,6 +42,10 @@ class UserController extends AbstractController {
 			$session->invalidate();
 		}
 		$user = $manager->getRepository(Club::class)->find($id);
+		$tickets= $user->getTickets();
+		foreach ($tickets as $ticket){
+		    $manager->remove($ticket);
+        }
 		$manager->remove($user);
 		$manager->flush();
 		return $this->redirectToRoute('Security.login');

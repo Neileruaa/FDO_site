@@ -43,7 +43,7 @@ class Ticket
     private $message;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Club", inversedBy="tickets")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Club", inversedBy="tickets", cascade={"remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $author;

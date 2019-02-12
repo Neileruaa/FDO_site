@@ -105,36 +105,69 @@ class TeamController extends AbstractController
 			    $junior=$em->getRepository(Category::class)->find(2);
 			    $adulte=$em->getRepository(Category::class)->find(3);
 
+
                 switch ($sizeTeam){
                     case 1:
-                        if($ageDancer>=5 && $ageDancer<=11) $team->setCategory($enfant);
-                        elseif ($ageDancer>=10 && $ageDancer<=15) $team->setCategory($junior);
-                        elseif ($ageDancer>=14 && $ageDancer<100) $team->setCategory($adulte);
-                        else {
-                            $this->addFlash('danger', 'Le danseur n\'a pas l\'âge requis');
-                            return $this->render(
-                            'team/createTeam.html.twig',
-                            array(
-                                'formEquipe'=>$form->createView(),
-                                'listEquipe'=>$list_teams,
-                                'club'=>$club
-                            )
-                        );}
+                        if (!$this->verifRockPietine($list_dances)){
+                            if($ageDancer>=5 && $ageDancer<=11) $team->setCategory($enfant);
+                            elseif ($ageDancer>=10 && $ageDancer<=15) $team->setCategory($junior);
+                            elseif ($ageDancer>=14 && $ageDancer<100) $team->setCategory($adulte);
+                            else {
+                                $this->addFlash('danger', 'Le danseur n\'a pas l\'âge requis');
+                                return $this->render(
+                                    'team/createTeam.html.twig',
+                                    array(
+                                        'formEquipe'=>$form->createView(),
+                                        'listEquipe'=>$list_teams,
+                                        'club'=>$club
+                                    )
+                                );}
+                        }
+                        else{
+                            if ($ageDancer>=6 && $ageDancer<=12) $team->setCategory($enfant);
+                            elseif ($ageDancer>=13 && $ageDancer<=100) $team->setCategory($adulte);
+                            else {
+                                $this->addFlash('danger', 'Le danseur n\'a pas l\'âge requis');
+                                return $this->render(
+                                    'team/createTeam.html.twig',
+                                    array(
+                                        'formEquipe'=>$form->createView(),
+                                        'listEquipe'=>$list_teams,
+                                        'club'=>$club
+                                    )
+                                );}
+                        }
                         break;
                     case 2:
-                        if($ageDancer>=5 && $ageDancer<=11) $team->setCategory($enfant);
-                        elseif ($ageDancer>=10 && $ageDancer<=15) $team->setCategory($junior);
-                        elseif ($ageDancer>=14 && $ageDancer<100) $team->setCategory($adulte);
-                        else {
-                            $this->addFlash('danger', 'Un des danseurs n\'a pas l\'âge requis');
-                            return $this->render(
-                            'team/createTeam.html.twig',
-                            array(
-                                'formEquipe'=>$form->createView(),
-                                'listEquipe'=>$list_teams,
-                                'club'=>$club
-                            )
-                        );}
+                        if (!$this->verifRockPietine($list_dances)){
+                            if($ageDancer>=5 && $ageDancer<=11) $team->setCategory($enfant);
+                            elseif ($ageDancer>=10 && $ageDancer<=15) $team->setCategory($junior);
+                            elseif ($ageDancer>=14 && $ageDancer<100) $team->setCategory($adulte);
+                            else {
+                                $this->addFlash('danger', 'Un des danseurs n\'a pas l\'âge requis');
+                                return $this->render(
+                                    'team/createTeam.html.twig',
+                                    array(
+                                        'formEquipe'=>$form->createView(),
+                                        'listEquipe'=>$list_teams,
+                                        'club'=>$club
+                                    )
+                                );}
+                        }
+                        else{
+                            if ($ageDancer>=6 && $ageDancer<=12) $team->setCategory($enfant);
+                            elseif ($ageDancer>=13 && $ageDancer<=100) $team->setCategory($adulte);
+                            else {
+                                $this->addFlash('danger', 'Le danseur n\'a pas l\'âge requis');
+                                return $this->render(
+                                    'team/createTeam.html.twig',
+                                    array(
+                                        'formEquipe'=>$form->createView(),
+                                        'listEquipe'=>$list_teams,
+                                        'club'=>$club
+                                    )
+                                );}
+                        }
                         break;
                     default:
                         $somme=0;
@@ -153,19 +186,37 @@ class TeamController extends AbstractController
                             $somme=$somme+intval($currentDate-($d->getDateBirthDancer()->format("Y")));
                         }
                         $moyenneAge=$somme/$sizeTeam;
-                        if($moyenneAge>=5 && $moyenneAge<=11) $team->setCategory($enfant);
-                        elseif ($moyenneAge>=10 && $moyenneAge<=15) $team->setCategory($junior);
-                        elseif ($moyenneAge>=14 && $moyenneAge<100) $team->setCategory($adulte);
-                        else {
-                            $this->addFlash('danger', 'Un des danseurs n\'a pas l\'âge requis');
-                            return $this->render(
-                                'team/createTeam.html.twig',
-                                array(
-                                    'formEquipe'=>$form->createView(),
-                                    'listEquipe'=>$list_teams,
-                                    'club'=>$club
-                                )
-                            );}
+                        if (!$this->verifRockPietine($list_dances)) {
+                            if ($moyenneAge >= 5 && $moyenneAge <= 11) $team->setCategory($enfant);
+                            elseif ($moyenneAge >= 10 && $moyenneAge <= 15) $team->setCategory($junior);
+                            elseif ($moyenneAge >= 14 && $moyenneAge < 100) $team->setCategory($adulte);
+                            else {
+                                $this->addFlash('danger', 'Un des danseurs n\'a pas l\'âge requis');
+                                return $this->render(
+                                    'team/createTeam.html.twig',
+                                    array(
+                                        'formEquipe' => $form->createView(),
+                                        'listEquipe' => $list_teams,
+                                        'club' => $club
+                                    )
+                                );
+                            }
+                        }
+                        else{
+                            if ($moyenneAge >= 6 && $moyenneAge <= 12) $team->setCategory($enfant);
+                            elseif ($moyenneAge >= 13 && $moyenneAge < 100) $team->setCategory($adulte);
+                            else {
+                                $this->addFlash('danger', 'Un des danseurs n\'a pas l\'âge requis');
+                                return $this->render(
+                                    'team/createTeam.html.twig',
+                                    array(
+                                        'formEquipe' => $form->createView(),
+                                        'listEquipe' => $list_teams,
+                                        'club' => $club
+                                    )
+                                );
+                            }
+                        }
                         break;
 
                 }
@@ -213,6 +264,19 @@ class TeamController extends AbstractController
             }
         }
         return true;
+    }
+
+    /**
+     * @param $dances
+     * @return bool
+     */
+    public function verifRockPietine($dances){
+	    foreach ($dances as $dance){
+	        if ($dance->getNameDance()=="rock pietine"){
+                return true;
+            }
+        }
+	    return false;
     }
 
 	/**

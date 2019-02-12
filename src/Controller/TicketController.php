@@ -35,7 +35,7 @@ class TicketController extends AbstractController {
 			$ticket = $manager->getRepository(Ticket::class)->find($id);
 			if (isset($_POST['submit'])) {
 				if (isset($_POST['etat']) && $_POST['etat'] != 'default') {
-					dump($_POST['etat']);
+					//dump($_POST['etat']);
 					$ticket->setEtat($_POST['etat']);
 					$manager->persist($ticket);
 					$manager->flush();

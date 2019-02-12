@@ -24,6 +24,7 @@ class ClubController extends AbstractController
 
     /**
      * @Route("/club/delete/{id}", name="Club.delete", requirements={"page"="\d+"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public  function deleteClub(Club $club, ObjectManager $manager){
         $manager->remove($club);

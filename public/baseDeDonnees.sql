@@ -3,7 +3,7 @@
 -- Host: localhost	Database: mogi6927_fdo
 -- ------------------------------------------------------
 -- Server version 	10.3.12-MariaDB
--- Date: Thu, 07 Feb 2019 07:44:38 +0100
+-- Date: Mon, 11 Feb 2019 19:39:48 +0100
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -61,7 +61,7 @@ CREATE TABLE `dancer` (
   PRIMARY KEY (`id`),
   KEY `IDX_B11CC8A961190A32` (`club_id`),
   CONSTRAINT `FK_B11CC8A961190A32` FOREIGN KEY (`club_id`) REFERENCES `club` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -71,12 +71,12 @@ CREATE TABLE `dancer` (
 LOCK TABLES `dancer` WRITE;
 /*!40000 ALTER TABLE `dancer` DISABLE KEYS */;
 SET autocommit=0;
-INSERT INTO `dancer` VALUES (1,1,'DREY','Aurélien','1999-01-03','aureliendrey@gmail.com',1),(3,1,'IENCO','Raph','1999-12-11','aureliendrey@gmail.com',1),(4,1,'SALFRANC','Olivier','1999-03-30','aureliendrey@gmail.com',1),(5,1,'DREY','Aurélien','1999-01-03','aureliendrey@gmail.com',1),(6,1,'DREY','Aurélien','1999-01-03','aureliendrey@gmail.com',0),(8,5,'pp','ff','2003-12-25','dd.ddd@orange.fr',1),(9,5,'dd','gg','2005-12-23','ff.ff@orange.fr',1),(10,5,'oo','oo','2008-08-08','t@orange.fr',1);
+INSERT INTO `dancer` VALUES (19,6,'DUMONT','SONIA','2002-02-11','slsdansecompagnie71260bord@orange.fr',0),(20,6,'AUGIER','LOANE','2006-06-09','slsdansecompagnie71260bord@orange.fr',0),(21,6,'LACHAUX','ESTELLE','2005-06-28','slsdansecompagnie71260bord@orange.fr',0),(22,6,'DE AMORIM','FLAVIE','2003-05-27','slsdansecompagnie71260bord@orange.fr',0),(23,6,'PROST','OCEANE','2001-05-02','slsdansecompagnie71260bord@orange.fr',0),(24,6,'MOREL','MAUD','2000-05-27','slsdansecompagnie71260bord@orange.fr',0),(25,6,'MIMOUNI','LOUBNA','2002-03-02','slsdansecompagnie71260bord@orange.fr',0),(26,6,'RENOUD-LYAT','ZOE','2003-07-24','slsdansecompagnie71260bord@orange.fr',0),(28,6,'CRUEL','MANOAH','2004-06-25','slsdansecompagnie71260bord@orange.fr',0),(29,6,'DEVEVEY','GABIN','2005-07-16','slsdansecompagnie71260bord@orange.fr',0),(30,6,'JANIN','TIPHAINE','2009-02-14','slsdansecompagnie71260bord@orange.fr',0),(31,6,'AYNIE','ALIZEE','2009-03-04','slsdansecompagnie71260bord@orange.fr',0),(32,6,'GELIN','MAELLE','2006-03-06','slsdansecompagnie71260bord@orange.fr',0),(33,6,'BULLIAT','LUDIVINE','2006-10-23','slsdansecompagnie71260bord@orange.fr',0),(34,6,'LEGRAND','CORALIE','2001-01-26','slsdansecompagnie71260bord@orange.fr',0),(35,6,'LACORNE','JULINE','2006-04-30','slsdansecompagnie71260bord@orange.fr',0),(36,6,'PROST','ALICIA','2005-08-21','slsdansecompagnie71260bord@orange.fr',0),(40,4,'test','test','2009-02-10','test@gmail.com',1),(41,4,'test','test','2009-02-10','test@gmail.com',1),(42,4,'test','test','2009-02-03','test@gmail.com',1),(43,4,'test','test','2009-02-03','test@gmail.com',1);
 /*!40000 ALTER TABLE `dancer` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
 
--- Dumped table `dancer` with 8 row(s)
+-- Dumped table `dancer` with 21 row(s)
 --
 
 --
@@ -93,7 +93,7 @@ CREATE TABLE `competition_team` (
   KEY `IDX_CAA3380D296CD8AE` (`team_id`),
   CONSTRAINT `FK_CAA3380D296CD8AE` FOREIGN KEY (`team_id`) REFERENCES `team` (`id`) ON DELETE CASCADE,
   CONSTRAINT `FK_CAA3380D7B39D312` FOREIGN KEY (`competition_id`) REFERENCES `competition` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -103,12 +103,12 @@ CREATE TABLE `competition_team` (
 LOCK TABLES `competition_team` WRITE;
 /*!40000 ALTER TABLE `competition_team` DISABLE KEYS */;
 SET autocommit=0;
-INSERT INTO `competition_team` VALUES (1,3),(2,1),(2,3),(2,4),(2,5),(3,1);
+INSERT INTO `competition_team` VALUES (4,9),(4,10),(4,11),(4,12);
 /*!40000 ALTER TABLE `competition_team` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
 
--- Dumped table `competition_team` with 6 row(s)
+-- Dumped table `competition_team` with 4 row(s)
 --
 
 --
@@ -129,7 +129,7 @@ CREATE TABLE `club` (
   `roles` longtext COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '(DC2Type:json)',
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_B8EE387227D818F7` (`email_club`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -139,12 +139,12 @@ CREATE TABLE `club` (
 LOCK TABLES `club` WRITE;
 /*!40000 ALTER TABLE `club` DISABLE KEYS */;
 SET autocommit=0;
-INSERT INTO `club` VALUES (1,'IUT','Mulhouse','68100','0652676821','Aurélien DREY','$2y$13$mLIA6yyBhAy7/1bEPdnXIOOvKoj81VzQll88r1Dt9h/NQZg3YHrhS','aureliendrey@gmail.com','\"ROLE_ADMIN\"'),(2,'Breton Football club','Rennes','35000','0000000000','Peps guardiola','$2y$13$tNXY5GiDghWtQV/xRW5vNeW.hohxiFBHDcLOhw4EKRICtZPq4wf5S','G@gmail.com','\"ROLE_ADMIN\"'),(3,'FSLA','Fougerolles','70220','0673711372','Yves Roger','$2y$13$fZ0V4KCr.5TmcAYUgt1UXu.KOL8PHTMBkeuTCvolKAVplaivoo9mi','darkyz6po@gmail.com','\"ROLE_ADMIN\"'),(4,'Mulhouse Dance','Mulhouse','68000','0606060606','Antoine','$2y$13$es.5ZAzKNMdNtwGnRmKsU.4DLgp7C3eXkZwpXzMfWp9FYmwHJogCS','test@gmail.com','\"ROLE_ADMIN\"'),(5,'SHUFFLE DANCE SHOW','BELFORT','90000','0685206074','Claudine WEBER','$2y$13$yGkq0tKzyA86lsa.qk21.eu4JL6WhvyqsYmZixclSB3DJr4QlcLJy','danseweber@orange.fr','\"ROLE_USER\"');
+INSERT INTO `club` VALUES (4,'test','test','90000','0652671234','test','$2y$13$a3vX9C4Kz1UkqKmam2zCf.U5EW9zhXW8duoAQmz5Z82ZZW3eVh2/m','test@gmail.com','\"ROLE_ADMIN\"'),(6,'SLS DANSE COMPAGNIE','SENOZAN','71260','0672624806','AUGIER Nathalie et Philippe','$2y$13$cEhwwNRIbr/DXdZvvxMHt.07K6.IjBm6VNvMTdBFmW8OAyaK5Sv8G','slsdansecompagnie71260bord@orange.fr','\"ROLE_USER\"'),(7,'SHUFFLE DANCE SHOW','Belfort','90000','0685206074','Claudine WEBER','$2y$13$92gfpRWum9ZeJNKMfDphuOEHjcS1ZEGRziHfRYORzLO297mr122yi','danseweber@orange.fr','\"ROLE_ADMIN\"');
 /*!40000 ALTER TABLE `club` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
 
--- Dumped table `club` with 5 row(s)
+-- Dumped table `club` with 3 row(s)
 --
 
 --
@@ -164,7 +164,7 @@ CREATE TABLE `team` (
   KEY `IDX_C4E0A61F12469DE2` (`category_id`),
   CONSTRAINT `FK_C4E0A61F12469DE2` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`),
   CONSTRAINT `FK_C4E0A61F61190A32` FOREIGN KEY (`club_id`) REFERENCES `club` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -174,7 +174,7 @@ CREATE TABLE `team` (
 LOCK TABLES `team` WRITE;
 /*!40000 ALTER TABLE `team` DISABLE KEYS */;
 SET autocommit=0;
-INSERT INTO `team` VALUES (1,1,3,1,'solo'),(3,1,3,1,'duo'),(4,1,3,1,'solo'),(5,1,3,1,'solo');
+INSERT INTO `team` VALUES (9,4,1,1,'solo'),(10,4,1,1,'solo'),(11,4,1,1,'solo'),(12,4,1,1,'solo');
 /*!40000 ALTER TABLE `team` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -224,7 +224,7 @@ CREATE TABLE `team_dance` (
   KEY `IDX_DF4DB42F65D64EDD` (`dance_id`),
   CONSTRAINT `FK_DF4DB42F296CD8AE` FOREIGN KEY (`team_id`) REFERENCES `team` (`id`) ON DELETE CASCADE,
   CONSTRAINT `FK_DF4DB42F65D64EDD` FOREIGN KEY (`dance_id`) REFERENCES `dance` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -234,12 +234,12 @@ CREATE TABLE `team_dance` (
 LOCK TABLES `team_dance` WRITE;
 /*!40000 ALTER TABLE `team_dance` DISABLE KEYS */;
 SET autocommit=0;
-INSERT INTO `team_dance` VALUES (1,2),(3,2),(3,3),(3,4),(4,1),(5,3),(5,4),(5,5);
+INSERT INTO `team_dance` VALUES (9,1),(10,1),(11,1),(12,1);
 /*!40000 ALTER TABLE `team_dance` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
 
--- Dumped table `team_dance` with 8 row(s)
+-- Dumped table `team_dance` with 4 row(s)
 --
 
 --
@@ -256,7 +256,7 @@ CREATE TABLE `team_dancer` (
   KEY `IDX_C7078F70A7CAA267` (`dancer_id`),
   CONSTRAINT `FK_C7078F70296CD8AE` FOREIGN KEY (`team_id`) REFERENCES `team` (`id`) ON DELETE CASCADE,
   CONSTRAINT `FK_C7078F70A7CAA267` FOREIGN KEY (`dancer_id`) REFERENCES `dancer` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -266,12 +266,12 @@ CREATE TABLE `team_dancer` (
 LOCK TABLES `team_dancer` WRITE;
 /*!40000 ALTER TABLE `team_dancer` DISABLE KEYS */;
 SET autocommit=0;
-INSERT INTO `team_dancer` VALUES (1,1),(3,3),(3,4),(4,1),(5,3);
+INSERT INTO `team_dancer` VALUES (9,40),(10,41),(11,42),(12,43);
 /*!40000 ALTER TABLE `team_dancer` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
 
--- Dumped table `team_dancer` with 5 row(s)
+-- Dumped table `team_dancer` with 4 row(s)
 --
 
 --
@@ -316,7 +316,7 @@ CREATE TABLE `reglement` (
   `pdf_file` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `title` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -326,12 +326,12 @@ CREATE TABLE `reglement` (
 LOCK TABLES `reglement` WRITE;
 /*!40000 ALTER TABLE `reglement` DISABLE KEYS */;
 SET autocommit=0;
-INSERT INTO `reglement` VALUES (1,'934988b3068f69e2bc52fd3f64035f49.pdf','Règlement'),(2,'8b03337f78ee16fd8e3837b47e107470.pdf','Manuel d\'utilisation du site');
+INSERT INTO `reglement` VALUES (1,'27debb26d64b2e1756e9d522cc5ecedb.pdf','Manuel d\'utilisation du site');
 /*!40000 ALTER TABLE `reglement` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
 
--- Dumped table `reglement` with 2 row(s)
+-- Dumped table `reglement` with 1 row(s)
 --
 
 --
@@ -345,7 +345,7 @@ CREATE TABLE `judge` (
   `name_judge` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `first_name_judge` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -414,7 +414,7 @@ CREATE TABLE `competition_dance` (
   KEY `IDX_EBFCCFB965D64EDD` (`dance_id`),
   CONSTRAINT `FK_EBFCCFB965D64EDD` FOREIGN KEY (`dance_id`) REFERENCES `dance` (`id`) ON DELETE CASCADE,
   CONSTRAINT `FK_EBFCCFB97B39D312` FOREIGN KEY (`competition_id`) REFERENCES `competition` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -424,12 +424,12 @@ CREATE TABLE `competition_dance` (
 LOCK TABLES `competition_dance` WRITE;
 /*!40000 ALTER TABLE `competition_dance` DISABLE KEYS */;
 SET autocommit=0;
-INSERT INTO `competition_dance` VALUES (1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),(2,1),(2,2),(2,3),(2,4),(2,5),(2,6),(2,7),(2,8),(2,9),(2,10),(3,1),(3,2);
+INSERT INTO `competition_dance` VALUES (2,1),(2,2),(2,3),(2,4),(2,5),(2,6),(2,7),(2,8),(2,9),(4,1),(4,2),(4,3),(4,4),(4,5),(4,6),(4,7),(4,8),(4,9),(4,10);
 /*!40000 ALTER TABLE `competition_dance` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
 
--- Dumped table `competition_dance` with 22 row(s)
+-- Dumped table `competition_dance` with 19 row(s)
 --
 
 --
@@ -448,7 +448,7 @@ CREATE TABLE `ticket` (
   PRIMARY KEY (`id`),
   KEY `IDX_97A0ADA3F675F31B` (`author_id`),
   CONSTRAINT `FK_97A0ADA3F675F31B` FOREIGN KEY (`author_id`) REFERENCES `club` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -458,12 +458,11 @@ CREATE TABLE `ticket` (
 LOCK TABLES `ticket` WRITE;
 /*!40000 ALTER TABLE `ticket` DISABLE KEYS */;
 SET autocommit=0;
-INSERT INTO `ticket` VALUES (3,5,'etem','<p>gngghd</p>','2019-02-03 13:14:28','attente');
 /*!40000 ALTER TABLE `ticket` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
 
--- Dumped table `ticket` with 1 row(s)
+-- Dumped table `ticket` with 0 row(s)
 --
 
 --
@@ -480,7 +479,7 @@ CREATE TABLE `competition_judge` (
   KEY `IDX_E24CF1C2B7D66194` (`judge_id`),
   CONSTRAINT `FK_E24CF1C27B39D312` FOREIGN KEY (`competition_id`) REFERENCES `competition` (`id`) ON DELETE CASCADE,
   CONSTRAINT `FK_E24CF1C2B7D66194` FOREIGN KEY (`judge_id`) REFERENCES `judge` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -507,7 +506,7 @@ CREATE TABLE `migration_versions` (
   `version` varchar(14) COLLATE utf8mb4_unicode_ci NOT NULL,
   `executed_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
   PRIMARY KEY (`version`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -517,11 +516,12 @@ CREATE TABLE `migration_versions` (
 LOCK TABLES `migration_versions` WRITE;
 /*!40000 ALTER TABLE `migration_versions` DISABLE KEYS */;
 SET autocommit=0;
+INSERT INTO `migration_versions` VALUES ('20190131124742','2019-02-07 09:45:54'),('20190207094252','2019-02-07 09:48:37'),('20190207100021','2019-02-07 10:00:58'),('20190207100220','2019-02-07 10:02:35');
 /*!40000 ALTER TABLE `migration_versions` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
 
--- Dumped table `migration_versions` with 0 row(s)
+-- Dumped table `migration_versions` with 4 row(s)
 --
 
 --
@@ -571,7 +571,7 @@ CREATE TABLE `competition` (
   PRIMARY KEY (`id`),
   KEY `IDX_B50A2CB1FDD8E52A` (`club_organizer_id`),
   CONSTRAINT `FK_B50A2CB1FDD8E52A` FOREIGN KEY (`club_organizer_id`) REFERENCES `club` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -581,12 +581,12 @@ CREATE TABLE `competition` (
 LOCK TABLES `competition` WRITE;
 /*!40000 ALTER TABLE `competition` DISABLE KEYS */;
 SET autocommit=0;
-INSERT INTO `competition` VALUES (1,4,'2021-01-08','Mulhouse','125 rue Vauban',68100,'Compétition Mulhouse',32,'Compétition régionale alsacienne organisée à Mulhouse.'),(2,1,'2021-01-08','Belfort','6 rue Marechal Foch',90000,'Compétition de la nouvelle année',32,'Compétition organisée à l\'occasion de la nouvelle année.'),(3,1,'2021-01-08','Mulhouse','125 rue Vauban',68100,'Compet Light',32,'Un compet avec pas beaucoup de param');
+INSERT INTO `competition` VALUES (2,4,'2019-03-30','SENNECEY LE GRAND','85',71,'COUPE DE BOURGOGNE',100,'SELECTIF'),(4,4,'2021-01-08','Mulhouse','1 rue Vauban',68100,'Competition de test',10,'Une compétition pour tester divers fonctionnalités durant la phase de test !');
 /*!40000 ALTER TABLE `competition` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
 
--- Dumped table `competition` with 3 row(s)
+-- Dumped table `competition` with 2 row(s)
 --
 
 --
@@ -629,4 +629,4 @@ COMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on: Thu, 07 Feb 2019 07:44:38 +0100
+-- Dump completed on: Mon, 11 Feb 2019 19:39:48 +0100

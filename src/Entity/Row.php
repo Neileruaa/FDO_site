@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\RowRepository")
@@ -15,51 +16,66 @@ class Row
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("planning")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", nullable=true)
+     * @Groups("planning")
      */
     private $numTour;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Dance", inversedBy="rows")
+     * @Groups("planning")
      */
     private $dance;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Team", inversedBy="rows")
+     * @Groups("planning")
      */
     private $teams;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="rows")
+     * @Groups("planning")
      */
     private $category;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("planning")
      */
     private $formation;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("planning")
      */
     private $piste;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
+     * @Groups("planning")
      */
     private $isDone;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups("planning")
      */
     private $passageSimul;
 
     /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Competition", inversedBy="rows")
+     */
+    private $competition;
+
+    /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups("planning")
      */
     private $nbJudge;
 
@@ -171,14 +187,28 @@ class Row
         return $this;
     }
 
-    public function getPassageSimul(): ?bool
+	/**
+	 * @return mixed
+	 */
+	public function getPassageSimul() {
+                  		return $this->passageSimul;
+                  	}
+
+	/**
+	 * @param mixed $passageSimul
+	 */
+	public function setPassageSimul($passageSimul) {
+                  		$this->passageSimul = $passageSimul;
+                  	}
+
+    public function getCompetition(): ?Competition
     {
-        return $this->passageSimul;
+        return $this->competition;
     }
 
-    public function setPassageSimul(?bool $passageSimul): self
+    public function setCompetition(?Competition $competition): self
     {
-        $this->passageSimul = $passageSimul;
+        $this->competition = $competition;
 
         return $this;
     }
@@ -194,4 +224,6 @@ class Row
 
         return $this;
     }
+
+
 }

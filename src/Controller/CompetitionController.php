@@ -68,7 +68,6 @@ class CompetitionController extends AbstractController {
 	}
 
 	private function checkDanceOfTeam($availableDances, $teams){
-		dump($availableDances);
 		$teamWhoCanRegister = array();
 		foreach ($teams as $team){
 			foreach ($team->getDances()->toArray() as $team_dance){
@@ -80,7 +79,6 @@ class CompetitionController extends AbstractController {
 			}
 		}
 		$teamWhoCanRegister = self::removeDuplicateItem($teamWhoCanRegister);
-		dump($teamWhoCanRegister);
 		return $teamWhoCanRegister;
 	}
 

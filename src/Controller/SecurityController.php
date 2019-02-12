@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Club;
 use App\Form\ClubType;
 use ReCaptcha\ReCaptcha;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -22,6 +23,7 @@ class SecurityController extends Controller {
      * @param UserPasswordEncoderInterface $encoder
      * @param \Swift_Mailer $mailer
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @IsGranted("ROLE_ADMIN")
      */
 	public function registration(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder, \Swift_Mailer $mailer) {
 		$recaptcha = new ReCaptcha('6LfoFXwUAAAAAHwbk-Eq0LHYCtmxY2OlFdnVtpYL');
@@ -51,7 +53,7 @@ class SecurityController extends Controller {
                     );
                 $mailer->send($message);
 
-				return $this->redirectToRoute('Security.login');
+				return $this->redirectToRoute('Club.showAll');
 			} else {
 				$errors = $resp->getErrorCodes();
 			}

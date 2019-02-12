@@ -25,7 +25,7 @@ class DancerType extends AbstractType
 	            'html5' => false,
 	            'attr' => ['class' => 'js-datepicker']
             ])
-	        ->add('emailDancer', TextType::class, array('label' => 'Adresse e-mail','required'=>false))
+            ->add('emailDancer', TextType::class, array('label' => 'Adresse e-mail','required'=>false))
 	        ->add('save', SubmitType::class, [
                 'label' => 'Valider',
                 'attr' => ['class' => 'btn btn-outline-success'],

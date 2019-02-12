@@ -37,6 +37,7 @@ class ReglementController extends AbstractController
      * @param Request $request
      * @param FileUploader $fileUploader
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     * @IsGranted("ROLE_ADMIN")
      */
     public function new(Request $request, FileUploader $fileUploader){
         $reglement = new Reglement();

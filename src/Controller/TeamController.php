@@ -108,7 +108,7 @@ class TeamController extends AbstractController
 
                 switch ($sizeTeam){
                     case 1:
-                        if (!$this->verifRockPietine($list_dances)){
+                        if (!$this->verifRock($list_dances)){
                             if($ageDancer>=5 && $ageDancer<=11) $team->setCategory($enfant);
                             elseif ($ageDancer>=10 && $ageDancer<=15) $team->setCategory($junior);
                             elseif ($ageDancer>=14 && $ageDancer<100) $team->setCategory($adulte);
@@ -270,9 +270,9 @@ class TeamController extends AbstractController
      * @param $dances
      * @return bool
      */
-    public function verifRockPietine($dances){
+    public function verifRock($dances){
 	    foreach ($dances as $dance){
-	        if ($dance->getNameDance()=="rock pietine"){
+	        if (($dance->getNameDance()=="rock pietine") || ($dance->getNameDance()=="rock saute")){
                 return true;
             }
         }

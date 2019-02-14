@@ -15,13 +15,13 @@
 					<a class="nav-link js-scroll-trigger" href="{{ path('Dossard.show') }}"><i class="fas fa-print"></i> PDF</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link js-scroll-trigger" href="{{ path('Team.create') }}"><i class="fas fa-users"></i> Équipe</a>
+					<a class="nav-link js-scroll-trigger" href="{{ path('Team.create') }}"><i class="fas fa-users"></i> Équipes</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link js-scroll-trigger" href="{{ path('Dancer.create') }}"><i class="fas fa-user-edit"></i> Danseur</a>
+					<a class="nav-link js-scroll-trigger" href="{{ path('Dancer.create') }}"><i class="fas fa-user-edit"></i> Danseurs</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link js-scroll-trigger" href="{{ path('Competition.show') }}"><i class="fas fa-trophy"></i> Compétition</a>
+					<a class="nav-link js-scroll-trigger" href="{{ path('Competition.show') }}"><i class="fas fa-trophy"></i> Compétitions</a>
 				</li>
 				{% if is_granted('ROLE_USER')  %}
 					<li class="nav-item">

@@ -302,7 +302,8 @@ class TeamController extends AbstractController
 			$confirm=1;
 			return $this->redirectToRoute("Team.create", ["confirm"=>$confirm]);
 		}
-		$teams=$this->getDoctrine()->getRepository(Team::class)->findAll();
+		$user=$this->getUser();
+		$teams=$user->getTeams();
 
 		foreach ($teams as $team){
 			$manager->remove($team);

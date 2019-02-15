@@ -38,7 +38,7 @@ class InitFixtures extends Fixture
             ["nameDance"=>"tango argentino"],
             ["nameDance"=>"claquettes"],
             ["nameDance"=>"rock pietine"],
-	    ["nameDance"=>"rock saute"]
+	        ["nameDance"=>"rock saute"]
         ];
         foreach ($dances as $dance){
             $new_dance=new Dance();

@@ -43,7 +43,7 @@ class Dancer
     private $emailDancer;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Team", mappedBy="dancers" , cascade={"persist","remove} )
+     * @ORM\ManyToMany(targetEntity="App\Entity\Team", mappedBy="dancers" , cascade={"persist","remove"} )
      * @ORM\JoinTable(name="dancer_team")
      */
     private $teams;

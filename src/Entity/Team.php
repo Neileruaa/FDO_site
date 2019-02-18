@@ -15,7 +15,7 @@ class Team
 {
     /**
      * @ORM\Id()
-     * @ORM\GeneratedValue()
+     * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
      * @Groups("planning")
      */
@@ -29,7 +29,7 @@ class Team
     private $dances;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Dancer", inversedBy="teams")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Dancer", inversedBy="teams", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      * @Assert\Count(min="1", max="20", minMessage="Cette équipe doit contenir au minimum 1 danseur", maxMessage="Cette équipe doit contenir au plus 20 danseurs")
      */
@@ -42,7 +42,7 @@ class Team
     private $club;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Competition", mappedBy="teams")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Competition", mappedBy="teams", cascade={"persist"})
      */
     private $competitions;
 
@@ -63,12 +63,12 @@ class Team
     private $size;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Row", mappedBy="teams",cascade={"remove"})
+     * @ORM\ManyToMany(targetEntity="App\Entity\Row", mappedBy="teams",cascade={"remove","persist"})
      */
     private $rows;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Resultat", mappedBy="team")
+     * @ORM\OneToMany(targetEntity="App\Entity\Resultat", mappedBy="team", cascade={"persist"})
      * @Groups("planning")
      */
     private $resultats;
@@ -90,6 +90,11 @@ class Team
         return $this->id;
     }
 
+    public function setId(int $i): self {
+        $this->id=$i;
+
+        return $this;
+    }
     /**
      * @return Collection|Dance[]
      */

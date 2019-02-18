@@ -9,6 +9,9 @@ use App\Entity\Team;
 use App\Entity\Dancer;
 use App\Form\TeamType;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\DBAL\Driver\Connection;
+use Ifsnop\Mysqldump as IMysqldump;
+use Doctrine\ORM\EntityManager;
 use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -139,7 +142,7 @@ class TeamController extends AbstractController
                         }
                         break;
                     case 2:
-                        if (!$this->verifRockPietine($list_dances)){
+                        if (!$this->verifRock($list_dances)){
                             if($ageDancer>=5 && $ageDancer<=11) $team->setCategory($enfant);
                             elseif ($ageDancer>=10 && $ageDancer<=15) $team->setCategory($junior);
                             elseif ($ageDancer>=14 && $ageDancer<100) $team->setCategory($adulte);
@@ -186,7 +189,7 @@ class TeamController extends AbstractController
                             $somme=$somme+intval($currentDate-($d->getDateBirthDancer()->format("Y")));
                         }
                         $moyenneAge=$somme/$sizeTeam;
-                        if (!$this->verifRockPietine($list_dances)) {
+                        if (!$this->verifRock($list_dances)) {
                             if ($moyenneAge >= 5 && $moyenneAge <= 11) $team->setCategory($enfant);
                             elseif ($moyenneAge >= 10 && $moyenneAge <= 15) $team->setCategory($junior);
                             elseif ($moyenneAge >= 14 && $moyenneAge < 100) $team->setCategory($adulte);

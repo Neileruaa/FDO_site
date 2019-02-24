@@ -44,11 +44,11 @@ class DossardController extends AbstractController {
 	}
 
 	/**
-	 * @Route("/dossard/create/{id}/{dance}", name="Dossard.create", requirements={"id" = "\d+"})
+	 * @Route("/dossard/create/{id}", name="Dossard.create", requirements={"id" = "\d+"})
 	 * @param Team $team
 	 * @return Response
 	 */
-	public function createDossard(Team $team, $dance){
+	public function createDossard(Team $team){
 		$pdf = $this->createDossardPDF($team->getId(),
 			$team->getDancers(),
 			$team->getClub()->getUsername(),
@@ -89,16 +89,5 @@ class DossardController extends AbstractController {
 		$pdf->SetFont('Times', 'B', 38);
 		$pdf->Text(($pdf->GetPageWidth()/2)-($pdf->GetStringWidth(utf8_decode($categorie)))/2, $height-10, utf8_decode($categorie));
 		return $pdf;
-	}
-
-	/**
-	 * @Route("/dossard/choose/{id}", name="Dossard.choose", requirements={"id" = "\d+"})
-	 * @param Team $team
-	 * @return Response
-	 */
-	public function chooseDossard(Team $team) {
-		return $this->render('dossard/chooseDossard.html.twig',[
-			'team'=>$team
-		]);
 	}
 }

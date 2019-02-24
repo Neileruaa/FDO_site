@@ -8,7 +8,7 @@
             <div class="row">
 	            {% for team in user.teams %}
                     <div class="col-lg-3 mb-4">
-                        <a href="{{ path('Dossard.choose', {id: team.id}) }}" class="btn btn-info"> Dossards de l'équipe : {{ team.id }}</a>
+                        <a target="_blank" href="{{ path('Dossard.create', {id: team.id}) }}" class="btn btn-primary btn-block">Équipe {{ team.id }}</a>
                     </div>
 	            {% endfor %}
             </div>

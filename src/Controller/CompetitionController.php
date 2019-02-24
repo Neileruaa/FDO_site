@@ -92,6 +92,7 @@ class CompetitionController extends AbstractController {
 
     /**
      * @Route("/competition/delete/{id}", name="Competition.delete", requirements={"page"="\d+"})
+     * @isGranted("ROLE_ADMIN")
      */
 	public function deleteCompetition(Competition $competition, ObjectManager $manager){
         $manager->remove($competition);
@@ -103,6 +104,7 @@ class CompetitionController extends AbstractController {
      * @Route("/competition/edit/{id}", name="Competition.edit", requirements={"page"="\d+"})
      * @param Competition $competition
      * @isGranted("ROLE_ADMIN")
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function editCompetition(Competition $compet, ObjectManager $manager, Request $request){
         $form=$this->createForm(CompetitionType::class, $compet);

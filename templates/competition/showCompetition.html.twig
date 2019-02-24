@@ -29,12 +29,13 @@
                 {% for compet in competitions %}
                     {% include "competition/modalShowDances.html.twig" %}
                     {% include "_deleteConfirmation.html.twig" with {"id": compet.id, "message": "Êtes-vous sûr(e) de vouloir supprimer la compétition : "~compet.title~" ?", "path" : path('Competition.delete', {id: compet.id})}%}
+                    {% set difference = date(compet.getDateCompetition()).diff(date('now')).invert %}
                     <tr>
                         <th scope="row">{{ compet.title }}</th>
                         <td>{{ compet.city }}</td>
                         <td>{{ compet.postalCode }}</td>
                         <td>{{ compet.address }}</td>
-                        <td>{{ compet.getDateCompetition().format('d/m/Y') }}</td>
+                        <td>{% if difference<=0 %}<strong><span style="color: red">{{ compet.getDateCompetition().format('d/m/Y') }}</span></strong>{% else %}{{ compet.getDateCompetition().format('d/m/Y') }}{% endif %}</td>
                         <td>
                             <a href="#" class="btn btn-outline-success" data-toggle="modal" data-target="#T{{ compet.id }}">Voir les danses</a>
                         </td>
@@ -43,9 +44,11 @@
                         </td>
                         {% if is_granted('ROLE_ADMIN') %}
                             <td><a href="#" data-toggle="modal" data-target="#delete{{ compet.id }}" class="btn btn-danger">Supprimer</a></td>
-                            <td><a href="{{ path('Competition.addTeam', {id: compet.id}) }}" class="btn btn-info">Ajouter une équipe</a></td>
+                                <td><a href="{{ path('Competition.addTeam', {id: compet.id}) }}" class="btn btn-info">Ajouter une équipe</a></td>
                         {% else %}
-                            <td><a href="{{ path('Competition.addTeam', {id: compet.id}) }}" class="btn btn-info">Ajouter une équipe</a></td>
+                            {% if difference>0 %}
+                                <td><a href="{{ path('Competition.addTeam', {id: compet.id}) }}" class="btn btn-info">Ajouter une équipe</a></td>
+                            {% endif %}
                         {% endif %}
                     </tr>
                 {% endfor %}

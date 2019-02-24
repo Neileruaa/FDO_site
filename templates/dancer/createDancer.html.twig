@@ -14,37 +14,39 @@
         {% include "dancer/modalCreateDancer.html.twig" %}
     <a href="#" class="btn btn-outline-success" data-toggle="modal" data-target="#exampleModalCenter">Ajouter un danseur</a>
     <hr>
-    <table class="table">
-    {% if club.dancers is not empty %}
-        <thead class="thead-dark">
-        <tr>
-            <th scope="col">Nom</th>
-            <th scope="col">Prénom</th>
-            <th scope="col">Date de naissance</th>
-            <th scope="col">Club</th>
-            <th scope="col">Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for dancer in club.dancers %}
-            {% include'_deleteConfirmation.html.twig' with {"id" : dancer.id, "message" : "Êtes vous sûr(e) de vouloir supprimer le dancer : "~dancer.firstNameDancer~" "~dancer.nameDancer~" ?", "path":path('Dancer.remove', {'id': dancer.id })} %}
-	        {% include 'dancer/_viewDetails.html.twig' %}
-            <tr class="table-{% if dancer.isAuthorized == 1  %}success{% else %}warning{% endif %}">
-                <th scope="row">{{ dancer.nameDancer }}</th>
-                <td>{{ dancer.firstNameDancer }}</td>
-                <td>{{ dancer.getDateBirthDancer().format('d-m-Y') }}</td>
-                <td>{{ dancer.club }}</td>
-                <td>
-                    <a href="#" class="btn btn-outline-primary" data-toggle="modal" data-target="#T{{ dancer.id }}">Voir</a>
-	                <a href="#"  data-toggle="modal" data-target="#delete{{ dancer.id }}" class="btn btn-danger">Supprimer</a>
-                </td>
+    <div class="table-responsive">
+        <table class="table">
+        {% if club.dancers is not empty %}
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Nom</th>
+                <th scope="col">Prénom</th>
+                <th scope="col">Date de naissance</th>
+                <th scope="col">Club</th>
+                <th scope="col">Action</th>
             </tr>
-        {% endfor %}
-        </tbody>
-        </table>
-    {% else %}
-        <strong class="text-center">Pas de danseur dans ce club</strong>
-        </table>
+            </thead>
+            <tbody>
+            {% for dancer in club.dancers %}
+                {% include'_deleteConfirmation.html.twig' with {"id" : dancer.id, "message" : "Êtes vous sûr(e) de vouloir supprimer le dancer : "~dancer.firstNameDancer~" "~dancer.nameDancer~" ?", "path":path('Dancer.remove', {'id': dancer.id })} %}
+                {% include 'dancer/_viewDetails.html.twig' %}
+                <tr class="table-{% if dancer.isAuthorized == 1  %}success{% else %}warning{% endif %}">
+                    <th scope="row">{{ dancer.nameDancer }}</th>
+                    <td>{{ dancer.firstNameDancer }}</td>
+                    <td>{{ dancer.getDateBirthDancer().format('d-m-Y') }}</td>
+                    <td>{{ dancer.club }}</td>
+                    <td>
+                        <a href="#" class="btn btn-outline-primary" data-toggle="modal" data-target="#T{{ dancer.id }}">Voir</a>
+                        <a href="#"  data-toggle="modal" data-target="#delete{{ dancer.id }}" class="btn btn-danger">Supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            </table>
+        {% else %}
+            <strong class="text-center">Pas de danseur dans ce club</strong>
+            </table>
+        </div>
     {% endif %}
 {% endblock %}
 

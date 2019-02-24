@@ -7,28 +7,30 @@
         <a href="#" class="btn btn-outline-success" data-toggle="modal" data-target="#exampleModalCenter">Ajouter une équipe</a>
         <hr>
         {% if club.teams is not empty %}
-        <table class="table">
-            <thead class="thead-dark">
-            <tr>
-                <th scope="col">N° équipe</th>
-                <th scope="col">Catégorie</th>
-                <th scope="col"></th>
-                <th scope="col">Action</th>
-            </tr>
-            </thead>
-            <tbody>
-        {% for team in club.teams %}
-            {% include 'team/modalViewDetailsTeam.html.twig' %}
-            {% include '_deleteConfirmation.html.twig' with {"id" : team.id, "message" : "Êtes-vous sûr de bien vouloir supprimer l'équipe "~team.id, "path" : path('Team.delete',{id: team.id})} %}
-            <tr>
-                <th scope="row">Equipe {{ team.id }}</th>
-                <td>{{ team.getCategory().nameCategory }}</td>
-                <td><a href="#" class="btn btn-outline-primary" data-toggle="modal" data-target="#T{{ team.id }}">Voir</a></td>
-                <td><a href="#" data-toggle="modal" data-target="#delete{{ team.id }}" class="btn btn-danger">Supprimer</a></td>
-            </tr>
-        {% endfor %}
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table class="table">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">N° équipe</th>
+                    <th scope="col">Catégorie</th>
+                    <th scope="col"></th>
+                    <th scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+            {% for team in club.teams %}
+                {% include 'team/modalViewDetailsTeam.html.twig' %}
+                {% include '_deleteConfirmation.html.twig' with {"id" : team.id, "message" : "Êtes-vous sûr de bien vouloir supprimer l'équipe "~team.id, "path" : path('Team.delete',{id: team.id})} %}
+                <tr>
+                    <th scope="row">Equipe {{ team.id }}</th>
+                    <td>{{ team.getCategory().nameCategory }}</td>
+                    <td><a href="#" class="btn btn-outline-primary" data-toggle="modal" data-target="#T{{ team.id }}">Voir</a></td>
+                    <td><a href="#" data-toggle="modal" data-target="#delete{{ team.id }}" class="btn btn-danger">Supprimer</a></td>
+                </tr>
+            {% endfor %}
+                </tbody>
+            </table>
+        </div>
         <a href="#deleteAll" class="btn btn-danger" data-toggle="modal">Supprimer toutes les équipes</a>
         {% else %}
             <strong>Pas de d'équipe dans ce club</strong>

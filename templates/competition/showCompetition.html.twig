@@ -48,6 +48,8 @@
                         {% else %}
                             {% if difference>0 %}
                                 <td><a href="{{ path('Competition.addTeam', {id: compet.id}) }}" class="btn btn-info">Ajouter une équipe</a></td>
+                            {% else %}
+                                <td><strong><span style="color: red">Les inscriptions sont terminées</span></strong></td>
                             {% endif %}
                         {% endif %}
                     </tr>

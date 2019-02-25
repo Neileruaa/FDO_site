@@ -26,7 +26,7 @@ class Competition
     private $dateCompetition;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Team", inversedBy="competitions", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="App\Entity\Team", inversedBy="competitions")
      * @ORM\JoinColumn(nullable=true)
      */
     private $teams;

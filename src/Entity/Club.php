@@ -74,7 +74,7 @@ class Club implements UserInterface, \Serializable {
 	private $emailClub;
 
 	/**
-	 * @ORM\OneToMany(targetEntity="App\Entity\Team", mappedBy="club", orphanRemoval=true, cascade={"remove","persist"})
+	 * @ORM\OneToMany(targetEntity="App\Entity\Team", mappedBy="club", orphanRemoval=true)
 	 */
 	private $teams;
 
@@ -84,17 +84,17 @@ class Club implements UserInterface, \Serializable {
 	private $roles;
 
 	/**
-	 * @ORM\OneToMany(targetEntity="App\Entity\Dancer", mappedBy="club", orphanRemoval=true, cascade={"remove","persist"})
+	 * @ORM\OneToMany(targetEntity="App\Entity\Dancer", mappedBy="club", orphanRemoval=true)
 	 */
 	private $dancers;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Ticket", mappedBy="author", orphanRemoval=true, cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Ticket", mappedBy="author", orphanRemoval=true)
      */
     private $tickets;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Competition", mappedBy="clubOrganizer", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Competition", mappedBy="clubOrganizer")
      */
     private $competitions;
 

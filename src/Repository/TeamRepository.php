@@ -19,6 +19,25 @@ class TeamRepository extends ServiceEntityRepository
         parent::__construct($registry, Team::class);
     }
 
+    public function getTeamsByCat($nameDance, $nameCat, $size, $comp){
+        return $this->createQueryBuilder('t')
+            ->select('t.id')
+            ->andWhere('td.nameDance = :nameDance')
+            ->andWhere('tc.nameCategory = :nameCat')
+            ->andWhere('t.isPresent=true')
+            ->andWhere('t.size = :size')
+            ->andWhere('tco.id =:compet')
+            ->join('t.dances', 'td')
+            ->join('t.category', 'tc')
+            ->join('t.competitions','tco')
+            ->setParameter('nameDance', $nameDance)
+            ->setParameter('nameCat', $nameCat)
+            ->setParameter('size', $size)
+            ->setParameter('compet',$comp)
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Team[] Returns an array of Team objects
 //     */

@@ -5,15 +5,24 @@ namespace App\Controller;
 use App\Entity\Judge;
 use App\Form\JudgeType;
 use Doctrine\Common\Persistence\ObjectManager;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
+/**
+ * Class JudgeController
+ * @Security("is_granted('ROLE_USER') or is_granted('ROLE_ADMIN')")
+ * @package App\Controller
+ */
 class JudgeController extends AbstractController
 {
     /**
      * @Route("/judge/show", name="Judge.show")
+     * @param Request $request
+     * @param ObjectManager $manager
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function show(Request $request, ObjectManager $manager)
     {
@@ -37,6 +46,7 @@ class JudgeController extends AbstractController
      * @Route("/judge/delete/{id}", name="Judge.delete", requirements={"page"="\d+"})
      * @param Judge $judge
      * @isGranted("ROLE_ADMIN")
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function delete(Judge $judge, ObjectManager $manager){
         $manager->remove($judge);

@@ -35,7 +35,7 @@
                         <td>{{ compet.city }}</td>
                         <td>{{ compet.postalCode }}</td>
                         <td>{{ compet.address }}</td>
-                        <td>{% if difference<=0 %}<strong><span style="color: red">{{ compet.getDateCompetition().format('d/m/Y') }}</span></strong>{% else %}{{ compet.getDateCompetition().format('d/m/Y') }}{% endif %}</td>
+                        <td>{% if difference<15 %}<strong><span style="color: red">{{ compet.getDateCompetition().format('d/m/Y') }}</span></strong>{% else %}{{ compet.getDateCompetition().format('d/m/Y') }}{% endif %}</td>
                         <td>
                             <a href="#" class="btn btn-outline-success" data-toggle="modal" data-target="#T{{ compet.id }}">Voir les danses</a>
                         </td>

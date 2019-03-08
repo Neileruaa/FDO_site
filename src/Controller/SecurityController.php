@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Club;
 use App\Form\ClubType;
+use App\Repository\ClubRepository;
 use ReCaptcha\ReCaptcha;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,7 +13,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 
 use App\Form\RegistrationType;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends Controller {
@@ -23,7 +26,7 @@ class SecurityController extends Controller {
      * @param UserPasswordEncoderInterface $encoder
      * @param \Swift_Mailer $mailer
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-     * @IsGranted("ROLE_ADMIN")
+     *
      */
 	public function registration(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder, \Swift_Mailer $mailer) {
 		$recaptcha = new ReCaptcha('6LfoFXwUAAAAAHwbk-Eq0LHYCtmxY2OlFdnVtpYL');
@@ -79,4 +82,98 @@ class SecurityController extends Controller {
 	 * @Route("/logout", name="Security.logout")
 	 */
 	public function logout() {}
+
+    /**
+     * @Route("/forgottenPassword", name="Security.forgottenPassword")
+     * @param Request $request
+     * @param UserPasswordEncoderInterface $encoder
+     * @param \Swift_Mailer $mailer
+     * @param TokenGeneratorInterface $tokenGenerator
+     * @param ClubRepository $clubRepository
+     * @param ObjectManager $manager
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function forgottenPassword(
+        Request $request,
+        UserPasswordEncoderInterface $encoder,
+        \Swift_Mailer $mailer,
+        TokenGeneratorInterface $tokenGenerator,
+        ClubRepository $clubRepository,
+        ObjectManager $manager
+    ) {
+        if($request->isMethod('POST')){
+            $email = $request->request->get('email');
+
+            $club = $clubRepository->findOneBy(['emailClub' => $email]);
+            /* @var $club Club */
+
+            if ($club === null){
+                $this->addFlash('danger', 'Email Inconnu');
+                return $this->redirectToRoute('Home.index');
+            }
+            $token = $tokenGenerator->generateToken();
+            try{
+                $club->setResetPasswordToken($token);
+                $manager->flush();
+            } catch (\Exception $e){
+                $this->addFlash('warning', $e->getMessage());
+                return $this->redirectToRoute('Home.index');
+            }
+
+            $url = $this->generateUrl('Security.ResetPassword', ['token'=>$token], UrlGeneratorInterface::ABSOLUTE_URL);
+
+            $message = (new \Swift_Message('Mot de passe oublié'))
+                ->setFrom('fdotestemail@gmail.com')
+                ->setTo($club->getEmailClub())
+                ->setBody(
+                    $this->renderView(
+                        'emails/forgotten_password.html.twig',[
+                            'url' => $url
+                        ]
+                    ),
+                'text/html'
+                );
+            $mailer->send($message);
+
+            $this->addFlash('notice', 'Mail envoyé');
+
+            return $this->redirectToRoute('Home.index');
+        }
+        return $this->render('security/forgottenPassword.html.twig');
+	}
+
+    /**
+     * @Route("/resetPassword/{token}", name="Security.ResetPassword")
+     * @param Request $request
+     * @param string $token
+     * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param ObjectManager $manager
+     * @param ClubRepository $clubRepository
+     */
+    public function resetPassword(
+        Request $request,
+        string $token,
+        UserPasswordEncoderInterface $passwordEncoder,
+        ObjectManager $manager,
+        ClubRepository $clubRepository
+    ) {
+        if ($request->isMethod('POST')){
+            $club = $clubRepository->findOneBy(['resetPasswordToken' => $token]);
+            /* @var $club Club */
+
+            if ($club === null){
+                $this->addFlash('danger', 'Token Inconnu');
+                return $this->redirectToRoute('Home.index');
+            }
+
+            $club->setResetPasswordToken(null);
+            $club->setPassword($passwordEncoder->encodePassword($club, $request->request->get('password')));
+            $manager->flush();
+
+            $this->addFlash('notice', 'Mot de passe mis à jour');
+            return $this->redirectToRoute('Home.index');
+        }else{
+            return $this->render('security/resetPassword.html.twig', ['token'=>$token]);
+        }
+	}
 }

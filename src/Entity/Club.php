@@ -98,6 +98,12 @@ class Club implements UserInterface, \Serializable {
      */
     private $competitions;
 
+    /**
+     * @var token utilisé pour la réinitialisation du mdp
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $resetPasswordToken;
+
 
 	public function __construct() {
                               		$this->teams = new ArrayCollection();
@@ -371,5 +377,21 @@ class Club implements UserInterface, \Serializable {
         }
 
         return $this;
+    }
+
+    /**
+     * @return token
+     */
+    public function getResetPasswordToken(): string
+    {
+        return $this->resetPasswordToken;
+    }
+
+    /**
+     * @param token $resetPasswordToken
+     */
+    public function setResetPasswordToken(?string $resetPasswordToken): void
+    {
+        $this->resetPasswordToken = $resetPasswordToken;
     }
 }

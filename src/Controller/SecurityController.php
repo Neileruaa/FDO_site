@@ -122,20 +122,21 @@ class SecurityController extends Controller {
 
             $url = $this->generateUrl('Security.ResetPassword', ['token'=>$token], UrlGeneratorInterface::ABSOLUTE_URL);
 
-            $message = (new \Swift_Message('Mot de passe oublié'))
-                ->setFrom('fdotestemail@gmail.com')
-                ->setTo($club->getEmailClub())
-                ->setBody(
-                    $this->renderView(
-                        'emails/forgotten_password.html.twig',[
-                            'url' => $url
-                        ]
-                    ),
-                'text/html'
-                );
-            $mailer->send($message);
-
-            $this->addFlash('notice', 'Mail envoyé');
+            			$message = (new \Swift_Message('Mot de passe oublié'))
+				->setFrom('contact@fdo-online.net')
+				//TODO: mettre le mail de l'admin
+				->setTo($club->getEmailClub())
+				->setBody(
+					$this->renderView(
+						'emails/forgotten_password.html.twig',[
+						'url'=>$url
+						]
+					),
+					'text/html'
+				);
+			$mailer->send($message);
+                        
+            $this->addFlash('success', 'Mail envoyé');
 
             return $this->redirectToRoute('Home.index');
         }

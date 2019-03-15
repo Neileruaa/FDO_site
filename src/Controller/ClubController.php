@@ -27,6 +27,14 @@ class ClubController extends AbstractController
      * @IsGranted("ROLE_ADMIN")
      */
     public  function deleteClub(Club $club, ObjectManager $manager){
+        $compets=$club->getCompetitions();
+        foreach ($compets as $c){
+            $manager->remove($c);
+        }
+        $tickets= $club->getTickets();
+        foreach ($tickets as $ticket){
+            $manager->remove($ticket);
+        }
         $manager->remove($club);
         $manager->flush();
         return $this->redirectToRoute("Club.showAll");

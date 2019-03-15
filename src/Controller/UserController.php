@@ -46,6 +46,10 @@ class UserController extends AbstractController {
 		foreach ($tickets as $ticket){
 		    $manager->remove($ticket);
         }
+		$compets=$user->getCompetitions();
+		foreach ($compets as $c){
+		    $manager->remove($c);
+        }
 		$manager->remove($user);
 		$manager->flush();
 		return $this->redirectToRoute('Security.login');

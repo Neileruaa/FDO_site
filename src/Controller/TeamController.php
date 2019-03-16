@@ -36,6 +36,7 @@ class TeamController extends AbstractController
 		$confirm=0;
 		$club = $this->getUser();
 		$team = new Team();
+
 		$form = $this->createForm(TeamType::class, $team, array('club' => $this->getUser()));
 		$em = $this->getDoctrine()->getManager();
 
@@ -227,6 +228,16 @@ class TeamController extends AbstractController
 			}
 
 			$team->setClub($club);
+
+            $teams=$this->getDoctrine()->getRepository(Team::class)->findAll();
+            $numDossard=sizeof($teams);
+            foreach ($teams as $t){
+                $t->setNombreDeDanceurs($numDossard+1);
+            }
+
+            $team->setNumDossard($numDossard+1);
+            $team->setNombreDeDanceurs($numDossard+1);
+
 			$club->addTeam($team);
 			$em->persist($team);
 			$em->flush();
@@ -328,7 +339,6 @@ class TeamController extends AbstractController
 
 		$competition->addTeam($team);
 		$team->addCompetition($competition);
-
 		$manager->persist($team);
 		$manager->persist($competition);
 		$manager->flush();
@@ -382,5 +392,20 @@ class TeamController extends AbstractController
         }
 
         return $this->render('team/editTeam.html.twig', ["form"=>$form->createView(), 'team'=>$team]);
+    }
+
+    /**
+     * @Route("/team/deleteAll/", name="Team.deleteAll", requirements={"page"="\d+"})
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @isGranted("ROLE_ADMIN")
+     */
+    public function deleteAllDanseur(ObjectManager $manager){
+        $teams=$this->getDoctrine()->getRepository(Team::class)->findAll();
+        foreach ($teams as $t) {
+            $manager->remove($t);
+        }
+        $manager->flush();
+        $teams=$this->getDoctrine()->getRepository(Team::class)->findAll();
+        return $this->render('/team/showAll.html.twig',['teams'=>$teams]);
     }
 }

@@ -7,12 +7,14 @@
 {% block body %}
     <h1>Liste des équipes</h1>
     <hr>
+    <a class="btn btn-danger" href={{ path('Team.deleteAll') }}><p style="color: white">Supprimer toutes les équipes et réinitialiser les numero de dossards</p></a>
+    <hr>
     {% if teams is not empty %}
         {% for team in teams %}
             {% include 'team/modalViewDetailsTeam.html.twig' %}
-            {% include '_deleteConfirmation.html.twig' with {"id": team.id, "message": "Êtes-vous sûr(e) de vouloir supprimer l'équipe "~team.id~" ?", "path": path('Team.delete', {id: team.id}) } %}
+            {% include '_deleteConfirmation.html.twig' with {"id": team.id, "message": "Êtes-vous sûr(e) de vouloir supprimer l'équipe "~team.numDossard~" ?", "path": path('Team.delete', {id: team.id}) } %}
             <div class="alert alert-warning text-left" role="alert">
-                <a href="#" class="btn btn-outline-primary" data-toggle="modal" data-target="#T{{ team.id }}">Équipe {{ team.id}}</a><strong> Club : </strong>{{ team.getClub() }}
+                <a href="#" class="btn btn-outline-primary" data-toggle="modal" data-target="#T{{ team.id }}">Équipe {{ team.numDossard}}</a><strong> Club : </strong>{{ team.getClub() }}
                 <div class="btn-group center float-right" role="group" aria-label="option">
                     <a href="{{ path('Team.edit', {id: team.id}) }}" class="btn btn-success"><i class="fas fa-id-card"></i></a>
                     <a href="#" data-toggle="modal" data-target="#delete{{ team.id }}" class="btn btn-danger"><i class="fas fa-times"></i></a>

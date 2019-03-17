@@ -230,18 +230,22 @@ class TeamController extends AbstractController
 			$team->setClub($club);
 
             $teams=$this->getDoctrine()->getRepository(Team::class)->findAll();
-            $numDossard=sizeof($teams);
-            foreach ($teams as $t){
-                $t->setNombreDeDanceurs($numDossard+1);
-            }
+            if (sizeof($teams)==0){
+                $team->setNumDossard(1);
+                $team->setNombreDeDanceurs(1);
 
-            $team->setNumDossard($numDossard+1);
-            $team->setNombreDeDanceurs($numDossard+1);
+            } else{
+                $nbrTeams=$teams[0]->getNombreDeDanceurs()+1;
+                foreach ($teams as $t){
+                    $t->setNombreDeDanceurs($nbrTeams);
+                }
+                $team->setNumDossard($nbrTeams);
+                $team->setNombreDeDanceurs($nbrTeams);
+            }
 
 			$club->addTeam($team);
 			$em->persist($team);
 			$em->flush();
-
 			return $this->redirectToRoute('Team.create',["confirm"=>$confirm]);
 		}
 		return $this->render(

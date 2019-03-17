@@ -20,7 +20,7 @@
                 <tbody>
             {% for team in club.teams %}
                 {% include 'team/modalViewDetailsTeam.html.twig' %}
-                {% include '_deleteConfirmation.html.twig' with {"id" : team.id, "message" : "Êtes-vous sûr de bien vouloir supprimer l'équipe "~team.id, "path" : path('Team.delete',{id: team.id})} %}
+                {% include '_deleteConfirmation.html.twig' with {"id" : team.id, "message" : "Êtes-vous sûr de bien vouloir supprimer l'équipe "~team.numDossard, "path" : path('Team.delete',{id: team.id})} %}
                 <tr>
                     <th scope="row">Equipe {{ team.numDossard }}</th>
                     <td>{{ team.getCategory().nameCategory }}</td>

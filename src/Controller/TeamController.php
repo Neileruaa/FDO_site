@@ -399,7 +399,7 @@ class TeamController extends AbstractController
     }
 
     /**
-     * @Route("/team/deleteAll/", name="Team.deleteAll", requirements={"page"="\d+"})
+     * @Route("/team/reinitialize", name="Team.reinitialize", requirements={"page"="\d+"})
      * @return \Symfony\Component\HttpFoundation\Response
      * @isGranted("ROLE_ADMIN")
      */

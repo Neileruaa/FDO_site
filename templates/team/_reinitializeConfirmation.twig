@@ -1,0 +1,17 @@
+<div id="reiniConfirmation" class="modal fade">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Êtes-vous sûr de vouloir réinitialiser les dossards ?</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p><i class="fas fa-exclamation-triangle" style="color: red"></i> En réinitialisant les dossards, toutes les équipes de tous les clubs seront définitivement supprimés. <i class="fas fa-exclamation-triangle" style="color: red"></i></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Annuler</button>
+                <a href="{{ path('Team.reinitialize') }}" class="btn btn-warning">Réinitialiser</a>
+            </div>
+        </div>
+    </div>
+</div>

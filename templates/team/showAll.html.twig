@@ -7,7 +7,8 @@
 {% block body %}
     <h1>Liste des équipes</h1>
     <hr>
-    <a class="btn btn-danger" href={{ path('Team.deleteAll') }}><p style="color: white">Supprimer toutes les équipes et réinitialiser les numero de dossards</p></a>
+    {% include 'team/_reinitializeConfirmation.twig' %}
+    <a href="#" class="btn btn-outline-warning" data-toggle="modal" data-target="#reiniConfirmation"><i class="fas fa-recycle"></i> Réinitialiser les dossards <i class="fas fa-recycle"></i></a>
     <hr>
     {% if teams is not empty %}
         {% for team in teams %}

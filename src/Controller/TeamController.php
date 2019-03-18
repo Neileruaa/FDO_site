@@ -308,7 +308,7 @@ class TeamController extends AbstractController
         if ($request->headers->all()['referer'][0] == $this->generateUrl("Team.create", array(),UrlGeneratorInterface::ABSOLUTE_URL)){
             return $this->redirectToRoute('Team.create');
         }else{
-            return $this->redirectToRoute('Team.create');
+            return $this->redirectToRoute('Team.showAll');
         }
     }
 

@@ -36,6 +36,8 @@ class TeamType extends AbstractType {
 						->createQueryBuilder('d')
 						->andWhere('d.isAuthorized = 1')
 						->andWhere('d.club = :club')
+                        ->orderBy('d.dateBirthDancer', 'DESC')
+                        ->orderBy('d.nameDancer','ASC')
 						->setParameter('club',$club);
 				},
 				'choice_label' => function(Dancer $dancer) {

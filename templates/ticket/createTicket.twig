@@ -4,7 +4,7 @@
 
 {% block body %}
     <h1>Écrire un nouveau ticket</h1>
-
+    <div class="form-row text-center"><div class="col-12"><a href="{{ path('Ticket.show') }}" class="btn btn-primary"><i class="fas fa-boxes"></i> Boîte de réception</a></div></div></br>
     {{ include('ticket/_form.html.twig') }}
 {% endblock %}
 

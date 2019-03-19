@@ -7,7 +7,7 @@
 
     {{ include('ticket/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('Ticket.show') }}" class="btn btn-info">Retour à la liste</a>
+    <a href="{{ path('Ticket.show') }}" class="btn btn-primary"><i class="fas fa-boxes"></i> Boîte de réception</a><br>
 
     {{ include('ticket/_delete_form.html.twig') }}
 {% endblock %}

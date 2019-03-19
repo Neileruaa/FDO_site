@@ -17,7 +17,7 @@
         <li class="list-group-item"><strong>Ville : </strong>{{ compet.city }}</li>
         <li class="list-group-item"><strong>Code postal : </strong>{{ compet.postalCode }}</li>
         <li class="list-group-item"><strong>Adresse : </strong>{{ compet.address }}</li>
-        <li class="list-group-item"><strong>Liste des danses de la compétition : </strong>
+        <li class="list-group-item"><strong>Liste des danses de la compétition : </strong><br>
             {% for dance in compet.dances %}
                 {{ dance.nameDance }}
                 <hr>
@@ -41,9 +41,9 @@
                             <strong>Club : </strong>{{ team.club.username }}
                         </div>
                         <div class="card-body">
-                            <h4 class="card-title">Équipe:{{ team.id }}</h4>
-                            <p class="card-text">Cette équipe est inscrite en {{ team.category }}.</p>
-                            <p class="card-text">Pour danser les danses suivantes : {% for dance in team.dances %}{{ dance.nameDance }},{% endfor %}</p>
+                            <h4 class="card-title">Équipe : <strong>{{ team.numDossard }}</strong></h4>
+                            <p class="card-text"><strong>{{ team.category }}</strong></p>
+                            <p class="card-text">{% for dance in team.dances %}{{ dance.nameDance }},{% endfor %}</p>
                             <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#T{{ team.id }}">Voir</a>
                         </div>
                     </div>

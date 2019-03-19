@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block body %}
+    <div class="form-row text-center"><div class="col-12"><a href="{{ path('Competition.show') }}" class="btn btn-primary">Retour aux compétitions</a></div></div></br>
     <div class="row justify-content-center align-items-center">
 
         {% for team in teams if teams is not empty %}

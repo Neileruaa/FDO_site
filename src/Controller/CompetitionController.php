@@ -60,19 +60,25 @@ class CompetitionController extends AbstractController {
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
 	public function addTeamToCompetition(ObjectManager $manager, Request $request, Competition $competition) {
-		$listTeams = self::checkDanceOfTeam($competition->getDances()->toArray(), $this->getUser()->getTeams()->toArray());
+		$listTeams = self::checkDanceOfTeam($competition->getDances()->toArray(), $this->getUser()->getTeams()->toArray(), $competition);
 		return $this->render('competition/addTeam.html.twig',[
 			'teams' => $listTeams,
 			'compet' => $competition
 		]);
 	}
 
-	private function checkDanceOfTeam($availableDances, $teams){
+	private function checkDanceOfTeam($availableDances, $teams, $competition){
 		$teamWhoCanRegister = array();
-		foreach ($teams as $team){
-			foreach ($team->getDances()->toArray() as $team_dance){
+		$idC=$competition->getId();
+        foreach ($teams as $team){
+            $cs=$team->getCompetitions();
+            $compets=[];
+            foreach ($team->getDances()->toArray() as $team_dance){
 				foreach ($availableDances as $dance){
-					if ($team_dance->getNameDance() == $dance->getNameDance()){
+				    foreach ($cs as $compet){
+				        array_push($compets, $compet->getId());
+                    }
+					if ($team_dance->getNameDance() == $dance->getNameDance() and in_array($idC,$compets)==false){
 						array_push($teamWhoCanRegister, $team);
 					}
 				}

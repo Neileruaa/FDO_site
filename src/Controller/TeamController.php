@@ -347,7 +347,7 @@ class TeamController extends AbstractController
 		$manager->persist($competition);
 		$manager->flush();
 
-		return $this->redirectToRoute('Competition.show');
+		return $this->redirectToRoute('Competition.addTeam',["id"=>$idCompet]);
 	}
 
     /**

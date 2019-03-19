@@ -49,7 +49,7 @@ class DossardController extends AbstractController {
 	 * @return Response
 	 */
 	public function createDossard(Team $team){
-		$pdf = $this->createDossardPDF($team->getId(),
+		$pdf = $this->createDossardPDF($team->getNumDossard(),
 			$team->getDancers(),
 			$team->getClub()->getUsername(),
 			$team->getCategory());

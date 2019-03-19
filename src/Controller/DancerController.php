@@ -52,13 +52,13 @@ class DancerController extends AbstractController {
     /**
      * @Route("/dancer/create", name="Dancer.create")
      * @param Request $request
-     * @param PaginatorInterface $paginator
      * @return \Symfony\Component\HttpFoundation\Response
      */
 	public function createDancer(Request $request) {
 		$club = $this->getUser();
 		$em = $this->getDoctrine()->getManager();
 		$dancer = new Dancer();
+		$clubDancers=$em->getRepository(Dancer::class)->findBy(array('club'=>$club), array('nameDancer' => 'ASC'));
 		$form= $this->createForm(DancerType::class, $dancer);
         $list_dancers=$em->getRepository(Dancer::class)->findAll();
 		$form->handleRequest($request);
@@ -83,6 +83,7 @@ class DancerController extends AbstractController {
 			array(
                 'listDancer'=>$list_dancers,
                 'club'=>$club,
+                'clubDancers'=>$clubDancers,
                 'formDanseur'=>$form->createView()
 			)
 		);
@@ -92,6 +93,7 @@ class DancerController extends AbstractController {
      * @Route("/dancer/edit/{id}", name="Dancer.edit", requirements={"page"="\d+"})
      * @param Dancer $dancer
      * @isGranted("ROLE_ADMIN")
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
 	public function editDancer(Dancer $dancer, Request $request){
         $dancers = $this->getDoctrine()->getRepository(Dancer::class)->findBy([],['isAuthorized'=>'ASC']);
@@ -116,7 +118,7 @@ class DancerController extends AbstractController {
 	 * @isGranted("ROLE_ADMIN")
 	 */
 	public function showAllDancers(PaginatorInterface $paginator, Request $request) {
-        $dancers=$paginator->paginate($this->getDoctrine()->getRepository(Dancer::class)->findBy([],['isAuthorized'=>'ASC']),
+        $dancers=$paginator->paginate($this->getDoctrine()->getRepository(Dancer::class)->findBy([],['isAuthorized'=>'ASC','nameDancer'=>'ASC']),
             $request->query->getInt('page', 1),10
         );
         $formulaire = $this->createFormBuilder()

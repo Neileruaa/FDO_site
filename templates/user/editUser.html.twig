@@ -2,6 +2,7 @@
 {% block title %}Modification du profil{% endblock %}
 
 {% block body %}
+    <div class="form-row text-center"><div class="col-12"><a href="{{ path('User.show') }}" class="btn btn-primary">Retour au profil</a></div></div></br>
     {{ form_start(form) }}
         {{ form_widget(form) }}
         <button type="submit" class="btn btn-success">Valider</button>

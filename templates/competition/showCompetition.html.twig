@@ -30,7 +30,6 @@
                     {% include "competition/modalShowDances.html.twig" %}
                     {% include "_deleteConfirmation.html.twig" with {"id": compet.id, "message": "Êtes-vous sûr(e) de vouloir supprimer la compétition : "~compet.title~" ?", "path" : path('Competition.delete', {id: compet.id})}%}
                     {% set difference = (date(compet.getDateCompetition()|date_modify("-15 day")).diff(date('now')).format('%R%a'))|number_format %}
-                    {{ difference }}
                     <tr>
                         <th scope="row">{{ compet.title }}</th>
                         <td>{{ compet.city }}</td>

@@ -9,7 +9,6 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 /**
  * @method Competition|null find($id, $lockMode = null, $lockVersion = null)
  * @method Competition|null findOneBy(array $criteria, array $orderBy = null)
- * @method Competition[]    findAll()
  * @method Competition[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class CompetitionRepository extends ServiceEntityRepository
@@ -34,6 +33,11 @@ class CompetitionRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
             ;
+    }
+
+    public function findAll()
+    {
+        return $this->findBy(array(), array('dateCompetition' => 'ASC'));
     }
 
 //    /**

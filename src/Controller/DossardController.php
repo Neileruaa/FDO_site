@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Mailbox;
 use App\Entity\Team;
 use Doctrine\Common\Persistence\ObjectManager;
 use Fpdf\Fpdf;

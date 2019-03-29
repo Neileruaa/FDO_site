@@ -15,14 +15,6 @@ class HomeController extends Controller {
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
     public function index(Request $request) {
-        $teams=$this->getDoctrine()->getRepository(Team::class)->findAll();
-        $compteur=1;
-
-        foreach ($teams as $t){
-            $t->setNumDossard($compteur);
-            $t->setNombreDeDanceurs(sizeof($teams));
-            $compteur=$compteur+1;
-        }
 
         return $this->render(
         	'home/index.html.twig',

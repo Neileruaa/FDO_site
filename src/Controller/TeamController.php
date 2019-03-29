@@ -238,9 +238,12 @@ class TeamController extends AbstractController
                 $nbrTeams=$teams[0]->getNombreDeDanceurs()+1;
                 foreach ($teams as $t){
                     $t->setNombreDeDanceurs($nbrTeams);
+		    $em->persist($t);
                 }
                 $team->setNumDossard($nbrTeams);
                 $team->setNombreDeDanceurs($nbrTeams);
+		$em->persist($team);
+		$em->flush();
             }
 
 			$club->addTeam($team);

@@ -45,6 +45,12 @@
                             <p class="card-text"><strong>{{ team.category }}</strong></p>
                             <p class="card-text">{% for dance in team.dances %}{{ dance.nameDance }},{% endfor %}</p>
                             <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#T{{ team.id }}">Voir</a>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <a href="{{ path('Competition.deleteTeam', {id: team.id, idC: compet.id}) }}" class="btn btn-danger">Désinscrire</a>
+                            {% endif %}
+                            {% if team in app.user.teams and is_granted('ROLE_USER') %}
+                                <a href="{{ path('Competition.deleteTeam', {id: team.id, idC: compet.id}) }}" class="btn btn-danger">Désinscrire</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Club;
 use App\Entity\Competition;
+use App\Entity\Team;
 use App\Form\CompetitionType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -97,8 +98,29 @@ class CompetitionController extends AbstractController {
 	}
 
     /**
+     * @Route("/competition/delete/team/{id}/{idC}", name="Competition.deleteTeam")
+     * @param $id
+     * @param $idC
+     * @param ObjectManager $manager
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+	public function removeTeamFromCompetition($id, $idC, ObjectManager $manager){
+	    $id=$manager->getRepository(Team::class)->find($id);
+	    $idC=$manager->getRepository(Competition::class)->find($idC);
+        $idC->removeTeam($id);
+        $id->removeCompetition($idC);
+        $manager->persist($idC);
+        $manager->persist($id);
+        $manager->flush();
+        return $this->redirectToRoute("Competition.viewDetails", ["id"=>$idC->getId()]);
+    }
+
+    /**
      * @Route("/competition/delete/{id}", name="Competition.delete", requirements={"page"="\d+"})
      * @isGranted("ROLE_ADMIN")
+     * @param Competition $competition
+     * @param ObjectManager $manager
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
 	public function deleteCompetition(Competition $competition, ObjectManager $manager){
         $manager->remove($competition);
@@ -108,9 +130,11 @@ class CompetitionController extends AbstractController {
 
     /**
      * @Route("/competition/edit/{id}", name="Competition.edit", requirements={"page"="\d+"})
-     * @param Competition $competition
-     * @isGranted("ROLE_ADMIN")
+     * @param Competition $compet
+     * @param ObjectManager $manager
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @isGranted("ROLE_ADMIN")
      */
     public function editCompetition(Competition $compet, ObjectManager $manager, Request $request){
         $form=$this->createForm(CompetitionType::class, $compet);

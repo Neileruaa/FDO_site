@@ -368,6 +368,7 @@ class TeamController extends AbstractController
      * @Route("/team/edit/{id}", name="Team.edit", requirements={"page"="\d+"})
      * @param Team $team
      * @isGranted("ROLE_ADMIN")
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function editTeam(Team $team, Request $request){
         $em=$this->getDoctrine()->getManager();

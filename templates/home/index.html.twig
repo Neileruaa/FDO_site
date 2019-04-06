@@ -13,22 +13,34 @@
                     <!-- Slide One - Set the background image for this slide in the line below -->
                     <div class="carousel-item active img1">
                         <div class="carousel-caption d-none d-md-block">
-                            <h3>Prochaine compétition : <strong>{{ firstCompet.title }}</strong></h3>
-                            <p style="color: red"><strong>{{ firstCompet.dateCompetition.format('d/m/Y') }}</strong></p>
+                            {% if firstCompet is defined and firstCompet is not empty %}
+                                <h3>Prochaine compétition : <strong>{{ firstCompet.title }}</strong></h3>
+                                <p style="color: red"><strong>{{ firstCompet.dateCompetition.format('d/m/Y') }}</strong></p>
+                            {% else %}
+                                <h3>Aucune compétition n'est prévue</h3>
+                            {% endif %}
                         </div>
                     </div>
                     <!-- Slide Two - Set the background image for this slide in the line below -->
                     <div class="carousel-item img2">
                         <div class="carousel-caption d-none d-md-block">
+                            {% if firstCompet is defined and firstCompet is not empty %}
                             <h3>Prochaine compétition : <strong>{{ firstCompet.title }}</strong></h3>
                             <p style="color: red"><strong>{{ firstCompet.dateCompetition.format('d/m/Y') }}</strong></p>
+                            {% else %}
+                                <h3>Aucune compétition n'est prévue</h3>
+                            {% endif %}
                         </div>
                     </div>
                     <!-- Slide Three - Set the background image for this slide in the line below -->
                     <div class="carousel-item img3">
                         <div class="carousel-caption d-none d-md-block">
-                            <h3>Prochaine compétition : <strong>{{ firstCompet.title }}</strong></h3>
-                            <p style="color: red"><strong>{{ firstCompet.dateCompetition.format('d/m/Y') }}</strong></p>
+                            {% if firstCompet is defined and firstCompet is not empty %}
+                                <h3>Prochaine compétition : <strong>{{ firstCompet.title }}</strong></h3>
+                                <p style="color: red"><strong>{{ firstCompet.dateCompetition.format('d/m/Y') }}</strong></p>
+                            {% else %}
+                                <h3>Aucune compétition n'est prévue</h3>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
